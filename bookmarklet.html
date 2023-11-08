@@ -1,0 +1,119 @@
+data:text/html,<html>
+  <head>
+    <title>Notes</title>
+    <style>%0A%20%20%20%20*%20%7B%0A%20%20%20%20%20%20box-sizing%3A%20border-box%3B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20padding%3A%200%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20font-family%3A%20sans-serif%3B%0A%20%20%20%20%20%20background-color%3A%20%23fbfbfb%3B%0A%20%20%20%20%7D%0A%20%20%20%20%23entry-content-storage%20%7B%20display%3A%20none%3B%20%7D%0A%0A%0A%20%20%20%20h1%20%7B%0A%20%20%20%20%20%20font-size%3A%202rem%3B%0A%20%20%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20margin%3A%201rem%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-title%20%7B%0A%20%20%20%20%20%20font-size%3A%201.5rem%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20%20%20width%3A%2075%25%3B%0A%20%20%20%20%20%20padding%3A%200.5rem%3B%0A%20%20%20%20%20%20margin%3A%200.5rem%202.5%25%3B%0A%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%20float%3Aright%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-title%3A%3Aplaceholder%20%7B%0A%20%20%20%20%20%20color%3A%20%23999%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-list%20%7B%0A%20%20%20%20%20%20width%3A%2020%25%3B%0A%20%20%20%20%20%20height%3A%2080%25%3B%0A%20%20%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20top%3A%2010%25%3B%0A%20%20%20%20%20%20left%3A%200%3B%0A%20%20%20%20%20%20border-right%3A%201px%20solid%20%23ccc%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-item%20%7B%0A%20%20%20%20%20%20font-size%3A%201.2rem%3B%0A%20%20%20%20%20%20padding%3A%200.5rem%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-item%3Ahover%20%7B%0A%20%20%20%20%20%20background-color%3A%20%23eee%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-item.active%20%7B%0A%20%20%20%20%20%20background-color%3A%20%23ddd%3B%0A%20%20%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-content%20%7B%0A%20%20%20%20%20%20font-size%3A%201.2rem%3B%0A%20%20%20%20%20%20width%3A%2075%25%3B%0A%20%20%20%20%20%20height%3A%2075%25%3B%0A%20%20%20%20%20%20margin%3A%205%25%202.5%25%3B%0A%20%20%20%20%20%20padding%3A%201rem%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20%23ccc%3B%0A%20%20%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20%20%20resize%3A%20none%3B%0A%20%20%20%20%20%20float%3A%20right%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23save-button%20%7B%0A%20%20%20%20%20%20font-size%3A%201.2rem%3B%0A%20%20%20%20%20%20padding%3A%200.5rem%3B%0A%20%20%20%20%20%20margin%3A%200.5rem%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20background-color%3A%20%23333%3B%0A%20%20%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20position%3Aabsolute%3B%0A%20%20%20%20%20%20left%3A60em%3B%0A%20%20%20%20%20top%3A%201em%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%40media%20screen%20and%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20%20%20%23entry-list%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20height%3A%2020%25%3B%0A%20%20%20%20%20%20%20%20overflow-x%3A%20auto%3B%0A%20%20%20%20%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20.entry-item%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20inline-block%3B%0A%20%20%20%20%20%20%20%20width%3A%2020%25%3B%0A%20%20%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%23entry-content%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20height%3A%2060%25%3B%0A%20%20%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20%20%20float%3A%20none%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D
+    </style>
+  </head>
+  <body>
+    <h1>Text Notes</h1>
+    <input id="entry-title" type="text" placeholder="Create new entry here...">
+    <button id="save-button" type="button">Save as txt file</button>
+
+    <div id="entry-list"></div>
+    <div class="contentdiv">
+    <textarea id="entry-content" placeholder="Enter entry content here..."></textarea>
+    </div>
+    <textarea id="entry-content-storage"></textarea>
+    <script type="text/javascript">
+      var entryTitle = document.getElementById("entry-title"),
+          entryList = document.getElementById("entry-list"),
+          entryContent = document.getElementById("entry-content"),
+          entryContentStorage = document.getElementById("entry-content-storage"),
+          saveButton = document.getElementById("save-button"),
+          entries = [],
+          current = -1;
+
+      
+      function loadEntries() {
+        var storedEntries = entryContentStorage.value;
+        if (storedEntries) {
+          try {
+            entries = JSON.parse(storedEntries);
+            updateEntryList();
+            if (entries.length > 0) {
+              current = 0;
+              updateEntryContent();
+            }
+          } catch (e) {
+            console.error('Error parsing entries:', e);
+          }
+        }
+      }
+
+      
+      function saveEntries() {
+        entryContentStorage.value = JSON.stringify(entries);
+      }
+
+      
+      function updateEntryList() {
+        entryList.innerHTML = "";
+        entries.forEach(function(entry, index) {
+          var e = document.createElement("div");
+          e.className = "entry-item";
+          e.textContent = entry.title;
+          if (index === current) e.classList.add("active");
+          e.onclick = function() {
+            current = index;
+            updateEntryContent();
+            updateEntryList();
+          };
+          entryList.appendChild(e);
+        });
+      }
+
+      
+      function updateEntryContent() {
+        entryContent.value = current >= 0 ? entries[current].content : "";
+      }
+
+      
+      entryTitle.addEventListener("keyup", function(t) {
+        if (t.keyCode === 13) {
+          var title = entryTitle.value.trim();
+          if (title) {
+            var newEntry = {title: title, content: ""};
+            entries.push(newEntry);
+            entryTitle.value = "";
+            current = entries.length - 1;
+            updateEntryList();
+            updateEntryContent();
+            saveEntries(); 
+          }
+        }
+      });
+
+      
+      entryContent.addEventListener("input", function() {
+        if (current >= 0) {
+          entries[current].content = entryContent.value;
+          saveEntries(); 
+        }
+      });
+
+      
+      saveButton.addEventListener('click', function() {
+        if (current >= 0) {
+          var content = entries[current].content,
+              title = entries[current].title,
+              blob = new Blob([content], {type: 'text/plain;charset=utf-8'}),
+              a = document.createElement('a');
+      
+          var url = URL.createObjectURL(blob);
+          a.href = url;
+          a.download = title + '.txt';
+          document.body.appendChild(a);
+          a.click();
+      
+          URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        }
+      });
+      
+
+      setTimeout(loadEntries, 250);
+
+      
+    </script>
+  </body>
+</html>
