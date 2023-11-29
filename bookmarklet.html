@@ -118,6 +118,7 @@ data:text/html,<html>
         
         
         
+        
         function updateEntryList() {
             entryList.innerHTML = "";
             entries.forEach(function(entry, index) {
@@ -129,17 +130,19 @@ data:text/html,<html>
                     updateEntryColor(e, entry.titleBarColor);
                 }        
                 e.ondragstart = function(event) {
-                    event.dataTransfer.setData("text/plain", index);
+                    event.dataTransfer.setData("text/index", index.toString());
                 };
+        
                 e.ondragover = function(event) {
                     event.preventDefault();
                 };
+        
                 e.ondrop = function(event) {
                     event.preventDefault();
-                    var sourceIndex = event.dataTransfer.getData("text/plain");
+                    var sourceIndex = event.dataTransfer.getData("text/index");
                     var targetIndex = index;
-                    reorderEntries(sourceIndex, targetIndex);
-                };        
+                    reorderEntries(parseInt(sourceIndex), parseInt(targetIndex));
+                };
                 var textSpan = document.createElement("span");
                 textSpan.textContent = entry.title;
                 
@@ -276,21 +279,27 @@ data:text/html,<html>
             white: { backgroundColor: '%23ffffff', color: 'black' }
         };
 
-        function reorderPanes(sourcePane, targetPane) {
-            if (!sourcePane || !targetPane || sourcePane === targetPane) {
-                return;
-            }
+        function reorderPanes(sourcePaneId, targetPaneId) {
+            if (sourcePaneId === targetPaneId) return;
         
-            var parentContainer = targetPane.parentNode;
-            var temp = document.createElement("div");
-            parentContainer.insertBefore(temp, targetPane);
-            parentContainer.insertBefore(targetPane, sourcePane);
-            parentContainer.insertBefore(sourcePane, temp);
-            parentContainer.removeChild(temp);
+            var sourcePane = entryContent.querySelector(`[data-entry-id='${sourcePaneId}']`);
+            var targetPane = entryContent.querySelector(`[data-entry-id='${targetPaneId}']`);
         
-            adjustPaneSizes();
-        }
+            console.log("Source Pane:", sourcePane, "Target Pane:", targetPane);
+        
+            if (sourcePane && targetPane) {
+                var isSourceBeforeTarget = sourcePane.compareDocumentPosition(targetPane) & Node.DOCUMENT_POSITION_FOLLOWING;
                 
+                if (isSourceBeforeTarget) {
+                    targetPane.parentNode.insertBefore(sourcePane, targetPane.nextSibling);
+                } else {
+                    targetPane.parentNode.insertBefore(sourcePane, targetPane);
+                }
+                
+                adjustPaneSizes(); 
+            }
+        }
+        
         
 
         function adjustPaneSizes() {
@@ -300,10 +309,6 @@ data:text/html,<html>
                 });
             });
         }
-                
-                
-        
-
 
         function moveEntry(index, direction) {
             if ((direction === 'up' && index > 0) || (direction === 'down' && index < entries.length - 1)) {
@@ -362,7 +367,11 @@ data:text/html,<html>
             titleBar.draggable = true;
             titleBar.ondragstart = function(event) {
                 event.dataTransfer.setData("pane-id", entryIndex.toString());
+                console.log("Dragging pane with ID:", entryIndex);
             };
+            
+            
+                                            
             pane.appendChild(titleBar);
 
             if (entry.titleBarColor && colorStyles[entry.titleBarColor]) {
@@ -411,20 +420,31 @@ data:text/html,<html>
         
         
         function splitPane(container, entryToSplit) {
-            var newPane = createPane(entryToSplit, entryToSplit.id);
+            var entryIndex = entries.findIndex(entry => entry === entryToSplit);
+            if (entryIndex === -1) return; 
+        
+            var newPane = createPane(entryToSplit, entryIndex);
         
             if (container.children.length === 0) {
                 container.appendChild(newPane);
             } else {
-                var splitContainer = document.createElement('div');
-                splitContainer.className = 'split-horizontal';
-                splitContainer.appendChild(container.firstChild.cloneNode(true));
-                splitContainer.appendChild(newPane);
+                var existingSplitContainer = container.querySelector('.split-horizontal');
+                if (existingSplitContainer) {
+                    existingSplitContainer.appendChild(newPane);
+                } else {
+                    var splitContainer = document.createElement('div');
+                    splitContainer.className = 'split-horizontal';
+                    splitContainer.appendChild(container.firstChild.cloneNode(true));
+                    splitContainer.appendChild(newPane);
         
-                container.innerHTML = '';
-                container.appendChild(splitContainer);
+                    container.innerHTML = '';
+                    container.appendChild(splitContainer);
+                }
             }
+            adjustPaneSizes();
         }
+        
+        
         
         
         
@@ -515,11 +535,31 @@ data:text/html,<html>
 
  
         
+        entryContent.ondrop = function(event) {
+            event.preventDefault();
+            var targetPane = event.target.closest('.entry-pane');
+            if (!targetPane) return;
+        
+            var sourcePaneId = event.dataTransfer.getData("pane-id");
+            var targetPaneId = targetPane.dataset.entryId;
+        
+            console.log("Dropped on pane ID:", targetPaneId, "Dragging pane ID:", sourcePaneId);
+        
+            if (sourcePaneId && targetPaneId && sourcePaneId !== targetPaneId) {
+                reorderPanes(sourcePaneId, targetPaneId);
+            }
+        };
         
         
         
         
         
+        
+        
+        
+        entryContent.ondragover = function(event) {
+            event.preventDefault();
+        };
         
                 
                         
