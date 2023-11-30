@@ -2,6 +2,8 @@
 
 This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, note reordering, database saving and loading, checkbox interaction, and color customization.
 
+![](img/20231130123810.png)
+
 ## Features
 
 - **Create and Manage Notes**: Add new notes and manage them in a sidebar.
