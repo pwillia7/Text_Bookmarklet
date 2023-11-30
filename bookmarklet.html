@@ -48,35 +48,44 @@ data:text/html,<html>
 
             function loadEntries() {
                 var storedEntries = entryContentStorage.value;
-                if (storedEntries) {
-                    try {
-                        entries = JSON.parse(storedEntries);
+                if (!storedEntries) {
+                    entries = [];
+                    updateEntryList();
+                    return;
+                }
+                try {
+                    entries = JSON.parse(storedEntries);
                         entries.forEach(entry => {
-                            if (entry.color) {
-                                var entryElement = document.querySelector(`[data-index='${entry.id}']`);
-                                if (entryElement) {
-                                    updateEntryColor(entryElement, entry.color);
+                            var entryElement = document.querySelector(`[data-index='${entry.id}']`);
+                            if (entryElement) {
+                                if (entry.color) {
+                                    var entryElement = document.querySelector(`[data-index='${entry.id}']`);
+                                    if (entryElement) {
+                                        updateEntryColor(entryElement, entry.color);
+                                    }
+                                }
+                                if (entry.titleBarColor) {
+                                    var entryElement = document.querySelector(`[data-index='${entry.id}']`);
+                                    var titleBar = entryElement.querySelector('.pane-title');
+                                    if (titleBar) {
+                                        titleBar.style.backgroundColor = entry.titleBarColor;
+                                    }
                                 }
                             }
-                            if (entry.titleBarColor) {
-                                var entryElement = document.querySelector(`[data-index='${entry.id}']`);
-                                var titleBar = entryElement.querySelector('.pane-title');
-                                if (titleBar) {
-                                    titleBar.style.backgroundColor = entry.titleBarColor;
-                                }
-                            }
+                            
                         });
                         updateEntryList();
                         if (entries.length > 0) {
                             current = 0;
-                            updateEntryContent();
+                            clearAndLoadEntry(entries[current]);
                         }
-                    } catch (e) {
-                        console.error('Error parsing entries:', e);
-                    }
+                } catch (e) {
+                    console.error('Error parsing entries:', e);
                 }
+                  
+                
             }
-            
+
 
         function saveEntries() {
             entryContentStorage.value = JSON.stringify(entries);
@@ -89,8 +98,8 @@ data:text/html,<html>
                 var entryId = pane.dataset.entryId;
                 var contentDiv = pane.querySelector('div[contenteditable="true"]');
                 if (contentDiv && entryId !== undefined) {
-                    var entryIndex = parseInt(entryId);
-                    if (entries[entryIndex]) {
+                    var entryIndex = entries.findIndex(entry => entry.id.toString() === entryId);
+                    if (entryIndex !== -1) {
                         entries[entryIndex].content = contentDiv.innerHTML;
                     }
                 }
@@ -124,6 +133,7 @@ data:text/html,<html>
             entries.forEach(function(entry, index) {
                 var e = document.createElement("div");
                 e.className = "entry-item";
+                
                 e.setAttribute('data-index', index.toString());
                 e.draggable = true;
                 if (entry.titleBarColor && entry.titleBarColor !== 'default') {
@@ -382,7 +392,7 @@ data:text/html,<html>
         
             var contentDiv = document.createElement('div');
             contentDiv.contentEditable = true;
-            contentDiv.innerHTML = entry.content;
+            contentDiv.innerHTML = entry.content; 
             contentDiv.className = 'content-editable';
             pane.appendChild(contentDiv);
         
@@ -408,12 +418,13 @@ data:text/html,<html>
             entryContent.innerHTML = '';
             var pane = createPane(entry, entry.id);
         
+        
+            entryContent.appendChild(pane);
+
             var contentDiv = pane.querySelector('.content-editable');
             if (entry.contentBackgroundColor && colorStyles[entry.contentBackgroundColor]) {
                 contentDiv.style.backgroundColor = colorStyles[entry.contentBackgroundColor].backgroundColor;
             }
-        
-            entryContent.appendChild(pane);
         }
         
         
@@ -473,7 +484,19 @@ data:text/html,<html>
 
         loadDbButton.addEventListener('click', function() {
             fileInput.click();
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        entryContentStorage.value = event.target.result;
+                        loadEntries();
+                    };
+                    reader.readAsText(file);
+                }
+            };
         });
+        
 
         fileInput.addEventListener('change', function() {
             var file = fileInput.files[0];
@@ -501,17 +524,22 @@ data:text/html,<html>
             }
         });
 
-      
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadEntries();
+        });
+        
 
  
 
         saveButton.addEventListener('click', function() {
             if (current >= 0) {
-                var content = entries[current].content,
-                    title = entries[current].title || 'note',
-                    blob = new Blob([content], {type: 'text/plain;charset=utf-8'}),
-                    a = document.createElement('a');
-        
+                var content = entries[current].content;
+                content = content.replace(%2F<br%5Cs*[%5C%2F]%3F>%2Fgi, "\n")
+                    .replace(%2F<%5C%2F(p|div|h[1-6])>%2Fgi, "\n")
+                    .replace(%2F<[^>]*>%2Fg, ""); 
+               var title = entries[current].title || 'note';
+                var blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+                var a = document.createElement('a');
                 var url = URL.createObjectURL(blob);
                 a.href = url;
                 a.download = title + '.txt';
@@ -521,6 +549,7 @@ data:text/html,<html>
                 document.body.removeChild(a);
             }
         });
+        
 
         entryContent.addEventListener('dragover', function(event) {
             event.preventDefault();
