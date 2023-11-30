@@ -101,9 +101,15 @@ data:text/html,<html>
                 if (contentDiv && entryId !== undefined) {
                     var entryIndex = entries.findIndex(entry => entry.id.toString() === entryId);
                     if (entryIndex !== -1) {
-                        var contentHtml = contentDiv.innerHTML.replace(%2F<input type="checkbox"[^>]*>%2Fg, match => {
-                            return match.includes('checked') ? '[x]' : '[ ]';
+                        var clone = contentDiv.cloneNode(true);
+                        
+                        var checkboxes = clone.querySelectorAll('input[type="checkbox"]');
+                        checkboxes.forEach(checkbox => {
+                            checkbox.outerHTML = checkbox.checked ? '[x]' : '[ ]';
                         });
+        
+                        var contentHtml = clone.innerHTML;
+                        
                         entries[entryIndex].content = contentHtml;
                     }
                 }
@@ -404,6 +410,12 @@ data:text/html,<html>
             contentDiv.contentEditable = true;
             contentDiv.innerHTML = entry.content;
             contentDiv.className = 'content-editable';
+
+            var modifiedContent = entry.content.replace(%2F%5C[%5Cs%5C]%2Fg, '<input type="checkbox">')
+            .replace(%2F%5C[x%5C]%2Fg, '<input type="checkbox" checked>');
+
+            contentDiv.innerHTML = modifiedContent;
+
         
             if (entry.contentBackgroundColor && colorStyles[entry.contentBackgroundColor]) {
                 contentDiv.style.backgroundColor = colorStyles[entry.contentBackgroundColor].backgroundColor;
