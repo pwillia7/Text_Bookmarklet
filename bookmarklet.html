@@ -125,6 +125,15 @@ data:text/html,<html>
             saveEntries();
         }
         
+        function attachColorPickerEventHandler(pane, entry) {
+            var bgColorPickerIcon = pane.querySelector('.bg-color-picker-icon');
+            if (bgColorPickerIcon) {
+                bgColorPickerIcon.onclick = function(event) {
+                    event.stopPropagation();
+                    showContentColorPicker(pane.querySelector('.content-editable'), entry);
+                };
+            }
+        }
         
         
         
@@ -370,47 +379,45 @@ data:text/html,<html>
             var pane = document.createElement('div');
             pane.className = 'entry-pane';
             pane.dataset.entryId = entryIndex.toString();
-            
+        
             var titleBar = document.createElement('div');
             titleBar.className = 'pane-title';
             titleBar.textContent = entry.title;
             titleBar.draggable = true;
             titleBar.ondragstart = function(event) {
                 event.dataTransfer.setData("pane-id", entryIndex.toString());
-                console.log("Dragging pane with ID:", entryIndex);
             };
-            
-            
-                                            
+        
             pane.appendChild(titleBar);
-
+        
             if (entry.titleBarColor && colorStyles[entry.titleBarColor]) {
                 titleBar.style.backgroundColor = colorStyles[entry.titleBarColor].backgroundColor;
                 titleBar.style.color = colorStyles[entry.titleBarColor].color;
             }
         
-        
             var contentDiv = document.createElement('div');
             contentDiv.contentEditable = true;
-            contentDiv.innerHTML = entry.content; 
+            contentDiv.innerHTML = entry.content;
             contentDiv.className = 'content-editable';
+        
+            if (entry.contentBackgroundColor && colorStyles[entry.contentBackgroundColor]) {
+                contentDiv.style.backgroundColor = colorStyles[entry.contentBackgroundColor].backgroundColor;
+            }
+        
             pane.appendChild(contentDiv);
         
             var bgColorPickerIcon = document.createElement('span');
             bgColorPickerIcon.className = 'bg-color-picker-icon';
-            bgColorPickerIcon.textContent = '🎨'; 
+            bgColorPickerIcon.textContent = '🎨';
             bgColorPickerIcon.style.position = 'absolute';
             bgColorPickerIcon.style.bottom = '10px';
             bgColorPickerIcon.style.right = '10px';
             pane.appendChild(bgColorPickerIcon);
         
-            bgColorPickerIcon.onclick = function(event) {
-                event.stopPropagation();
-                showContentColorPicker(contentDiv, entry);
-            };
-        
             return pane;
         }
+        
+        
         
                 
         
@@ -454,6 +461,7 @@ data:text/html,<html>
             }
             adjustPaneSizes();
         }
+        
         
         
         
@@ -615,6 +623,18 @@ data:text/html,<html>
             }
         };
         
+        
+        document.getElementById('entry-content').addEventListener('click', function(event) {
+            if (event.target.classList.contains('bg-color-picker-icon')) {
+                var pane = event.target.closest('.entry-pane');
+                var entryId = pane.dataset.entryId;
+                var entry = entries.find(e => e.id.toString() === entryId);
+                if (entry) {
+                    var contentDiv = pane.querySelector('.content-editable');
+                    showContentColorPicker(contentDiv, entry);
+                }
+            }
+        });
         
 
         entryList.addEventListener('dragstart', function(event) {
