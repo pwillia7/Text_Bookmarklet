@@ -46,6 +46,8 @@ data:text/html,<html>
             entries = [],
             current = -1;
 
+            
+
             function loadEntries() {
                 var storedEntries = entryContentStorage.value;
                 if (!storedEntries) {
@@ -91,7 +93,6 @@ data:text/html,<html>
             entryContentStorage.value = JSON.stringify(entries);
         }
 
-      
         function savePaneContent() {
             var allPanes = entryContent.querySelectorAll('.entry-pane');
             allPanes.forEach(pane => {
@@ -100,12 +101,16 @@ data:text/html,<html>
                 if (contentDiv && entryId !== undefined) {
                     var entryIndex = entries.findIndex(entry => entry.id.toString() === entryId);
                     if (entryIndex !== -1) {
-                        entries[entryIndex].content = contentDiv.innerHTML;
+                        var contentHtml = contentDiv.innerHTML.replace(%2F<input type="checkbox"[^>]*>%2Fg, match => {
+                            return match.includes('checked') ? '[x]' : '[ ]';
+                        });
+                        entries[entryIndex].content = contentHtml;
                     }
                 }
             });
             saveEntries();
         }
+        
         
         
         
@@ -424,16 +429,17 @@ data:text/html,<html>
         function clearAndLoadEntry(entry) {
             entryContent.innerHTML = '';
             var pane = createPane(entry, entry.id);
-        
-        
             entryContent.appendChild(pane);
-
+        
             var contentDiv = pane.querySelector('.content-editable');
             if (entry.contentBackgroundColor && colorStyles[entry.contentBackgroundColor]) {
                 contentDiv.style.backgroundColor = colorStyles[entry.contentBackgroundColor].backgroundColor;
             }
-        }
         
+            contentDiv.innerHTML = entry.content.replace(%2F%5C[ \]%2Fg, '<input type="checkbox">')
+            .replace(%2F%5C[x%5C]%2Fg, '<input type="checkbox" checked>');
+}
+
         
         
         
