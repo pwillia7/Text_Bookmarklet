@@ -1,3 +1,16 @@
+:root {
+    --primary-color: #5c6bc0;
+    --hover-color: #3949ab;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+    --border-hover-color: #c0c0c0;
+    --input-border-color: #ddd;
+    --pane-shadow: rgba(0,0,0,0.05);
+    --active-border-color: #5c6bc0; 
+    --pane-title-background: #e8eaf6; 
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +18,10 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-size: 16px; 
+    line-height: 1.6; 
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -18,15 +33,19 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: #ffffff;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    background: var(--background-color);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
 }
+.pane-title, .button-bar button, #entry-title {
+    font-weight: 600;
+}
+
 
 #entry-title {
     flex-grow: 1;
     padding: 10px;
     font-size: 1.2rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input-border-color);
     border-radius: 5px; 
     margin-right: 10px;
 }
@@ -49,6 +68,110 @@ body {
     color: #333;
 }
 
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.modal-content input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: var(--hover-color);
+}
+.modal, .color-picker {
+    z-index: 2000; /* or a higher value if needed */
+}
+
+
+.color-picker input[type="color"] {
+    border: none;
+    width: 48px;
+    height: 48px;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+}
+
+.color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.color-picker input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+.entry-item.dragging, 
+.entry-pane.dragging {
+    opacity: 0.5;
+}
+.entry-item.drag-over, 
+.entry-pane.drag-over {
+    border: 2px dashed var(--primary-color);
+    background-color: var(--hover-color);
+}
+.entry-item.dynamic-text-color {
+    color: var(--dynamic-text-color);
+}
+
+
+.color-picker-icon {
+    width: 24px; 
+    height: 24px;
+    cursor: pointer;
+}
+
+.rename-input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.save-rename-btn, .cancel-rename-btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+}
+
+.cancel-rename-btn {
+    background-color: #ccc;
+    color: var(--text-color);
+}
+
+.cancel-rename-btn:hover {
+    background-color: #bbb;
+}
+
+
 .color-picker {
     position: fixed;
     top: 50%;
@@ -57,7 +180,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input-border-color);
     padding: 10px;
     z-index: 1000;
     border-radius: 5px;
@@ -75,16 +198,27 @@ body {
     padding: 10px 15px;
     font-size: 1rem;
     margin-left: 10px;
-    background-color: #5c6bc0;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: white;
     border: none;
     border-radius: 5px; 
     transition: background-color 0.3s ease;
 }
+.button-bar button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--hover-color);
+}
 
 .button-bar button:hover {
-    background-color: #3949ab;
+    background-color: var(--hover-color);
 }
+.button-bar button, .entry-item {
+    padding: 12px 18px;
+}
+.button-bar button, .color-option {
+    border-radius: 8px;
+}
+
 
 .content-area {
     display: flex;
@@ -99,31 +233,47 @@ body {
     max-width: 250px;
     overflow-y: auto;
     padding: 10px;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid var(--border-color);
 }
+#entry-list, .entry-pane {
+    border: 1px solid var(--border-color);
+    
+}
+.entry-item:hover, .button-bar button:hover {
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    
+}
+
+
 
 #entry-content {
     flex-grow: 1;
     padding: 10px;
 }
+.top-pane, .entry-pane, .color-picker {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.05);
+
+}
+
 
 .entry-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    margin-bottom: 5px;
-    background-color: #fff;
-    border-radius: 5px;
-    transition: box-shadow 0.3s ease;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; 
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .entry-item:hover {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    border-color: var(--border-hover-color);
 }
 
 .entry-item.active {
-    border: 2px solid #5c6bc0; 
+    border: 2px solid var(--active-border-color);
     font-weight: bold; 
 }
 
@@ -148,7 +298,7 @@ body {
 }
 
 .pane-title {
-    background-color: #e8eaf6;
+    background-color: var(--pane-title-background);
     padding: 10px;
     border-bottom: 1px solid #ddd;
     font-weight: bold;
@@ -159,7 +309,7 @@ body {
 .entry-pane {
     background-color: #fff;
     border: 1px solid #ddd;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px 0 var(--pane-shadow);
     position: relative;
     overflow: hidden;
     border-radius: 5px;
@@ -184,7 +334,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: var(--border-hover-color);
     border-radius: 10px;
 }
 
@@ -200,12 +350,14 @@ body {
     }
     
     .button-bar button {
-        padding: 10px;
+        padding: 12px;
     }
+    
     
     .entry-pane {
         margin: 5px 0;
     }
 }
+
 
 
