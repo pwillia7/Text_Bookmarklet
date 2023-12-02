@@ -170,6 +170,42 @@ body {
 .cancel-rename-btn:hover {
     background-color: #bbb;
 }
+input[type='checkbox'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--background-color);
+    margin: 0;
+    font: inherit;
+    color: var(--text-color);
+    width: 1em;
+    height: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    transform: translateY(-0.075em);
+    display: inline-grid;
+    place-content: center;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+input[type='checkbox']:checked::before {
+    content: '';
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0% 70%, 50% 100%, 100% 28%, 85% 14%, 50% 68%);
+    background-color: var(--primary-color);
+    display: block;
+}
+input[type='checkbox']:hover {
+    cursor: pointer;
+    border-color: var(--hover-color);
+}
+input[type='checkbox']:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--active-border-color);
+}
 
 
 .color-picker {
