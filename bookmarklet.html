@@ -51,11 +51,11 @@ data:text/html,<html>
             function loadEntries() {
                 var storedEntries = entryContentStorage.value;
                 if (!storedEntries) {
-                    entries = [];
+                    addNewEntry("Notes");
                     updateEntryList();
                     return;
                 }
-                try {
+                        try {
                     entries = JSON.parse(storedEntries);
                     entries.forEach(entry => {
                         var entryElement = document.querySelector(`[data-index='${entry.id}']`);
@@ -86,6 +86,20 @@ data:text/html,<html>
                 }
                 
             }
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    if (entryContentStorage.value.trim().length > 0) {
+                        loadEntries();
+                    } else {
+                        addNewEntry("Notes");
+                        updateEntryList();
+                    }
+                }, 250); 
+                addDragAndDropVisuals();
+            });
+    
 
 
         function saveEntries() {
@@ -611,16 +625,43 @@ data:text/html,<html>
                 }
             }
             adjustPaneSizes();
-        }
+        }        
         
-        
-        
-        
-        
-        
-        
-        
-        
+        var toggleButton = document.createElement('button');
+        toggleButton.textContent = 'Toggle Sidebar';
+        document.body.appendChild(toggleButton);
+        toggleButton.onclick = function() {
+            var sidebar = document.querySelector('%23entry-list');
+            var topPane = document.querySelector('.top-pane');
+            sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+            topPane.style.display = topPane.style.display === 'none' ? 'flex' : 'none';
+        };
+
+        var questionMarkIcon = document.createElement('span');
+        questionMarkIcon.textContent = '?';
+        questionMarkIcon.style.position = 'absolute';
+        questionMarkIcon.style.left = '10px';
+        questionMarkIcon.style.bottom = '10px';
+        questionMarkIcon.style.fontSize = '24px';
+        questionMarkIcon.style.cursor = 'pointer';
+        document.body.appendChild(questionMarkIcon);
+
+        questionMarkIcon.onclick = function() {
+            var overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.left = 0;
+            overlay.style.top = 0;
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            overlay.innerHTML = '<p style="color: white; padding: 20px;">Tips about using the features...</p>'; 
+            document.body.appendChild(overlay);
+
+            overlay.onclick = function() {
+                document.body.removeChild(overlay);
+            };
+        };
+
         
         
         
@@ -683,10 +724,7 @@ data:text/html,<html>
             }
         });
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            loadEntries();
-            addDragAndDropVisuals();
-        });
+        
         
 
  
@@ -810,18 +848,101 @@ data:text/html,<html>
                 splitPane(entryContent, entryToSplit);
             }
         });
+
+        function moveCursorToEnd(element) {
+            var range = document.createRange();
+            var sel = window.getSelection();
+            range.setStart(element, 1);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            element.focus();
+        }
+
+        function createCheckboxLine() {
+            var newCheckbox = document.createElement('input');
+            newCheckbox.type = 'checkbox';
+            var newDiv = document.createElement('div');
+            newDiv.appendChild(newCheckbox);
+            newDiv.appendChild(document.createTextNode(' '));
+            return newDiv;
+        }
+
+        function createTextCheckboxLine() {
+            var newDiv = document.createElement('div');
+            newDiv.textContent = '[ ] ';
+            return newDiv;
+        }
+
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault(); 
+            e.returnValue = ''; 
+        });
+    
         entryContent.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                var selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    var range = selection.getRangeAt(0);
+                    var container = range.startContainer;
+                    var parentDiv = container.nodeType === 3 ? container.parentNode : container;
+                    var isCheckboxStart = parentDiv.textContent.trim().startsWith('[ ]');
+                    var containsCheckboxInput = parentDiv.querySelector('input[type="checkbox"]') !== null;
+                    var newLine;
+        
+                    if (isCheckboxStart || containsCheckboxInput) {
+                        e.preventDefault();
+                        newLine = isCheckboxStart ? createTextCheckboxLine() : createCheckboxLine();
+        
+                        if (parentDiv.isSameNode(entryContent.querySelector('.content-editable')) && entryContent.querySelector('.content-editable').childNodes.length === 1) {
+                            entryContent.querySelector('.content-editable').appendChild(newLine);
+                        } else {
+                            parentDiv.after(newLine);
+                        }
+                        moveCursorToEnd(newLine);
+                    }
+                }
+            }
             if (e.key === 'Tab') {
                 e.preventDefault(); 
-    
                 document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
             }
         });
-    
+        
+        
   
         
         
-        setTimeout(loadEntries, 250);
+        let lastSavedEntries = JSON.stringify(entries);
+        function autoSaveEntries() {
+            let currentEntries = JSON.stringify(entries);
+            if (currentEntries !== lastSavedEntries) {
+                saveEntries(); 
+                lastSavedEntries = currentEntries;
+            }
+        }
+
+
+        setInterval(autoSaveEntries, 300000);
+
+        var connectDbButton = document.getElementById('load-db-button');
+        connectDbButton.textContent = 'Connect to a Database';
+        connectDbButton.addEventListener('click', function() {
+            fileInput.click();
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        entryContentStorage.value = event.target.result;
+                        loadEntries();
+                        lastSavedEntries = JSON.stringify(entries);
+                    };
+                    reader.readAsText(file);
+                }
+            };
+        });
+
 
         
         
