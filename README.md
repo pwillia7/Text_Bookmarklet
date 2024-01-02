@@ -1,6 +1,6 @@
 # Note-Taking Bookmarklet
 
-This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, note reordering, database saving and loading, checkbox interaction, and color customization.
+This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, note reordering, database saving and loading, checkbox interaction, color customization, and additional utilities for enhanced note-taking experience.
 
 ![](img/20231130123810.png)
 
@@ -10,11 +10,14 @@ This bookmarklet allows users to take and manage notes directly within a browser
 - **Split Note Pane**: Split notes into multiple panes for side-by-side comparison or multitasking.
 - **Reorder Notes**: Drag and drop notes in the list to reorder them.
 - **Save and Load Notes**: Save your notes to a hidden textarea, which acts as a database. Load your notes from this database.
-- **Checkbox Support**: Add interactive checkboxes within your notes.
+- **Checkbox Support**: Add interactive checkboxes within your notes. Type `[]` for an unchecked box, or `[x]` for a checked box.
 - **Color Customization**: Set custom colors for note titles and backgrounds.
 - **Reordering Split Panes**: Rearrange the order of split note panes.
 - **Save as Text File**: Export individual notes as text files.
 - **Copy/Paste HTML Support**: Copy and paste HTML content directly into notes.
+- **Toggle Sidebar and Top Pane**: Use buttons to hide/show the sidebar and top pane for more focused note-taking.
+- **Auto Save Feature**: Automatically saves notes to the hidden textarea database at regular intervals.
+- **Help Overlay**: Accessible guide and tips for using the bookmarklet's features.
 
 ## Installation
 
@@ -29,6 +32,11 @@ This bookmarklet allows users to take and manage notes directly within a browser
 
 1. Enter a note title in the top input bar and press `Enter` to create.
 2. Click on a note in the sidebar to open and edit it in the main content area.
+
+### Additional Features
+
+- **Toggle Sidebar/Top Pane**: Click the toggle buttons to collapse or expand the sidebar and top pane.
+- **Auto Save**: Notes are automatically saved every 5 minutes or when changes are detected.
 
 ### Splitting and Reordering Notes
 

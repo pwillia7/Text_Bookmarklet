@@ -681,8 +681,6 @@
             toggleTopPaneButton.onclick = toggleTopPane;
             document.querySelector('.top-pane').parentNode.insertBefore(toggleTopPaneButton, document.querySelector('.content-area'));
         
-        
-
             var questionMarkIcon = document.createElement('span');
             questionMarkIcon.textContent = '?';
             questionMarkIcon.style.position = 'absolute';
@@ -691,24 +689,32 @@
             questionMarkIcon.style.fontSize = '24px';
             questionMarkIcon.style.cursor = 'pointer';
             document.body.appendChild(questionMarkIcon);
-
+            
             questionMarkIcon.onclick = function() {
                 var overlay = document.createElement('div');
                 overlay.style.position = 'fixed';
                 overlay.style.left = 0;
                 overlay.style.top = 0;
+                overlay.style.zIndex = '9999999';
                 overlay.style.width = '100%';
                 overlay.style.height = '100%';
                 overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
                 overlay.innerHTML = `
-                    <div style="color: white; padding: 20px;">
+                    <div style="color: white; padding: 20px; max-width: 600px; margin: 50px auto;">
                         <h2>Help & Tips</h2>
                         <ul>
-                            <li>Click on an entry title to edit it.</li>
-                            <li>Use the checkboxes to mark tasks as done or pending.</li>
-                            <li>Click the color icon to change the color of a note.</li>
-                            <li>Drag and drop to reorder notes.</li>
-                            <li>Use the top pane to save and load notes.</li>
+                            <li><strong>Create and Manage Notes:</strong> Add new notes via the top input bar. Manage and view them in the sidebar.</li>
+                            <li><strong>Split Note Pane:</strong> Split notes into multiple panes for comparison or multitasking.</li>
+                            <li><strong>Reorder Notes:</strong> Drag and drop notes in the list to reorder them.</li>
+                            <li><strong>Save and Load Notes:</strong> Save your notes to a hidden textarea and load them from this database.</li>
+                            <li><strong>Checkbox Support:</strong> Add interactive checkboxes within notes by typing '[ ]' or '[x]'.</li>
+                            <li><strong>Color Customization:</strong> Click the color icon in each note to set custom colors for titles and backgrounds.</li>
+                            <li><strong>Reordering Split Panes:</strong> Rearrange the order of split note panes via drag-and-drop.</li>
+                            <li><strong>Save as Text File:</strong> Export individual notes as text files using the 'Save as txt file' button.</li>
+                            <li><strong>Copy/Paste HTML Support:</strong> Copy and paste HTML content directly into notes.</li>
+                            <li><strong>Hide/Show Panes:</strong> Use the toggle buttons to hide or show the sidebar and top pane.</li>
+                            <li>Read more at <a href='https://github.com/pwillia7/Text_Bookmarklet'>the project repository on Github.</a></li>
+
                         </ul>
                     </div>
                 `;
@@ -718,8 +724,6 @@
                     document.body.removeChild(overlay);
                 };
             };
-            
-            
             
             
 
