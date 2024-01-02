@@ -260,8 +260,7 @@ input[type='checkbox']:focus {
     display: flex;
     height: 100%;
     padding: 10px;
-    padding-left: 0px;
-    overflow-y: auto;
+    padding-left:0px;
 }
 
 #entry-list {
@@ -286,6 +285,7 @@ input[type='checkbox']:focus {
 #entry-content {
     flex-grow: 1;
     padding: 10px;
+    height: 93%;
 }
 .top-pane, .entry-pane, .color-picker {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.05);
