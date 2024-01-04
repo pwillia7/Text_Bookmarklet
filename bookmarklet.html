@@ -24,7 +24,7 @@ data:text/html,<html>
         <textarea id="entry-content-storage"></textarea>
         <input id="file-input" type="file" style="display: none;">
         <script type="text/javascript">
-
+           
             function changeFavicon(url) {
                 var link = document.createElement('link'),
                     oldLink = document.querySelector('link[rel="shortcut icon"]') || document.querySelector('link[rel="icon"]');
@@ -36,122 +36,33 @@ data:text/html,<html>
                 }
                 document.head.appendChild(link);
             }
-            var faviconUrl = 'https://reticulated.net/favicon/favicon.ico';
-            changeFavicon(faviconUrl);
-            var entryTitle = document.getElementById("entry-title"),
-                entryList = document.getElementById("entry-list"),
-                entryContent = document.getElementById("entry-content"),
-                entryContentStorage = document.getElementById("entry-content-storage"),
-                saveDbButton = document.getElementById("save-db-button"),
-                loadDbButton = document.getElementById("load-db-button"),
-                saveButton = document.getElementById("save-button"),
-                fileInput = document.getElementById("file-input"),
-                entries = [],
-                current = -1;
-
-                function createToggleButton(text, orientation) {
-                    var button = document.createElement('button');
-                    button.textContent = text;
-                    button.style.cursor = 'pointer';
-                    button.style.padding = '1px';
-                
-                    button.style.border = '1px solid %23ccc';
-                    button.style.backgroundColor = '%23f9f9f9';
             
-                    if (orientation === 'horizontal') {
-                        button.style.width = '100%';
-                        button.style.marginTop = '-14px';
-                        button.style.zIndex = '99999';
-                        button.style.marginBottom = '-20px';
-                        button.style.height = '0.9em';
-                    } else {
-                        button.style.height = '100%';
-                        button.style.display = 'block';
-                        button.style.zIndex = '99998';
-                        button.style.marginRight = '-10px';
-
-                    }
+            function createToggleButton(text, orientation) {
+                var button = document.createElement('button');
+                button.textContent = text;
+                button.style.cursor = 'pointer';
+                button.style.padding = '1px';
             
-                    return button;
-                }
-            
-
-                    
-            
-
-                function loadEntries() {
-                    var storedEntries = entryContentStorage.value;
-                    if (!storedEntries) {
-                        addNewEntry("Notes");
-                        updateEntryList();
-                        return;
-                    }
-                            try {
-                        entries = JSON.parse(storedEntries);
-                        entries.forEach(entry => {
-                            var entryElement = document.querySelector(`[data-index='${entry.id}']`);
-                            if (entryElement) {
-                                if (entry.titleBarColor) {
-                                    var titleBar = entryElement.querySelector('.pane-title');
-                                    if (titleBar) {
-                                        titleBar.style.backgroundColor = entry.titleBarColor;
-                                        titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-                                    }
-                                }
-                                if (entry.contentBackgroundColor) {
-                                    var contentDiv = entryContent.querySelector(`[data-entry-id='${entry.id}'] .content-editable`);
-                                    if (contentDiv) {
-                                        contentDiv.style.backgroundColor = entry.contentBackgroundColor;
-                                        contentDiv.style.color = isColorLight(entry.contentBackgroundColor) ? 'black' : 'white';
-                                    }
-                                }
-                            }
-                        });
-                        updateEntryList();
-                        if (entries.length > 0) {
-                            current = 0;
-                            clearAndLoadEntry(entries[current]);
-                        }
-                    } catch (e) {
-                        console.error('Error parsing entries:', e);
-                    }
-                    
-                }
-                function ensureDivWrapper() {
-                    var contentEditableDiv = document.querySelector("[contenteditable='true']");
-                    if (contentEditableDiv) {
-                        var htmlContent = contentEditableDiv.innerHTML.trim();
-                        if (htmlContent === "" || htmlContent === "<br>") {
-                            contentEditableDiv.innerHTML = "<div><br></div>";
-                        }
-                    }
-                }
-                
-
-                document.addEventListener('DOMContentLoaded', function() {
-                    setTimeout(function() {
-                        if (entryContentStorage.value.trim().length > 0) {
-                            loadEntries();
-                        } else {
-                            addNewEntry("Notes");
-                            updateEntryList();
-                        }
-                    }, 250); 
-                    addDragAndDropVisuals();
-                    var contentEditableDiv = document.querySelector("[contenteditable='true']");
-                    if (contentEditableDiv) {
-                        contentEditableDiv.addEventListener('input', ensureDivWrapper);
-                        ensureDivWrapper();
-                    }
-                
-                });
+                button.style.border = '1px solid %23ccc';
+                button.style.backgroundColor = '%23f9f9f9';
         
+                if (orientation === 'horizontal') {
+                    button.style.width = '100%';
+                    button.style.marginTop = '-14px';
+                    button.style.zIndex = '99999';
+                    button.style.marginBottom = '-20px';
+                    button.style.height = '0.9em';
+                } else {
+                    button.style.height = '100%';
+                    button.style.display = 'block';
+                    button.style.zIndex = '99998';
+                    button.style.marginRight = '-10px';
 
-
-            function saveEntries() {
-                entryContentStorage.value = JSON.stringify(entries);
+                }
+        
+                return button;
             }
-
+            
             function savePaneContent() {
                 var allPanes = entryContent.querySelectorAll('.entry-pane');
                 allPanes.forEach(pane => {
@@ -173,8 +84,59 @@ data:text/html,<html>
                 });
                 saveEntries();
             }
-            
-            
+    
+            function saveEntries() {
+                entryContentStorage.value = JSON.stringify(entries);
+            }
+
+            function loadEntries() {
+                var storedEntries = entryContentStorage.value;
+                if (!storedEntries) {
+                    addNewEntry("Notes");
+                    updateEntryList();
+                    return;
+                }
+                        try {
+                    entries = JSON.parse(storedEntries);
+                    entries.forEach(entry => {
+                        var entryElement = document.querySelector(`[data-index='${entry.id}']`);
+                        if (entryElement) {
+                            if (entry.titleBarColor) {
+                                var titleBar = entryElement.querySelector('.pane-title');
+                                if (titleBar) {
+                                    titleBar.style.backgroundColor = entry.titleBarColor;
+                                    titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
+                                }
+                            }
+                            if (entry.contentBackgroundColor) {
+                                var contentDiv = entryContent.querySelector(`[data-entry-id='${entry.id}'] .content-editable`);
+                                if (contentDiv) {
+                                    contentDiv.style.backgroundColor = entry.contentBackgroundColor;
+                                    contentDiv.style.color = isColorLight(entry.contentBackgroundColor) ? 'black' : 'white';
+                                }
+                            }
+                        }
+                    });
+                    updateEntryList();
+                    if (entries.length > 0) {
+                        current = 0;
+                        clearAndLoadEntry(entries[current]);
+                    }
+                } catch (e) {
+                    console.error('Error parsing entries:', e);
+                }
+                
+            }
+                
+            function ensureDivWrapper() {
+                var contentEditableDiv = document.querySelector("[contenteditable='true']");
+                if (contentEditableDiv) {
+                    var htmlContent = contentEditableDiv.innerHTML.trim();
+                    if (htmlContent === "" || htmlContent === "<br>") {
+                        contentEditableDiv.innerHTML = "<div><br></div>";
+                    }
+                }
+            }
             
             function addNewEntry(title) {
                 var defaultBackgroundColor = '%23ffffff';
@@ -188,8 +150,7 @@ data:text/html,<html>
                 entries.push(newEntry);
                 return newEntry;
             }
-                    
-
+      
             function reorderEntries(sourceIndex, targetIndex) {
                 if (sourceIndex === targetIndex) return;
                 const movedItem = entries.splice(sourceIndex, 1)[0];
@@ -205,18 +166,6 @@ data:text/html,<html>
                     }
                 });
             }
-            
-            
-            function attachColorPickerEventHandler(pane, entry) {
-                var bgColorPickerIcon = pane.querySelector('.bg-color-picker-icon');
-                if (bgColorPickerIcon) {
-                    bgColorPickerIcon.onclick = function(event) {
-                        event.stopPropagation();
-                        showColorPicker(pane, entry, true); 
-                    };
-                }
-            }
-            
 
             function addDragAndDropVisuals() {
                 document.querySelectorAll('.entry-item').forEach(item => {
@@ -234,9 +183,6 @@ data:text/html,<html>
                     };
                 });
             }
-            
-            
-            
             
             function updateEntryList() {
                 entryList.innerHTML = "";
@@ -324,6 +270,7 @@ data:text/html,<html>
                     entryList.appendChild(e);
                 });
             }
+
             function isColorLight(color) {
             
                 if (color.startsWith('%23')) {
@@ -341,8 +288,7 @@ data:text/html,<html>
             
                 return yiq >= 128; 
             }
-            
-            
+                     
             function updateEntryColor(entryElement, color, isBackgroundColor) {
                 entryElement.style.backgroundColor = color;
             
@@ -382,7 +328,6 @@ data:text/html,<html>
                 }
             }
             
-            
             function showColorPicker(entryElement, entry, isBackgroundColor) {
                 var colorPicker = document.createElement("input");
                 colorPicker.type = "color";
@@ -411,23 +356,6 @@ data:text/html,<html>
                 colorPicker.onchange = function() { document.body.removeChild(colorPicker); };
             }
             
-            
-                    
-            
-            var colorStyles = {
-                red: { backgroundColor: '%23ffcccc', color: 'black' },
-                blue: { backgroundColor: '%23cceeff', color: 'black' },
-                green: { backgroundColor: '%23ccffcc', color: 'black' },
-                yellow: { backgroundColor: '%23ffff99', color: 'black' },
-                orange: { backgroundColor: '%23ffcc99', color: 'black' },
-                purple: { backgroundColor: '%23e6ccff', color: 'black' },
-                pink: { backgroundColor: '%23ffccff', color: 'black' },
-                brown: { backgroundColor: '%23d2b48c', color: 'black' },
-                grey: { backgroundColor: '%23cccccc', color: 'black' },
-                black: { backgroundColor: '%23000000', color: 'white' },
-                white: { backgroundColor: '%23ffffff', color: 'black' }
-            };
-
             function reorderPanes(sourcePaneId, targetPaneId) {
                 if (sourcePaneId === targetPaneId) return;
             
@@ -449,26 +377,12 @@ data:text/html,<html>
                 }
             }
             
-            
-
             function adjustPaneSizes() {
                 Array.from(entryContent.querySelectorAll('.split-horizontal, .split-vertical')).forEach(container => {
                     Array.from(container.children).forEach(pane => {
                         pane.style.flex = '1';
                     });
                 });
-            }
-
-            function moveEntry(index, direction) {
-                if ((direction === 'up' && index > 0) || (direction === 'down' && index < entries.length - 1)) {
-                    var entryToMove = entries[index];
-                    entries.splice(index, 1);
-                    entries.splice(direction === 'up' ? index - 1 : index + 1, 0, entryToMove);
-                    current = direction === 'up' ? index - 1 : index + 1;
-                    updateEntryList();
-                    updateEntryContent();
-                    saveEntries();
-                }
             }
 
             function updateEntryContent() {
@@ -524,7 +438,6 @@ data:text/html,<html>
                 inputField.focus();
                 inputField.select();
             }
-                            
 
             function showModal(message, onConfirm) {
                 var modal = document.createElement("div");
@@ -598,16 +511,12 @@ data:text/html,<html>
                 return pane;
             }
             
-            
-            
-            
             function createColorPickerIcon() {
                 var icon = document.createElement('img');
                 icon.setAttribute('src', "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-edit-3'><path d='M12 20h9'></path><path d='M16.5 3.5a2.121 2.121 0 0 1 3 3L10 16H7v-3L16.5 3.5z'></path></svg>");
                 icon.className = 'color-picker-icon';
                 return icon;
             }
-            
             
             function clearAndLoadEntry(entry) {
                 entryContent.innerHTML = '';
@@ -630,22 +539,8 @@ data:text/html,<html>
 
 
 
-    }
-    function insertTextAtCursor(text) {
-        const selection = window.getSelection();
+            }
 
-        if (!selection.rangeCount) return false;
-
-        selection.deleteFromDocument();
-        selection.getRangeAt(0).insertNode(document.createTextNode(text));
-
-        selection.collapseToEnd();
-    }
-
-
-            
-            
-            
             function splitPane(container, entryToSplit) {
                 var entryIndex = entries.findIndex(entry => entry === entryToSplit);
                 if (entryIndex === -1) return; 
@@ -679,13 +574,103 @@ data:text/html,<html>
                 toggleTopPaneButton.style.marginTop = isHidden ? '-14px' : '0px';
                 toggleTopPaneButton.textContent = isHidden ? '^' : 'v';
             }
+           
             function toggleSidebar() {
                 var sidebar = document.getElementById('entry-list');
                 var isHidden = sidebar.style.display === 'none';
                 sidebar.style.display = isHidden ? 'block' : 'none';
                 toggleSidebarButton.textContent = isHidden ? '<' : '>';
             }
-        
+           
+            function moveCursorToEnd(element) {
+                var range = document.createRange();
+                var sel = window.getSelection();
+                range.setStart(element, 1);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+                element.focus();
+            }
+
+            function createCheckboxLine() {
+                var newCheckbox = document.createElement('input');
+                newCheckbox.type = 'checkbox';
+                var newDiv = document.createElement('div');
+                newDiv.appendChild(newCheckbox);
+                newDiv.appendChild(document.createTextNode(' '));
+                return newDiv;
+            }
+
+            function createTextCheckboxLine() {
+                var newDiv = document.createElement('div');
+                newDiv.textContent = '[ ] ';
+                return newDiv;
+            }
+
+            function moveCheckboxLine(currentDiv, siblingDiv, direction) {
+                var movedDiv;
+                if (direction === "ArrowUp") {
+                    currentDiv.parentNode.insertBefore(currentDiv, siblingDiv);
+                    movedDiv = currentDiv;
+                } else {
+                    var nextSibling = siblingDiv.nextElementSibling;
+                    currentDiv.parentNode.insertBefore(currentDiv, nextSibling);
+                    movedDiv = currentDiv;
+                }
+                return movedDiv;
+            }
+            
+            function setCursorToEnd(div) {
+                var range = document.createRange();
+                var sel = window.getSelection();
+                range.selectNodeContents(div);
+                range.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+            
+            function updateTitleBarAndSidebar(entry, pane) {
+                var titleBar = pane.querySelector('.pane-title');
+                if (entry.titleBarColor) {
+                    titleBar.style.backgroundColor = entry.titleBarColor;
+                    titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
+                }
+                var sidebarEntry = document.querySelector(`[data-index='${entry.id}']`);
+                if (sidebarEntry) {
+                    if (entry.titleBarColor) {
+                        sidebarEntry.style.backgroundColor = entry.titleBarColor;
+                        sidebarEntry.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
+                    }
+                }
+            }
+                        
+            function autoSaveEntries() {
+                let currentEntries = JSON.stringify(entries);
+                if (currentEntries !== lastSavedEntries) {
+                    saveEntries(); 
+                    lastSavedEntries = currentEntries;
+                }
+            }
+
+            let lastSavedEntries = JSON.stringify(entries);
+
+            setInterval(autoSaveEntries, 300000);
+
+            var faviconUrl = 'https://reticulated.net/favicon/favicon.ico';
+            changeFavicon(faviconUrl);
+
+            var entryTitle = document.getElementById("entry-title"),
+                entryList = document.getElementById("entry-list"),
+                entryContent = document.getElementById("entry-content"),
+                entryContentStorage = document.getElementById("entry-content-storage"),
+                saveDbButton = document.getElementById("save-db-button"),
+                loadDbButton = document.getElementById("load-db-button"),
+                saveButton = document.getElementById("save-button"),
+                fileInput = document.getElementById("file-input"),
+                entries = [],
+                current = -1;
+
+
         
             var toggleSidebarButton = createToggleButton('<', 'vertical');
             toggleSidebarButton.onclick = toggleSidebar;
@@ -738,8 +723,25 @@ data:text/html,<html>
                     document.body.removeChild(overlay);
                 };
             };
+
+            var connectDbButton = document.getElementById('load-db-button');
+            connectDbButton.textContent = 'Connect to a Database';
             
-            
+            connectDbButton.addEventListener('click', function() {
+                fileInput.click();
+                fileInput.onchange = function(e) {
+                    var file = e.target.files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            entryContentStorage.value = event.target.result;
+                            loadEntries();
+                            lastSavedEntries = JSON.stringify(entries);
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+            });
 
             saveDbButton.addEventListener('click', function() {
                 var content = entryContentStorage.value,
@@ -772,7 +774,6 @@ data:text/html,<html>
                 };
             });
             
-
             fileInput.addEventListener('change', function() {
                 var file = fileInput.files[0];
                 if (file) {
@@ -784,8 +785,7 @@ data:text/html,<html>
                     reader.readAsText(file);
                 }
             });
-
-
+            
             entryTitle.addEventListener("keyup", function(t) {
                 if (t.keyCode === 13) {
                     var title = entryTitle.value.trim();
@@ -798,11 +798,6 @@ data:text/html,<html>
                     }
                 }
             });
-
-            
-            
-
-    
 
             saveButton.addEventListener('click', function() {
                 if (current >= 0) {
@@ -834,15 +829,10 @@ data:text/html,<html>
                     document.body.removeChild(a);
                 }
             });
-            
-            
 
             entryContent.addEventListener('dragover', function(event) {
                 event.preventDefault();
             });
-            
-
-    
             
             entryContent.ondrop = function(event) {
                 event.preventDefault();
@@ -859,20 +849,9 @@ data:text/html,<html>
                 }
             };
             
-            
-            
-            
-            
-            
-            
-            
             entryContent.ondragover = function(event) {
                 event.preventDefault();
             };
-            
-                    
-                            
-            
 
             entryContent.addEventListener('input', function() {
                 savePaneContent();
@@ -881,7 +860,6 @@ data:text/html,<html>
             entryList.ondragover = function(event) {
                 event.preventDefault();
             };
-            
 
             entryList.addEventListener('click', function(event) {
                 var target = event.target.closest('.entry-item');
@@ -900,8 +878,7 @@ data:text/html,<html>
                     reorderEntries(parseInt(sourceIndex), parseInt(targetIndex));
                 }
             };
-            
-            
+                        
             document.getElementById('entry-content').addEventListener('click', function(event) {
                 if (event.target.classList.contains('title-color-picker-icon')) {
                     var entryPane = event.target.closest('.entry-pane');
@@ -920,13 +897,13 @@ data:text/html,<html>
                 }
             });
                     
-
             entryList.addEventListener('dragstart', function(event) {
                 if (event.target.classList.contains('entry-item')) {
                     var entryIndex = event.target.getAttribute('data-index');
                     event.dataTransfer.setData("entry-index", entryIndex);
                 }
             });        
+         
             entryContent.addEventListener('drop', function(event) {
                 event.preventDefault();
                 var entryIndex = event.dataTransfer.getData("entry-index");
@@ -937,37 +914,11 @@ data:text/html,<html>
                 }
             });
 
-            function moveCursorToEnd(element) {
-                var range = document.createRange();
-                var sel = window.getSelection();
-                range.setStart(element, 1);
-                range.collapse(true);
-                sel.removeAllRanges();
-                sel.addRange(range);
-                element.focus();
-            }
-
-            function createCheckboxLine() {
-                var newCheckbox = document.createElement('input');
-                newCheckbox.type = 'checkbox';
-                var newDiv = document.createElement('div');
-                newDiv.appendChild(newCheckbox);
-                newDiv.appendChild(document.createTextNode(' '));
-                return newDiv;
-            }
-
-            function createTextCheckboxLine() {
-                var newDiv = document.createElement('div');
-                newDiv.textContent = '[ ] ';
-                return newDiv;
-            }
-
             window.addEventListener('beforeunload', function (e) {
                 e.preventDefault(); 
                 e.returnValue = ''; 
             });
-            
-        
+                    
             entryContent.addEventListener('keydown', function(e) {
                 if (e.ctrlKey && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
                     var selection = window.getSelection();
@@ -1019,77 +970,24 @@ data:text/html,<html>
                 }
             });
             
-            function moveCheckboxLine(currentDiv, siblingDiv, direction) {
-                var movedDiv;
-                if (direction === "ArrowUp") {
-                    currentDiv.parentNode.insertBefore(currentDiv, siblingDiv);
-                    movedDiv = currentDiv;
-                } else {
-                    var nextSibling = siblingDiv.nextElementSibling;
-                    currentDiv.parentNode.insertBefore(currentDiv, nextSibling);
-                    movedDiv = currentDiv;
-                }
-                return movedDiv;
-            }
-            
-            function setCursorToEnd(div) {
-                var range = document.createRange();
-                var sel = window.getSelection();
-                range.selectNodeContents(div);
-                range.collapse(false);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-            
-            function updateTitleBarAndSidebar(entry, pane) {
-                var titleBar = pane.querySelector('.pane-title');
-                if (entry.titleBarColor) {
-                    titleBar.style.backgroundColor = entry.titleBarColor;
-                    titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-                }
-                var sidebarEntry = document.querySelector(`[data-index='${entry.id}']`);
-                if (sidebarEntry) {
-                    if (entry.titleBarColor) {
-                        sidebarEntry.style.backgroundColor = entry.titleBarColor;
-                        sidebarEntry.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    if (entryContentStorage.value.trim().length > 0) {
+                        loadEntries();
+                    } else {
+                        addNewEntry("Notes");
+                        updateEntryList();
                     }
+                }, 250); 
+                addDragAndDropVisuals();
+                var contentEditableDiv = document.querySelector("[contenteditable='true']");
+                if (contentEditableDiv) {
+                    contentEditableDiv.addEventListener('input', ensureDivWrapper);
+                    ensureDivWrapper();
                 }
-            }
             
-            
-            let lastSavedEntries = JSON.stringify(entries);
-            function autoSaveEntries() {
-                let currentEntries = JSON.stringify(entries);
-                if (currentEntries !== lastSavedEntries) {
-                    saveEntries(); 
-                    lastSavedEntries = currentEntries;
-                }
-            }
-
-
-            setInterval(autoSaveEntries, 300000);
-
-            var connectDbButton = document.getElementById('load-db-button');
-            connectDbButton.textContent = 'Connect to a Database';
-            connectDbButton.addEventListener('click', function() {
-                fileInput.click();
-                fileInput.onchange = function(e) {
-                    var file = e.target.files[0];
-                    if (file) {
-                        var reader = new FileReader();
-                        reader.onload = function(event) {
-                            entryContentStorage.value = event.target.result;
-                            loadEntries();
-                            lastSavedEntries = JSON.stringify(entries);
-                        };
-                        reader.readAsText(file);
-                    }
-                };
             });
 
-
-            
-            
         </script>
     </body>
     </html>
