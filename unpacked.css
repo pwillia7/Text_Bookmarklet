@@ -25,7 +25,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .top-pane {
@@ -395,6 +395,7 @@ input[type='checkbox']:focus {
         margin: 5px 0;
     }
 }
+
 
 
 
