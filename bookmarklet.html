@@ -2,24 +2,96 @@ data:text/html,<html>
 <head>
     <title>Notes</title>
     <style>
-%3Aroot%20%7B%0A%20%20%20%20--primary-color%3A%20%236366f1%3B%0A%20%20%20%20--hover-color%3A%20%234f46e5%3B%0A%20%20%20%20--primary-soft%3A%20%23eef2ff%3B%0A%20%20%20%20--background-color%3A%20%23f8fafc%3B%0A%20%20%20%20--surface-color%3A%20%23ffffff%3B%0A%20%20%20%20--text-color%3A%20%231e293b%3B%0A%20%20%20%20--text-muted-color%3A%20%2364748b%3B%0A%20%20%20%20--border-color%3A%20%23e2e8f0%3B%0A%20%20%20%20--border-hover-color%3A%20%23cbd5e1%3B%0A%20%20%20%20--input-border-color%3A%20%23dbe1e8%3B%0A%20%20%20%20--pane-shadow%3A%20rgba(15%2C%2023%2C%2042%2C%200.06)%3B%0A%20%20%20%20--active-border-color%3A%20%236366f1%3B%0A%20%20%20%20--pane-title-background%3A%20%23eef2ff%3B%0A%20%20%20%20--radius-sm%3A%206px%3B%0A%20%20%20%20--radius-md%3A%2010px%3B%0A%20%20%20%20--radius-lg%3A%2014px%3B%0A%20%20%20%20--shadow-sm%3A%200%201px%202px%20rgba(15%2C%2023%2C%2042%2C%200.06)%3B%0A%20%20%20%20--shadow-md%3A%200%204px%2012px%20rgba(15%2C%2023%2C%2042%2C%200.08)%3B%0A%20%20%20%20--shadow-lg%3A%200%2012px%2032px%20rgba(15%2C%2023%2C%2042%2C%200.16)%3B%0A%7D%0A%0A%40media%20(prefers-color-scheme%3A%20dark)%20%7B%0A%20%20%20%20%3Aroot%20%7B%0A%20%20%20%20%20%20%20%20--primary-color%3A%20%23818cf8%3B%0A%20%20%20%20%20%20%20%20--hover-color%3A%20%23a5b4fc%3B%0A%20%20%20%20%20%20%20%20--primary-soft%3A%20%23232544%3B%0A%20%20%20%20%20%20%20%20--background-color%3A%20%2314161f%3B%0A%20%20%20%20%20%20%20%20--surface-color%3A%20%231c1f2b%3B%0A%20%20%20%20%20%20%20%20--text-color%3A%20%23e5e7eb%3B%0A%20%20%20%20%20%20%20%20--text-muted-color%3A%20%239aa1b4%3B%0A%20%20%20%20%20%20%20%20--border-color%3A%20%232c2f3d%3B%0A%20%20%20%20%20%20%20%20--border-hover-color%3A%20%233c3f52%3B%0A%20%20%20%20%20%20%20%20--input-border-color%3A%20%23343748%3B%0A%20%20%20%20%20%20%20%20--pane-shadow%3A%20rgba(0%2C%200%2C%200%2C%200.35)%3B%0A%20%20%20%20%20%20%20%20--active-border-color%3A%20%23818cf8%3B%0A%20%20%20%20%20%20%20%20--pane-title-background%3A%20%23232544%3B%0A%20%20%20%20%20%20%20%20--shadow-sm%3A%200%201px%202px%20rgba(0%2C%200%2C%200%2C%200.3)%3B%0A%20%20%20%20%20%20%20%20--shadow-md%3A%200%204px%2012px%20rgba(0%2C%200%2C%200%2C%200.35)%3B%0A%20%20%20%20%20%20%20%20--shadow-lg%3A%200%2012px%2032px%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20%7D%0A%7D%0A%0A*%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20box-sizing%3A%20border-box%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20font-family%3A%20-apple-system%2C%20BlinkMacSystemFont%2C%20'Segoe%20UI'%2C%20Roboto%2C%20Helvetica%2C%20Arial%2C%20sans-serif%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20line-height%3A%201.6%3B%0A%20%20%20%20background-color%3A%20var(--background-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20height%3A%20100vh%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A.top-pane%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2012px%3B%0A%20%20%20%20padding%3A%2014px%2018px%3B%0A%20%20%20%20background%3A%20var(--surface-color)%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20var(--border-color)%3B%0A%7D%0A%0A.pane-title%2C%20.button-bar%20button%2C%20%23entry-title%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A%23entry-title%20%7B%0A%20%20%20%20flex-grow%3A%201%3B%0A%20%20%20%20padding%3A%2010px%2014px%3B%0A%20%20%20%20font-size%3A%201.05rem%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20margin-right%3A%2010px%3B%0A%20%20%20%20transition%3A%20border-color%200.2s%20ease%2C%20box-shadow%200.2s%20ease%3B%0A%7D%0A%0A%23entry-title%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A%23entry-title%3A%3Aplaceholder%20%7B%0A%20%20%20%20color%3A%20var(--text-muted-color)%3B%0A%7D%0A%0A.button-bar%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20gap%3A%208px%3B%0A%7D%0A%0A.button-container%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A.move-btn%2C%20.delete-btn%2C%20.color-btn%20%7B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20color%3A%20var(--text-muted-color)%3B%0A%20%20%20%20transition%3A%20background-color%200.15s%20ease%2C%20color%200.15s%20ease%3B%0A%7D%0A%0A.move-btn%3Ahover%2C%20.delete-btn%3Ahover%2C%20.color-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.12)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%7D%0A%0A.modal%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20background-color%3A%20rgba(15%2C%2023%2C%2042%2C%200.5)%3B%0A%20%20%20%20backdrop-filter%3A%20blur(2px)%3B%0A%20%20%20%20z-index%3A%202000%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%7D%0A%0A.modal-content%20%7B%0A%20%20%20%20background%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20padding%3A%2024px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-lg)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-lg)%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20max-width%3A%2090%25%3B%0A%20%20%20%20width%3A%20400px%3B%0A%7D%0A%0A.modal-content%20p%20%7B%0A%20%20%20%20margin-bottom%3A%2016px%3B%0A%7D%0A%0A.modal-content%20input%5Btype%3D%22text%22%5D%20%7B%0A%20%20%20%20width%3A%2080%25%3B%0A%20%20%20%20padding%3A%2010px%2012px%3B%0A%20%20%20%20margin-bottom%3A%2020px%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%7D%0A%0A.modal-content%20input%5Btype%3D%22text%22%5D%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.modal-content%20button%20%7B%0A%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20margin%3A%200%206px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20transition%3A%20background-color%200.2s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.modal-content%20button%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.modal-content%20button%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0A.entry-item.dragging%2C%0A.entry-pane.dragging%20%7B%0A%20%20%20%20opacity%3A%200.5%3B%0A%7D%0A%0A.entry-item.drag-over%2C%0A.entry-pane.drag-over%20%7B%0A%20%20%20%20border%3A%202px%20dashed%20var(--primary-color)%3B%0A%20%20%20%20background-color%3A%20var(--primary-soft)%3B%0A%7D%0A%0A.color-picker-icon%20%7B%0A%20%20%20%20width%3A%2020px%3B%0A%20%20%20%20height%3A%2020px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20opacity%3A%200.65%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20transition%3A%20opacity%200.15s%20ease%2C%20background-color%200.15s%20ease%3B%0A%7D%0A%0A.color-picker-icon%3Ahover%20%7B%0A%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.12)%3B%0A%7D%0A%0A.rename-input%20%7B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20padding%3A%2010px%2012px%3B%0A%20%20%20%20margin-bottom%3A%2012px%3B%0A%20%20%20%20width%3A%2080%25%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%7D%0A%0A.rename-input%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.save-rename-btn%2C%20.cancel-rename-btn%20%7B%0A%20%20%20%20font-size%3A%200.95rem%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20padding%3A%2010px%2018px%3B%0A%20%20%20%20margin%3A%200%206px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.2s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.save-rename-btn%20%7B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%7D%0A%0A.save-rename-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.modal-content%20.cancel-rename-btn%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.15)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%7D%0A%0A.modal-content%20.cancel-rename-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.25)%3B%0A%7D%0A%0A.save-rename-btn%3Aactive%2C%20.cancel-rename-btn%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%20%7B%0A%20%20%20%20-webkit-appearance%3A%20none%3B%0A%20%20%20%20-moz-appearance%3A%20none%3B%0A%20%20%20%20appearance%3A%20none%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20width%3A%201.1em%3B%0A%20%20%20%20height%3A%201.1em%3B%0A%20%20%20%20border%3A%201.5px%20solid%20var(--border-hover-color)%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20transform%3A%20translateY(-0.075em)%3B%0A%20%20%20%20display%3A%20inline-grid%3B%0A%20%20%20%20place-content%3A%20center%3B%0A%20%20%20%20margin-left%3A%200.5em%3B%0A%20%20%20%20margin-right%3A%200.5em%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20border-color%200.15s%20ease%2C%20background-color%200.15s%20ease%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Achecked%20%7B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Achecked%3A%3Abefore%20%7B%0A%20%20%20%20content%3A%20''%3B%0A%20%20%20%20width%3A%200.65em%3B%0A%20%20%20%20height%3A%200.65em%3B%0A%20%20%20%20clip-path%3A%20polygon(14%25%2044%25%2C%200%25%2070%25%2C%2050%25%20100%25%2C%20100%25%2028%25%2C%2085%25%2014%25%2C%2050%25%2068%25)%3B%0A%20%20%20%20background-color%3A%20white%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Ahover%20%7B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.button-bar%20button%20%7B%0A%20%20%20%20padding%3A%2010px%2016px%3B%0A%20%20%20%20font-size%3A%200.95rem%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.2s%20ease%2C%20transform%200.1s%20ease%2C%20box-shadow%200.2s%20ease%3B%0A%7D%0A%0A.button-bar%20button%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.button-bar%20button%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%7D%0A%0A.button-bar%20button%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0A.content-area%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20calc(100%25%20-%2060px)%3B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20padding-left%3A%200%3B%0A%20%20%20%20gap%3A%2014px%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A%23entry-list%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2022%25%3B%0A%20%20%20%20max-width%3A%20260px%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.entry-item%3Ahover%2C%20.button-bar%20button%3Ahover%20%7B%0A%20%20%20%20transition%3A%20box-shadow%200.2s%20ease%2C%20background-color%200.2s%20ease%2C%20border-color%200.2s%20ease%3B%0A%7D%0A%0A%23entry-content%20%7B%0A%20%20%20%20flex-grow%3A%201%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A.top-pane%20%7B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%7D%0A%0A.entry-item%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding%3A%2010px%2012px%3B%0A%20%20%20%20margin-bottom%3A%208px%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20box-shadow%200.2s%20ease%2C%20border-color%200.2s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.entry-item%3Ahover%20%7B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%20%20%20%20border-color%3A%20var(--border-hover-color)%3B%0A%7D%0A%0A.entry-item.active%20%7B%0A%20%20%20%20border%3A%202px%20solid%20var(--active-border-color)%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A%23entry-content-storage%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A.split-vertical%2C%20.split-horizontal%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%7D%0A%0A.split-horizontal%20%7B%0A%20%20%20%20flex-direction%3A%20row%3B%0A%7D%0A%0A.split-vertical%20%3E%20.entry-pane%2C%0A.split-horizontal%20%3E%20.entry-pane%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.pane-title%20%7B%0A%20%20%20%20background-color%3A%20var(--pane-title-background)%3B%0A%20%20%20%20padding%3A%2012px%2016px%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20cursor%3A%20grab%3B%0A%20%20%20%20border-top-left-radius%3A%20var(--radius-md)%3B%0A%20%20%20%20border-top-right-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.pane-title%3Aactive%20%7B%0A%20%20%20%20cursor%3A%20grabbing%3B%0A%7D%0A%0A.entry-pane%20%7B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-md)%3B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.bg-color-picker-icon%20%7B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20bottom%3A%2010px%3B%0A%20%20%20%20right%3A%2010px%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%20%20%20%20padding%3A%204px%3B%0A%7D%0A%0A.entry-pane%20%3E%20div%5Bcontenteditable%3D%22true%22%5D%20%7B%0A%20%20%20%20padding%3A%2018px%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20height%3A%20calc(100%25%20-%2050px)%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A.entry-pane%20%3E%20div%5Bcontenteditable%3D%22true%22%5D%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar%20%7B%0A%20%20%20%20width%3A%2010px%3B%0A%20%20%20%20height%3A%2010px%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-track%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-thumb%20%7B%0A%20%20%20%20background%3A%20var(--border-hover-color)%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20border%3A%202px%20solid%20transparent%3B%0A%20%20%20%20background-clip%3A%20padding-box%3B%0A%7D%0A%0A*%20%7B%0A%20%20%20%20scrollbar-width%3A%20thin%3B%0A%20%20%20%20scrollbar-color%3A%20var(--border-hover-color)%20transparent%3B%0A%7D%0A%0A%40media%20screen%20and%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.content-area%20%7B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-list%2C%20%23entry-content%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20height%3A%20auto%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.button-bar%20button%20%7B%0A%20%20%20%20%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20margin%3A%205px%200%3B%0A%20%20%20%20%7D%0A%7D%0A    </style>
+%3Aroot%20%7B%0A%20%20%20%20--primary%3A%20%236366f1%3B%0A%20%20%20%20--primary-hover%3A%20%234f46e5%3B%0A%20%20%20%20--primary-soft%3A%20%23eef2ff%3B%0A%20%20%20%20--danger%3A%20%23ef4444%3B%0A%20%20%20%20--danger-hover%3A%20%23dc2626%3B%0A%20%20%20%20--danger-soft%3A%20%23fef2f2%3B%0A%20%20%20%20--bg%3A%20%23f1f5f9%3B%0A%20%20%20%20--sidebar-bg%3A%20%23f8fafc%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--text%3A%20%230f172a%3B%0A%20%20%20%20--text-muted%3A%20%2364748b%3B%0A%20%20%20%20--text-faint%3A%20%2394a3b8%3B%0A%20%20%20%20--border%3A%20%23e2e8f0%3B%0A%20%20%20%20--border-hover%3A%20%23cbd5e1%3B%0A%20%20%20%20--radius-sm%3A%206px%3B%0A%20%20%20%20--radius-md%3A%2010px%3B%0A%20%20%20%20--radius-lg%3A%2014px%3B%0A%20%20%20%20--radius-full%3A%20999px%3B%0A%20%20%20%20--shadow-sm%3A%200%201px%202px%20rgba(15%2C%2023%2C%2042%2C%200.06)%3B%0A%20%20%20%20--shadow-md%3A%200%204px%2016px%20rgba(15%2C%2023%2C%2042%2C%200.10)%3B%0A%20%20%20%20--shadow-lg%3A%200%2016px%2040px%20rgba(15%2C%2023%2C%2042%2C%200.18)%3B%0A%7D%0A%0A%40media%20(prefers-color-scheme%3A%20dark)%20%7B%0A%20%20%20%20%3Aroot%20%7B%0A%20%20%20%20%20%20%20%20--primary%3A%20%23818cf8%3B%0A%20%20%20%20%20%20%20%20--primary-hover%3A%20%23a5b4fc%3B%0A%20%20%20%20%20%20%20%20--primary-soft%3A%20%23262a45%3B%0A%20%20%20%20%20%20%20%20--danger%3A%20%23f87171%3B%0A%20%20%20%20%20%20%20%20--danger-hover%3A%20%23fca5a5%3B%0A%20%20%20%20%20%20%20%20--danger-soft%3A%20%232a1a1c%3B%0A%20%20%20%20%20%20%20%20--bg%3A%20%230b0d14%3B%0A%20%20%20%20%20%20%20%20--sidebar-bg%3A%20%2312141c%3B%0A%20%20%20%20%20%20%20%20--surface%3A%20%23181b26%3B%0A%20%20%20%20%20%20%20%20--text%3A%20%23e5e7eb%3B%0A%20%20%20%20%20%20%20%20--text-muted%3A%20%239aa1b4%3B%0A%20%20%20%20%20%20%20%20--text-faint%3A%20%236b7280%3B%0A%20%20%20%20%20%20%20%20--border%3A%20%23262a38%3B%0A%20%20%20%20%20%20%20%20--border-hover%3A%20%23384055%3B%0A%20%20%20%20%20%20%20%20--shadow-sm%3A%200%201px%202px%20rgba(0%2C%200%2C%200%2C%200.3)%3B%0A%20%20%20%20%20%20%20%20--shadow-md%3A%200%204px%2016px%20rgba(0%2C%200%2C%200%2C%200.4)%3B%0A%20%20%20%20%20%20%20%20--shadow-lg%3A%200%2016px%2040px%20rgba(0%2C%200%2C%200%2C%200.55)%3B%0A%20%20%20%20%7D%0A%7D%0A%0A*%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20box-sizing%3A%20border-box%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20font-family%3A%20-apple-system%2C%20BlinkMacSystemFont%2C%20'Segoe%20UI'%2C%20Roboto%2C%20Helvetica%2C%20Arial%2C%20sans-serif%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20line-height%3A%201.6%3B%0A%20%20%20%20background-color%3A%20var(--bg)%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20height%3A%20100vh%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0Abutton%20%7B%0A%20%20%20%20font-family%3A%20inherit%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20color%3A%20var(--primary)%3B%0A%7D%0A%0A%2F*%20Top%20bar%20*%2F%0A%0A.top-bar%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20flex-end%3B%0A%20%20%20%20height%3A%2048px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20var(--border)%3B%0A%7D%0A%0A.top-bar-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A%2F*%20Icon%20buttons%20(shared)%20*%2F%0A%0A.icon-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20width%3A%2032px%3B%0A%20%20%20%20height%3A%2032px%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20color%3A%20var(--text-muted)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.15s%20ease%2C%20color%200.15s%20ease%3B%0A%7D%0A%0A.icon-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.14)%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%7D%0A%0A.icon-btn%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.icon-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2018px%3B%0A%20%20%20%20height%3A%2018px%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0A%2F*%20Edge%20toggles%20*%2F%0A%0A.edge-toggle%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border)%3B%0A%20%20%20%20color%3A%20var(--text-faint)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20color%200.15s%20ease%2C%20background-color%200.15s%20ease%3B%0A%7D%0A%0A.edge-toggle%3Ahover%20%7B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20background-color%3A%20var(--sidebar-bg)%3B%0A%7D%0A%0A.edge-toggle%20.icon%20%7B%0A%20%20%20%20width%3A%2014px%3B%0A%20%20%20%20height%3A%2014px%3B%0A%7D%0A%0A.edge-toggle-vertical%20%7B%0A%20%20%20%20align-self%3A%20center%3B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2044px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-full)%3B%0A%20%20%20%20margin%3A%200%20-8px%3B%0A%20%20%20%20z-index%3A%205%3B%0A%7D%0A%0A.edge-toggle-horizontal%20%7B%0A%20%20%20%20align-self%3A%20center%3B%0A%20%20%20%20width%3A%2044px%3B%0A%20%20%20%20height%3A%2014px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-full)%3B%0A%20%20%20%20margin%3A%20-7px%200%3B%0A%20%20%20%20z-index%3A%205%3B%0A%7D%0A%0A%2F*%20Layout%20*%2F%0A%0A.content-area%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A%2F*%20Sidebar%20*%2F%0A%0A.sidebar%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%20280px%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20background-color%3A%20var(--sidebar-bg)%3B%0A%20%20%20%20border-right%3A%201px%20solid%20var(--border)%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A.sidebar-header%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding%3A%2014px%2016px%204px%3B%0A%7D%0A%0A.app-name%20%7B%0A%20%20%20%20font-size%3A%200.8rem%3B%0A%20%20%20%20font-weight%3A%20700%3B%0A%20%20%20%20letter-spacing%3A%200.04em%3B%0A%20%20%20%20text-transform%3A%20uppercase%3B%0A%20%20%20%20color%3A%20var(--text-faint)%3B%0A%7D%0A%0A.new-note-btn%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20margin%3A%2010px%2014px%3B%0A%20%20%20%20padding%3A%209px%2014px%3B%0A%20%20%20%20background-color%3A%20var(--primary)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%20%20%20%20font-size%3A%200.9rem%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.15s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.new-note-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--primary-hover)%3B%0A%7D%0A%0A.new-note-btn%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0A.new-note-btn%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.new-note-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.entry-list%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%204px%2010px%2014px%3B%0A%7D%0A%0A%2F*%20Sidebar%20entry%20rows%20*%2F%0A%0A.entry-item%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20flex-start%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20padding%3A%209px%208px%3B%0A%20%20%20%20margin-bottom%3A%202px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20transition%3A%20background-color%200.15s%20ease%3B%0A%7D%0A%0A.entry-item%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.10)%3B%0A%7D%0A%0A.entry-item.active%20%7B%0A%20%20%20%20background-color%3A%20var(--primary-soft)%3B%0A%7D%0A%0A.entry-item.active%3A%3Abefore%20%7B%0A%20%20%20%20content%3A%20''%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%20-10px%3B%0A%20%20%20%20top%3A%208px%3B%0A%20%20%20%20bottom%3A%208px%3B%0A%20%20%20%20width%3A%203px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-full)%3B%0A%20%20%20%20background-color%3A%20var(--primary)%3B%0A%7D%0A%0A.entry-item.dragging%20%7B%0A%20%20%20%20opacity%3A%200.5%3B%0A%7D%0A%0A.entry-item.drag-over%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%202px%200%200%20var(--primary)%3B%0A%7D%0A%0A.color-dot%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2012px%3B%0A%20%20%20%20height%3A%2012px%3B%0A%20%20%20%20margin-top%3A%204px%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20border%3A%201.5px%20solid%20rgba(100%2C%20116%2C%20139%2C%200.35)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20transform%200.1s%20ease%3B%0A%7D%0A%0A.color-dot%3Ahover%20%7B%0A%20%20%20%20transform%3A%20scale(1.15)%3B%0A%7D%0A%0A.color-dot%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.color-dot-empty%20%7B%0A%20%20%20%20border-style%3A%20dashed%3B%0A%20%20%20%20background-color%3A%20transparent%20!important%3B%0A%7D%0A%0A.entry-item-text%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20gap%3A%201px%3B%0A%7D%0A%0A.entry-item-title%20%7B%0A%20%20%20%20font-size%3A%200.9rem%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.entry-item.active%20.entry-item-title%20%7B%0A%20%20%20%20color%3A%20var(--primary-hover)%3B%0A%7D%0A%0A.entry-item-title-input%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20font-size%3A%200.9rem%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20font-family%3A%20inherit%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--primary)%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%201px%204px%3B%0A%7D%0A%0A.entry-item-title-input%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.entry-item-preview%20%7B%0A%20%20%20%20font-size%3A%200.78rem%3B%0A%20%20%20%20color%3A%20var(--text-faint)%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.delete-btn%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20width%3A%2026px%3B%0A%20%20%20%20height%3A%2026px%3B%0A%7D%0A%0A.entry-item%3Ahover%20.delete-btn%2C%0A.entry-item%3Afocus-within%20.delete-btn%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%7D%0A%0A.delete-btn%3Ahover%20%7B%0A%20%20%20%20opacity%3A%201%20!important%3B%0A%20%20%20%20background-color%3A%20var(--danger-soft)%3B%0A%20%20%20%20color%3A%20var(--danger)%3B%0A%7D%0A%0A%2F*%20Editor%20*%2F%0A%0A.editor%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20background-color%3A%20var(--bg)%3B%0A%7D%0A%0A.split-vertical%2C%20.split-horizontal%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20gap%3A%2016px%3B%0A%7D%0A%0A.split-horizontal%20%7B%0A%20%20%20%20flex-direction%3A%20row%3B%0A%7D%0A%0A.entry-pane%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20background-color%3A%20var(--surface)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-lg)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A.entry-pane.dragging%20%7B%0A%20%20%20%20opacity%3A%200.5%3B%0A%7D%0A%0A.entry-pane.drag-over%20%7B%0A%20%20%20%20outline%3A%202px%20dashed%20var(--primary)%3B%0A%20%20%20%20outline-offset%3A%20-2px%3B%0A%7D%0A%0A.pane-title%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20padding%3A%2014px%2018px%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20var(--border)%3B%0A%20%20%20%20cursor%3A%20grab%3B%0A%7D%0A%0A.pane-title%3Aactive%20%7B%0A%20%20%20%20cursor%3A%20grabbing%3B%0A%7D%0A%0A.pane-color-dot%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2012px%3B%0A%20%20%20%20height%3A%2012px%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20border%3A%201.5px%20solid%20rgba(100%2C%20116%2C%20139%2C%200.35)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.pane-color-dot%3Ahover%20%7B%0A%20%20%20%20transform%3A%20scale(1.15)%3B%0A%7D%0A%0A.pane-title-text%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20font-size%3A%201.3rem%3B%0A%20%20%20%20font-weight%3A%20650%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%20%20%20%20cursor%3A%20text%3B%0A%7D%0A%0A.pane-title-input%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20font-size%3A%201.3rem%3B%0A%20%20%20%20font-weight%3A%20650%3B%0A%20%20%20%20font-family%3A%20inherit%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-bottom%3A%202px%20solid%20var(--primary)%3B%0A%20%20%20%20padding%3A%200%200%202px%3B%0A%7D%0A%0A.pane-title-input%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.pane-title-actions%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A.content-editable%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20padding%3A%2022px%2026px%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20line-height%3A%201.7%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20background-color%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%7D%0A%0A.content-editable%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.bg-color-picker-icon%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20bottom%3A%2014px%3B%0A%20%20%20%20right%3A%2014px%3B%0A%20%20%20%20width%3A%2022px%3B%0A%20%20%20%20height%3A%2022px%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20border%3A%201.5px%20solid%20rgba(100%2C%20116%2C%20139%2C%200.35)%3B%0A%20%20%20%20background-color%3A%20var(--surface)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.bg-color-picker-icon%3Ahover%20%7B%0A%20%20%20%20transform%3A%20scale(1.1)%3B%0A%7D%0A%0A%2F*%20Checkboxes%20*%2F%0A%0Ainput%5Btype%3D'checkbox'%5D%20%7B%0A%20%20%20%20-webkit-appearance%3A%20none%3B%0A%20%20%20%20-moz-appearance%3A%20none%3B%0A%20%20%20%20appearance%3A%20none%3B%0A%20%20%20%20background-color%3A%20var(--surface)%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20width%3A%201.1em%3B%0A%20%20%20%20height%3A%201.1em%3B%0A%20%20%20%20border%3A%201.5px%20solid%20var(--border-hover)%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20transform%3A%20translateY(-0.075em)%3B%0A%20%20%20%20display%3A%20inline-grid%3B%0A%20%20%20%20place-content%3A%20center%3B%0A%20%20%20%20margin-left%3A%200.5em%3B%0A%20%20%20%20margin-right%3A%200.5em%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20border-color%200.15s%20ease%2C%20background-color%200.15s%20ease%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Achecked%20%7B%0A%20%20%20%20background-color%3A%20var(--primary)%3B%0A%20%20%20%20border-color%3A%20var(--primary)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Achecked%3A%3Abefore%20%7B%0A%20%20%20%20content%3A%20''%3B%0A%20%20%20%20width%3A%200.65em%3B%0A%20%20%20%20height%3A%200.65em%3B%0A%20%20%20%20clip-path%3A%20polygon(14%25%2044%25%2C%200%25%2070%25%2C%2050%25%20100%25%2C%20100%25%2028%25%2C%2085%25%2014%25%2C%2050%25%2068%25)%3B%0A%20%20%20%20background-color%3A%20white%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Ahover%20%7B%0A%20%20%20%20border-color%3A%20var(--primary)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A%2F*%20Modal%20(delete%20confirm)%20*%2F%0A%0A.modal%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20background-color%3A%20rgba(15%2C%2023%2C%2042%2C%200.5)%3B%0A%20%20%20%20backdrop-filter%3A%20blur(2px)%3B%0A%20%20%20%20z-index%3A%202000%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%7D%0A%0A.modal-content%20%7B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20padding%3A%2022px%2024px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-lg)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-lg)%3B%0A%20%20%20%20max-width%3A%2090%25%3B%0A%20%20%20%20width%3A%20380px%3B%0A%7D%0A%0A.modal-content%20p%20%7B%0A%20%20%20%20font-size%3A%200.95rem%3B%0A%20%20%20%20line-height%3A%201.5%3B%0A%7D%0A%0A.modal-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20flex-end%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20margin-top%3A%2018px%3B%0A%7D%0A%0A.modal-actions%20button%20%7B%0A%20%20%20%20padding%3A%208px%2016px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20font-size%3A%200.9rem%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.15s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.modal-actions%20button%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0A.cancel-btn%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.15)%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%7D%0A%0A.cancel-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.25)%3B%0A%7D%0A%0A.danger-btn%20%7B%0A%20%20%20%20background-color%3A%20var(--danger)%3B%0A%20%20%20%20color%3A%20white%3B%0A%7D%0A%0A.danger-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--danger-hover)%3B%0A%7D%0A%0A%2F*%20Help%20overlay%20*%2F%0A%0A.help-overlay%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20background-color%3A%20rgba(15%2C%2023%2C%2042%2C%200.55)%3B%0A%20%20%20%20backdrop-filter%3A%20blur(2px)%3B%0A%20%20%20%20z-index%3A%202000%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding%3A%2020px%3B%0A%7D%0A%0A.help-card%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%20%20%20%20padding%3A%2032px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-lg)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-lg)%3B%0A%20%20%20%20max-width%3A%20560px%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max-height%3A%2085vh%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A.help-card%20h2%20%7B%0A%20%20%20%20font-size%3A%201.3rem%3B%0A%20%20%20%20margin-bottom%3A%2016px%3B%0A%7D%0A%0A.help-card%20ul%20%7B%0A%20%20%20%20list-style%3A%20none%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%7D%0A%0A.help-card%20li%20%7B%0A%20%20%20%20font-size%3A%200.92rem%3B%0A%20%20%20%20line-height%3A%201.55%3B%0A%20%20%20%20color%3A%20var(--text-muted)%3B%0A%7D%0A%0A.help-card%20li%20strong%20%7B%0A%20%20%20%20color%3A%20var(--text)%3B%0A%7D%0A%0A.help-footer%20%7B%0A%20%20%20%20margin-top%3A%2020px%3B%0A%20%20%20%20padding-top%3A%2016px%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--border)%3B%0A%20%20%20%20font-size%3A%200.85rem%3B%0A%20%20%20%20color%3A%20var(--text-faint)%3B%0A%7D%0A%0A.help-close%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%2014px%3B%0A%20%20%20%20right%3A%2014px%3B%0A%7D%0A%0A%2F*%20Scrollbars%20*%2F%0A%0A%3A%3A-webkit-scrollbar%20%7B%0A%20%20%20%20width%3A%2010px%3B%0A%20%20%20%20height%3A%2010px%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-track%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-thumb%20%7B%0A%20%20%20%20background%3A%20var(--border-hover)%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20border%3A%202px%20solid%20transparent%3B%0A%20%20%20%20background-clip%3A%20padding-box%3B%0A%7D%0A%0A*%20%7B%0A%20%20%20%20scrollbar-width%3A%20thin%3B%0A%20%20%20%20scrollbar-color%3A%20var(--border-hover)%20transparent%3B%0A%7D%0A%0A%2F*%20Responsive%20*%2F%0A%0A%40media%20screen%20and%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.content-area%20%7B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20max-height%3A%2040%25%3B%0A%20%20%20%20%20%20%20%20border-right%3A%20none%3B%0A%20%20%20%20%20%20%20%20border-bottom%3A%201px%20solid%20var(--border)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.edge-toggle-vertical%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.editor%20%7B%0A%20%20%20%20%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.pane-title-text%2C%20.pane-title-input%20%7B%0A%20%20%20%20%20%20%20%20font-size%3A%201.1rem%3B%0A%20%20%20%20%7D%0A%7D%0A    </style>
 </head>
 <body>
-    <div class="top-pane">
-        <input id="entry-title" type="text" placeholder="Create new entry here...">
-        <div class="button-bar">
-            <button id="save-button" type="button">Save as txt file</button>
-            <button id="save-db-button" type="button">Save Database</button>
-            <button id="load-db-button" type="button">Load Database</button>
-        </div>
+    <div class="top-bar">
+        <div class="top-bar-actions"></div>
     </div>
     <div class="content-area">
-        <div id="entry-list"></div>
-        <div id="entry-content"></div>
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="app-name">Notes</span>
+            </div>
+            <button id="new-entry-button" class="new-note-btn" type="button"></button>
+            <div id="entry-list" class="entry-list"></div>
+        </aside>
+        <div id="entry-content" class="editor"></div>
     </div>
     <textarea id="entry-content-storage" style="display:none;"></textarea>
     <input id="file-input" type="file" style="display: none;">
     <script type="text/javascript">
+        function svgEl(tag, attrs) {
+            var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+            for (var key in attrs) {
+                el.setAttribute(key, attrs[key]);
+            }
+            return el;
+        }
+
+        function createIcon(children) {
+            var svg = svgEl('svg', {
+                viewBox: '0 0 24 24',
+                width: '18',
+                height: '18',
+                fill: 'none',
+                stroke: 'currentColor',
+                'stroke-width': '2',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round'
+            });
+            svg.classList.add('icon');
+            children.forEach(function(child) {
+                svg.appendChild(svgEl(child.tag, child.attrs));
+            });
+            return svg;
+        }
+
+        var ICONS = {
+            plus: [
+                { tag: 'line', attrs: { x1: 12, y1: 5, x2: 12, y2: 19 } },
+                { tag: 'line', attrs: { x1: 5, y1: 12, x2: 19, y2: 12 } }
+            ],
+            trash: [
+                { tag: 'polyline', attrs: { points: '4 7 20 7' } },
+                { tag: 'path', attrs: { d: 'M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13' } },
+                { tag: 'path', attrs: { d: 'M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3' } },
+                { tag: 'line', attrs: { x1: 10, y1: 11, x2: 10, y2: 17 } },
+                { tag: 'line', attrs: { x1: 14, y1: 11, x2: 14, y2: 17 } }
+            ],
+            chevronLeft: [{ tag: 'polyline', attrs: { points: '15 18 9 12 15 6' } }],
+            chevronRight: [{ tag: 'polyline', attrs: { points: '9 18 15 12 9 6' } }],
+            chevronUp: [{ tag: 'polyline', attrs: { points: '18 15 12 9 6 15' } }],
+            chevronDown: [{ tag: 'polyline', attrs: { points: '6 9 12 15 18 9' } }],
+            help: [
+                { tag: 'circle', attrs: { cx: 12, cy: 12, r: 10 } },
+                { tag: 'path', attrs: { d: 'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3' } },
+                { tag: 'line', attrs: { x1: 12, y1: 17, x2: 12.01, y2: 17 } }
+            ],
+            close: [
+                { tag: 'line', attrs: { x1: 18, y1: 6, x2: 6, y2: 18 } },
+                { tag: 'line', attrs: { x1: 6, y1: 6, x2: 18, y2: 18 } }
+            ],
+            fileText: [
+                { tag: 'path', attrs: { d: 'M14 3v4a1 1 0 0 0 1 1h4' } },
+                { tag: 'path', attrs: { d: 'M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z' } },
+                { tag: 'line', attrs: { x1: 9, y1: 13, x2: 15, y2: 13 } },
+                { tag: 'line', attrs: { x1: 9, y1: 17, x2: 13, y2: 17 } }
+            ],
+            download: [
+                { tag: 'path', attrs: { d: 'M12 3v12' } },
+                { tag: 'polyline', attrs: { points: '7 10 12 15 17 10' } },
+                { tag: 'path', attrs: { d: 'M5 19h14' } }
+            ],
+            upload: [
+                { tag: 'path', attrs: { d: 'M12 21V9' } },
+                { tag: 'polyline', attrs: { points: '7 14 12 9 17 14' } },
+                { tag: 'path', attrs: { d: 'M5 5h14' } }
+            ]
+        };
+
+        var DEFAULT_COLOR = '%23ffffff';
+
         function changeFavicon(url) {
             var link = document.createElement('link'),
                 oldLink = document.querySelector('link[rel="shortcut icon"]') || document.querySelector('link[rel="icon"]');
@@ -32,28 +104,21 @@ data:text/html,<html>
             document.head.appendChild(link);
         }
 
-        function createToggleButton(text, orientation) {
+        function createToggleButton(iconPaths, orientationClass) {
             var button = document.createElement('button');
-            button.textContent = text;
-            button.style.cursor = 'pointer';
-            button.style.padding = '1px';
+            button.type = 'button';
+            button.className = 'edge-toggle ' + orientationClass;
+            button.appendChild(createIcon(iconPaths));
+            return button;
+        }
 
-            button.style.border = '1px solid %23ccc';
-            button.style.backgroundColor = '%23f9f9f9';
-
-            if (orientation === 'horizontal') {
-                button.style.width = '100%';
-                button.style.marginTop = '-14px';
-                button.style.zIndex = '99999';
-                button.style.marginBottom = '-20px';
-                button.style.height = '0.9em';
-            } else {
-                button.style.height = '100%';
-                button.style.display = 'block';
-                button.style.zIndex = '99998';
-                button.style.marginRight = '-10px';
-            }
-
+        function createIconButton(iconPaths, label) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'icon-btn';
+            button.title = label;
+            button.setAttribute('aria-label', label);
+            button.appendChild(createIcon(iconPaths));
             return button;
         }
 
@@ -71,6 +136,7 @@ data:text/html,<html>
                             checkbox.parentNode.replaceChild(textNode, checkbox);
                         });
                         entries[entryIndex].content = clone.innerHTML;
+                        updateEntryPreview(entries[entryIndex]);
                     }
                 }
             });
@@ -103,7 +169,6 @@ data:text/html,<html>
                 console.error('Error parsing entries:', e);
             }
         }
-        
 
         function ensureDivWrapper(contentEditableDiv) {
             var htmlContent = contentEditableDiv.innerHTML.trim();
@@ -111,21 +176,19 @@ data:text/html,<html>
                 contentEditableDiv.innerHTML = "<div><br></div>";
             }
         }
-        
+
         function addNewEntry(title) {
-            var defaultBackgroundColor = '%23ffffff';
             var newEntry = {
                 id: nextEntryId++,
                 title: title,
                 content: "",
-                titleBarColor: defaultBackgroundColor,
-                contentBackgroundColor: defaultBackgroundColor
+                titleBarColor: DEFAULT_COLOR,
+                contentBackgroundColor: DEFAULT_COLOR
             };
             entries.push(newEntry);
             saveEntries();
             return newEntry;
         }
-        
 
         function reorderEntries(sourceIndex, targetIndex) {
             if (sourceIndex === targetIndex) return;
@@ -133,14 +196,6 @@ data:text/html,<html>
             entries.splice(targetIndex, 0, movedItem);
             updateEntryList();
             saveEntries();
-
-            document.querySelectorAll('.entry-item').forEach((item, index) => {
-                const entry = entries[index];
-                if (entry.titleBarColor) {
-                    item.style.backgroundColor = entry.titleBarColor;
-                    item.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-                }
-            });
         }
 
         function addDragAndDropVisuals() {
@@ -160,6 +215,111 @@ data:text/html,<html>
             });
         }
 
+        function getContentPreview(html) {
+            if (!html) return '';
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            var text = (tempDiv.textContent || '').replace(/\s+/g, ' ').trim();
+            if (!text) return '';
+            return text.length > 64 ? text.slice(0, 64) + '...' : text;
+        }
+
+        function updateEntryPreview(entry) {
+            var idx = entries.indexOf(entry);
+            if (idx === -1) return;
+            var row = entryList.querySelector('.entry-item[data-index="' + idx + '"]');
+            if (!row) return;
+            var previewEl = row.querySelector('.entry-item-preview');
+            var preview = getContentPreview(entry.content);
+            if (preview && previewEl) {
+                previewEl.textContent = preview;
+            } else if (preview && !previewEl) {
+                previewEl = document.createElement('span');
+                previewEl.className = 'entry-item-preview';
+                previewEl.textContent = preview;
+                row.querySelector('.entry-item-text').appendChild(previewEl);
+            } else if (!preview && previewEl) {
+                previewEl.remove();
+            }
+        }
+
+        function applyColorDotStyle(dotEl, color) {
+            var isDefault = !color || color.toLowerCase() === DEFAULT_COLOR.toLowerCase();
+            if (isDefault) {
+                dotEl.style.backgroundColor = 'transparent';
+                dotEl.classList.add('color-dot-empty');
+            } else {
+                dotEl.style.backgroundColor = color;
+                dotEl.classList.remove('color-dot-empty');
+            }
+        }
+
+        function applyContentBackground(contentDiv, color) {
+            var isDefault = !color || color.toLowerCase() === DEFAULT_COLOR.toLowerCase();
+            if (isDefault) {
+                contentDiv.style.backgroundColor = '';
+                contentDiv.style.color = '';
+            } else {
+                contentDiv.style.backgroundColor = color;
+                contentDiv.style.color = isColorLight(color) ? 'black' : 'white';
+            }
+        }
+
+        function syncEntryColorUI(entry) {
+            var idx = entries.indexOf(entry);
+            if (idx !== -1) {
+                var sidebarDot = entryList.querySelector('.entry-item[data-index="' + idx + '"] .color-dot');
+                if (sidebarDot) applyColorDotStyle(sidebarDot, entry.titleBarColor);
+            }
+            document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"]').forEach(function(pane) {
+                var titleDot = pane.querySelector('.pane-color-dot');
+                if (titleDot) applyColorDotStyle(titleDot, entry.titleBarColor);
+                var contentDiv = pane.querySelector('.content-editable');
+                if (contentDiv) applyContentBackground(contentDiv, entry.contentBackgroundColor);
+                var bgDot = pane.querySelector('.bg-color-picker-icon');
+                if (bgDot) applyColorDotStyle(bgDot, entry.contentBackgroundColor);
+            });
+        }
+
+        function attachInlineRename(entry, spanEl, inputEl, draggableToggleEl, onAfterCommit) {
+            function enterEditMode(event) {
+                if (event) event.stopPropagation();
+                inputEl.value = entry.title;
+                spanEl.style.display = 'none';
+                inputEl.style.display = '';
+                if (draggableToggleEl) draggableToggleEl.draggable = false;
+                inputEl.focus();
+                inputEl.select();
+            }
+            function exitEditMode() {
+                var newTitle = inputEl.value.trim();
+                if (newTitle && newTitle !== entry.title) {
+                    entry.title = newTitle;
+                    saveEntries();
+                }
+                spanEl.textContent = entry.title;
+                inputEl.style.display = 'none';
+                spanEl.style.display = '';
+                if (draggableToggleEl) draggableToggleEl.draggable = true;
+                if (onAfterCommit) onAfterCommit();
+            }
+            spanEl.ondblclick = enterEditMode;
+            inputEl.addEventListener('blur', exitEditMode);
+            inputEl.addEventListener('click', function(e) { e.stopPropagation(); });
+            inputEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    inputEl.blur();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    inputEl.value = entry.title;
+                    inputEl.blur();
+                }
+            });
+            return { enter: enterEditMode };
+        }
+
         function updateEntryList() {
             var entryListContainer = document.createElement("div");
             entries.forEach(function(entry, index) {
@@ -167,41 +327,70 @@ data:text/html,<html>
                 e.className = "entry-item";
                 e.setAttribute('data-index', index.toString());
                 e.draggable = true;
-        
-                if (entry.titleBarColor && entry.titleBarColor !== 'default') {
-                    e.style.backgroundColor = entry.titleBarColor;
-                    e.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-                }
-        
+
                 e.ondragstart = function(event) {
                     event.dataTransfer.setData("text/index", index.toString());
                 };
-        
+
                 e.ondragover = function(event) {
                     event.preventDefault();
                 };
-        
+
                 e.ondrop = function(event) {
                     event.preventDefault();
                     var sourceIndex = event.dataTransfer.getData("text/index");
-                    var targetIndex = index;
-                    reorderEntries(parseInt(sourceIndex), parseInt(targetIndex));
+                    reorderEntries(parseInt(sourceIndex), index);
                 };
-        
-                var textSpan = document.createElement("span");
-                textSpan.textContent = entry.title;
-                e.ondblclick = function(event) {
+
+                var colorDot = document.createElement("button");
+                colorDot.type = "button";
+                colorDot.className = "color-dot color-btn";
+                colorDot.title = "Note color";
+                colorDot.setAttribute('aria-label', 'Note color');
+                applyColorDotStyle(colorDot, entry.titleBarColor);
+                colorDot.onclick = function(event) {
                     event.stopPropagation();
-                    showRenameModal(entry, updateEntryList);
+                    showColorPicker(entry, false, function() { syncEntryColorUI(entry); });
                 };
-                e.appendChild(textSpan);
-        
-                var deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "X";
-                deleteBtn.className = "delete-btn";
+                e.appendChild(colorDot);
+
+                var textWrap = document.createElement("div");
+                textWrap.className = "entry-item-text";
+
+                var titleSpan = document.createElement("span");
+                titleSpan.className = "entry-item-title";
+                titleSpan.title = "Double-click to rename";
+                titleSpan.textContent = entry.title;
+
+                var titleInput = document.createElement("input");
+                titleInput.type = "text";
+                titleInput.className = "entry-item-title-input";
+                titleInput.style.display = "none";
+
+                attachInlineRename(entry, titleSpan, titleInput, e, function() {
+                    document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"] .pane-title-text').forEach(function(el) {
+                        el.textContent = entry.title;
+                    });
+                });
+
+                textWrap.appendChild(titleSpan);
+                textWrap.appendChild(titleInput);
+
+                var preview = getContentPreview(entry.content);
+                if (preview) {
+                    var previewSpan = document.createElement("span");
+                    previewSpan.className = "entry-item-preview";
+                    previewSpan.textContent = preview;
+                    textWrap.appendChild(previewSpan);
+                }
+
+                e.appendChild(textWrap);
+
+                var deleteBtn = createIconButton(ICONS.trash, "Delete note");
+                deleteBtn.className += " delete-btn";
                 deleteBtn.onclick = function(event) {
                     event.stopPropagation();
-                    showModal("Are you sure you want to delete this note?", function() {
+                    showModal('Delete "' + entry.title + '"? This cannot be undone.', function() {
                         entries.splice(index, 1);
                         if (current === index) {
                             current = -1;
@@ -215,37 +404,28 @@ data:text/html,<html>
                         saveEntries();
                     });
                 };
-        
-                var colorBtn = createColorPickerIcon();
-                colorBtn.classList.add("color-btn");
-                colorBtn.onclick = function(event) {
-                    event.stopPropagation();
-                    showColorPicker(e, entry, false);
-                };
-        
-                var buttonContainer = document.createElement("div");
-                buttonContainer.className = "button-container";
-                buttonContainer.appendChild(colorBtn);
-                buttonContainer.appendChild(deleteBtn);
-                e.appendChild(buttonContainer);
-        
+                e.appendChild(deleteBtn);
+
                 if (index === current) {
                     e.classList.add("active");
                     entryContent.classList.add('active');
                 }
-        
-                e.onclick = function() {
+
+                e.onclick = function(event) {
+                    if (event.detail > 1) return;
+                    var prevActive = entryList.querySelector('.entry-item.active');
+                    if (prevActive) prevActive.classList.remove('active');
                     current = index;
+                    e.classList.add('active');
                     clearAndLoadEntry(entries[index]);
-                    updateEntryList();
                 };
-        
+
                 entryListContainer.appendChild(e);
             });
             entryList.innerHTML = '';
             entryList.appendChild(entryListContainer);
         }
-        
+
         function isColorLight(color) {
             if (color.startsWith('%23')) {
                 color = color.substring(1);
@@ -257,48 +437,41 @@ data:text/html,<html>
             return yiq >= 128;
         }
 
-        function showColorPicker(entryElement, entry, isBackgroundColor) {
+        function showColorPicker(entry, isBackgroundColor, onChange) {
             var colorPicker = document.createElement("input");
             colorPicker.type = "color";
-            colorPicker.value = "%23ffffff";
-            colorPicker.style.display = 'block';
-            colorPicker.style.position = 'absolute';
-            colorPicker.style.left = '50%';
-            colorPicker.style.top = '50%';
+            colorPicker.value = (isBackgroundColor ? entry.contentBackgroundColor : entry.titleBarColor) || DEFAULT_COLOR;
+            colorPicker.style.position = 'fixed';
+            colorPicker.style.left = '-9999px';
+            colorPicker.style.top = '0';
             colorPicker.oninput = function() {
                 var selectedColor = colorPicker.value;
                 if (isBackgroundColor) {
                     entry.contentBackgroundColor = selectedColor;
-                    entryElement.style.backgroundColor = selectedColor;
                 } else {
                     entry.titleBarColor = selectedColor;
-                    entryElement.style.backgroundColor = selectedColor;
-                    if (entryElement.querySelector('.pane-title')) {
-                        entryElement.querySelector('.pane-title').style.backgroundColor = selectedColor;
-                    }
                 }
                 saveEntries();
-                clearAndLoadEntry(entry);
+                if (onChange) onChange(selectedColor);
             };
             document.body.appendChild(colorPicker);
             colorPicker.click();
-        
+
             function removeColorPicker() {
                 if (document.body.contains(colorPicker)) {
                     document.body.removeChild(colorPicker);
                 }
                 document.removeEventListener('click', removeColorPicker);
             }
-        
+
             setTimeout(() => {
                 document.addEventListener('click', removeColorPicker);
             }, 0);
-        
+
             colorPicker.onchange = function() {
                 removeColorPicker();
             };
         }
-        
 
         function reorderPanes(sourcePaneId, targetPaneId) {
             if (sourcePaneId === targetPaneId) return;
@@ -336,42 +509,6 @@ data:text/html,<html>
             }
         }
 
-        function showRenameModal(entry, updateEntryList) {
-            var modal = document.createElement("div");
-            modal.className = "modal";
-            var modalContent = document.createElement("div");
-            modalContent.className = "modal-content";
-            var inputField = document.createElement("input");
-            inputField.type = "text";
-            inputField.value = entry.title;
-            inputField.className = "rename-input";
-            var saveButton = document.createElement("button");
-            saveButton.textContent = "Save";
-            saveButton.className = "save-rename-btn";
-            saveButton.onclick = function() {
-                var newName = inputField.value.trim();
-                if (newName && newName !== entry.title) {
-                    entry.title = newName;
-                    updateEntryList();
-                    saveEntries();
-                }
-                modal.remove();
-            };
-            var cancelButton = document.createElement("button");
-            cancelButton.textContent = "Cancel";
-            cancelButton.className = "cancel-rename-btn";
-            cancelButton.onclick = function() {
-                modal.remove();
-            };
-            modalContent.appendChild(inputField);
-            modalContent.appendChild(saveButton);
-            modalContent.appendChild(cancelButton);
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-            inputField.focus();
-            inputField.select();
-        }
-
         function showModal(message, onConfirm) {
             var modal = document.createElement("div");
             modal.className = "modal";
@@ -380,83 +517,142 @@ data:text/html,<html>
             var modalText = document.createElement("p");
             modalText.textContent = message;
             var confirmButton = document.createElement("button");
-            confirmButton.textContent = "Confirm";
+            confirmButton.textContent = "Delete";
+            confirmButton.className = "danger-btn";
             confirmButton.onclick = function() {
                 onConfirm();
                 modal.remove();
             };
             var cancelButton = document.createElement("button");
             cancelButton.textContent = "Cancel";
+            cancelButton.className = "cancel-btn";
             cancelButton.onclick = function() {
                 modal.remove();
             };
             modalContent.appendChild(modalText);
-            modalContent.appendChild(confirmButton);
-            modalContent.appendChild(cancelButton);
+            var modalActions = document.createElement("div");
+            modalActions.className = "modal-actions";
+            modalActions.appendChild(cancelButton);
+            modalActions.appendChild(confirmButton);
+            modalContent.appendChild(modalActions);
             modal.appendChild(modalContent);
             document.body.appendChild(modal);
+
+            function onKeyDown(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', onKeyDown);
+                }
+            }
+            document.addEventListener('keydown', onKeyDown);
+        }
+
+        function exportEntryAsText(entry) {
+            var tempDiv = document.createElement("div");
+            tempDiv.innerHTML = entry.content;
+            tempDiv.querySelectorAll('div').forEach(div => {
+                var checkbox = div.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    div.insertAdjacentText('afterbegin', checkbox.checked ? '[x] ' : '[ ] ');
+                }
+                div.appendChild(document.createTextNode('\n'));
+            });
+            var plainText = tempDiv.textContent || tempDiv.innerText || "";
+            plainText = plainText.replace(/&nbsp;/g, ' ');
+            var title = entry.title || 'note';
+            var blob = new Blob([plainText], {type: 'text/plain;charset=utf-8'});
+            var a = document.createElement('a');
+            var url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = title + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
         }
 
         function createPane(entry, entryId) {
             var pane = document.createElement('div');
             pane.className = 'entry-pane';
             pane.dataset.entryId = entryId.toString();
+
             var titleBar = document.createElement('div');
             titleBar.className = 'pane-title';
-            titleBar.textContent = entry.title;
             titleBar.draggable = true;
             titleBar.ondragstart = function(event) {
                 event.dataTransfer.setData("pane-id", entryId.toString());
             };
-            var defaultColor = '%23ffffff';
-            var titleBarColor = entry.titleBarColor ? entry.titleBarColor : defaultColor;
-            titleBar.style.backgroundColor = titleBarColor;
-            titleBar.style.color = isColorLight(titleBarColor) ? 'black' : 'white';
+
+            var titleColorDot = document.createElement('button');
+            titleColorDot.type = 'button';
+            titleColorDot.className = 'pane-color-dot color-dot';
+            titleColorDot.title = 'Note color';
+            titleColorDot.setAttribute('aria-label', 'Note color');
+            applyColorDotStyle(titleColorDot, entry.titleBarColor);
+            titleColorDot.onclick = function(event) {
+                event.stopPropagation();
+                showColorPicker(entry, false, function() { syncEntryColorUI(entry); });
+            };
+            titleBar.appendChild(titleColorDot);
+
+            var titleTextSpan = document.createElement('span');
+            titleTextSpan.className = 'pane-title-text';
+            titleTextSpan.title = 'Double-click to rename';
+            titleTextSpan.textContent = entry.title;
+
+            var titleTextInput = document.createElement('input');
+            titleTextInput.type = 'text';
+            titleTextInput.className = 'pane-title-input';
+            titleTextInput.style.display = 'none';
+
+            attachInlineRename(entry, titleTextSpan, titleTextInput, titleBar, function() {
+                updateEntryList();
+            });
+
+            titleBar.appendChild(titleTextSpan);
+            titleBar.appendChild(titleTextInput);
+
+            var titleActions = document.createElement('div');
+            titleActions.className = 'pane-title-actions';
+            var exportBtn = createIconButton(ICONS.fileText, 'Export as .txt');
+            exportBtn.onclick = function(event) {
+                event.stopPropagation();
+                exportEntryAsText(entry);
+            };
+            titleActions.appendChild(exportBtn);
+            titleBar.appendChild(titleActions);
+
             pane.appendChild(titleBar);
+
             var contentDiv = document.createElement('div');
             contentDiv.contentEditable = true;
             contentDiv.className = 'content-editable';
-            var contentBackgroundColor = entry.contentBackgroundColor ? entry.contentBackgroundColor : defaultColor;
-            contentDiv.style.backgroundColor = contentBackgroundColor;
-            contentDiv.style.color = isColorLight(contentBackgroundColor) ? 'black' : 'white';
-            contentDiv.innerHTML = entry.content;
+            applyContentBackground(contentDiv, entry.contentBackgroundColor);
+            contentDiv.innerHTML = entry.content.replace(/\[ \]/g, '<input type="checkbox">').replace(/\[x\]/g, '<input type="checkbox" checked>');
             pane.appendChild(contentDiv);
-            var bgColorPickerIcon = createColorPickerIcon();
-            bgColorPickerIcon.classList.add('bg-color-picker-icon');
-            bgColorPickerIcon.style.position = 'absolute';
-            bgColorPickerIcon.style.bottom = '10px';
-            bgColorPickerIcon.style.right = '10px';
+
+            var bgColorPickerIcon = document.createElement('button');
+            bgColorPickerIcon.type = 'button';
+            bgColorPickerIcon.className = 'bg-color-picker-icon color-dot';
+            bgColorPickerIcon.title = 'Page color';
+            bgColorPickerIcon.setAttribute('aria-label', 'Page color');
+            applyColorDotStyle(bgColorPickerIcon, entry.contentBackgroundColor);
             bgColorPickerIcon.onclick = function(event) {
                 event.stopPropagation();
-                showColorPicker(pane, entry, true);
+                showColorPicker(entry, true, function() { syncEntryColorUI(entry); });
             };
             pane.appendChild(bgColorPickerIcon);
-            return pane;
-        }
 
-        function createColorPickerIcon() {
-            var icon = document.createElement('img');
-            icon.setAttribute('src', "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-edit-3'><path d='M12 20h9'></path><path d='M16.5 3.5a2.121 2.121 0 0 1 3 3L10 16H7v-3L16.5 3.5z'></path></svg>");
-            icon.className = 'color-picker-icon';
-            return icon;
+            return pane;
         }
 
         function clearAndLoadEntry(entry) {
             entryContent.innerHTML = '';
             var pane = createPane(entry, entry.id);
             entryContent.appendChild(pane);
-        
-            var contentDiv = pane.querySelector('.content-editable');
-            if (entry.contentBackgroundColor) {
-                contentDiv.style.backgroundColor = entry.contentBackgroundColor;
-                contentDiv.style.color = isColorLight(entry.contentBackgroundColor) ? 'black' : 'white';
-            }
-        
-            contentDiv.innerHTML = entry.content.replace(/\[ \]/g, '<input type="checkbox">').replace(/\[x\]/g, '<input type="checkbox" checked>');
-            ensureDivWrapper(contentDiv);
-            updateTitleBarAndSidebar(entry, pane);
+            ensureDivWrapper(pane.querySelector('.content-editable'));
+            return pane;
         }
-        
 
         function splitPane(container, entryToSplit) {
             var entryIndex = entries.findIndex(entry => entry === entryToSplit);
@@ -472,31 +668,29 @@ data:text/html,<html>
                 } else {
                     var splitContainer = document.createElement('div');
                     splitContainer.className = 'split-horizontal';
-                    splitContainer.appendChild(container.firstChild.cloneNode(true));
+                    splitContainer.appendChild(container.firstChild);
                     splitContainer.appendChild(newPane);
-        
-                    container.innerHTML = '';
+
                     container.appendChild(splitContainer);
                 }
             }
             adjustPaneSizes();
         }
-        
-              
-        function toggleTopPane() {
-            var topPane = document.querySelector('.top-pane');
-            var isHidden = topPane.style.display === 'none';
-            topPane.style.display = isHidden ? 'flex' : 'none';
-            toggleTopPaneButton.style.height = isHidden ? '0.9em' : '1.5em';
-            toggleTopPaneButton.style.marginTop = isHidden ? '-14px' : '0px';
-            toggleTopPaneButton.textContent = isHidden ? '^' : 'v';
+
+        function toggleTopBar() {
+            var topBar = document.querySelector('.top-bar');
+            var isHidden = topBar.style.display === 'none';
+            topBar.style.display = isHidden ? '' : 'none';
+            toggleTopBarButton.innerHTML = '';
+            toggleTopBarButton.appendChild(createIcon(isHidden ? ICONS.chevronUp : ICONS.chevronDown));
         }
 
         function toggleSidebar() {
-            var sidebar = document.getElementById('entry-list');
+            var sidebar = document.getElementById('sidebar');
             var isHidden = sidebar.style.display === 'none';
-            sidebar.style.display = isHidden ? 'block' : 'none';
-            toggleSidebarButton.textContent = isHidden ? '<' : '>';
+            sidebar.style.display = isHidden ? '' : 'none';
+            toggleSidebarButton.innerHTML = '';
+            toggleSidebarButton.appendChild(createIcon(isHidden ? ICONS.chevronLeft : ICONS.chevronRight));
         }
 
         function moveCursorToEnd(element) {
@@ -546,22 +740,6 @@ data:text/html,<html>
             sel.addRange(range);
         }
 
-        function updateTitleBarAndSidebar(entry, pane) {
-            var titleBar = pane.querySelector('.pane-title');
-            if (entry.titleBarColor) {
-                titleBar.style.backgroundColor = entry.titleBarColor;
-                titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-            }
-            var entryPosition = entries.indexOf(entry);
-            var sidebarEntry = entryPosition !== -1 ? document.querySelector(`[data-index='${entryPosition}']`) : null;
-            if (sidebarEntry) {
-                if (entry.titleBarColor) {
-                    sidebarEntry.style.backgroundColor = entry.titleBarColor;
-                    sidebarEntry.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-                }
-            }
-        }
-
         function autoSaveEntries() {
             let currentEntries = JSON.stringify(entries);
             if (currentEntries !== lastSavedEntries) {
@@ -577,68 +755,113 @@ data:text/html,<html>
         var faviconUrl = 'https://reticulated.net/favicon/favicon.ico';
         changeFavicon(faviconUrl);
 
-        var entryTitle = document.getElementById("entry-title"),
-            entryList = document.getElementById("entry-list"),
+        var entryList = document.getElementById("entry-list"),
             entryContent = document.getElementById("entry-content"),
             entryContentStorage = document.getElementById("entry-content-storage"),
-            saveDbButton = document.getElementById("save-db-button"),
-            loadDbButton = document.getElementById("load-db-button"),
-            saveButton = document.getElementById("save-button"),
             fileInput = document.getElementById("file-input"),
+            newEntryButton = document.getElementById("new-entry-button"),
+            topBarActions = document.querySelector(".top-bar-actions"),
             entries = [],
             current = -1,
             nextEntryId = 0;
 
-        var toggleSidebarButton = createToggleButton('<', 'vertical');
+        newEntryButton.appendChild(createIcon(ICONS.plus));
+        newEntryButton.appendChild(document.createTextNode(' New Note'));
+
+        var saveDbButton = createIconButton(ICONS.download, 'Save database to a file');
+        var loadDbButton = createIconButton(ICONS.upload, 'Load database from a file');
+        var helpButton = createIconButton(ICONS.help, 'Help');
+        topBarActions.appendChild(saveDbButton);
+        topBarActions.appendChild(loadDbButton);
+        topBarActions.appendChild(helpButton);
+
+        var toggleSidebarButton = createToggleButton(ICONS.chevronLeft, 'edge-toggle-vertical');
+        toggleSidebarButton.title = 'Toggle sidebar';
+        toggleSidebarButton.setAttribute('aria-label', 'Toggle sidebar');
         toggleSidebarButton.onclick = toggleSidebar;
         document.querySelector('.content-area').insertBefore(toggleSidebarButton, entryContent);
 
-        var toggleTopPaneButton = createToggleButton('^', 'horizontal');
-        toggleTopPaneButton.onclick = toggleTopPane;
-        document.querySelector('.top-pane').parentNode.insertBefore(toggleTopPaneButton, document.querySelector('.content-area'));
+        var toggleTopBarButton = createToggleButton(ICONS.chevronUp, 'edge-toggle-horizontal');
+        toggleTopBarButton.title = 'Toggle top bar';
+        toggleTopBarButton.setAttribute('aria-label', 'Toggle top bar');
+        toggleTopBarButton.onclick = toggleTopBar;
+        document.querySelector('.top-bar').parentNode.insertBefore(toggleTopBarButton, document.querySelector('.content-area'));
 
-        var questionMarkIcon = document.createElement('span');
-        questionMarkIcon.textContent = '?';
-        questionMarkIcon.style.position = 'absolute';
-        questionMarkIcon.style.left = '10px';
-        questionMarkIcon.style.bottom = '10px';
-        questionMarkIcon.style.fontSize = '24px';
-        questionMarkIcon.style.cursor = 'pointer';
-        document.body.appendChild(questionMarkIcon);
-
-        questionMarkIcon.onclick = function() {
+        function showHelpOverlay() {
             var overlay = document.createElement('div');
-            overlay.style.position = 'fixed';
-            overlay.style.left = 0;
-            overlay.style.top = 0;
-            overlay.style.zIndex = '9999999';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-            overlay.innerHTML = `
-                <div style="color: white; padding: 20px; max-width: 600px; margin: 50px auto;">
-                    <h2>Help & Tips</h2>
-                    <ul>
-                        <li><strong>Create and Manage Notes:</strong> Add new notes via the top input bar. Manage and view them in the sidebar.</li>
-                        <li><strong>Split Note Pane:</strong> Split notes into multiple panes for comparison or multitasking.</li>
-                        <li><strong>Reorder Notes:</strong> Drag and drop notes in the list to reorder them.</li>
-                        <li><strong>Save and Load Notes:</strong> Save your notes to a hidden textarea and load them from this database.</li>
-                        <li><strong>Checkbox Support:</strong> Add interactive checkboxes within notes by typing '[ ]' or '[x]'.</li>
-                        <li><strong>Color Customization:</strong> Click the color icon in each note to set custom colors for titles and backgrounds.</li>
-                        <li><strong>Reordering Split Panes:</strong> Rearrange the order of split note panes via drag-and-drop.</li>
-                        <li><strong>Save as Text File:</strong> Export individual notes as text files using the 'Save as txt file' button.</li>
-                        <li><strong>Copy/Paste HTML Support:</strong> Copy and paste HTML content directly into notes.</li>
-                        <li><strong>Hide/Show Panes:</strong> Use the toggle buttons to hide or show the sidebar and top pane.</li>
-                        <li>Read more at <a href='https://github.com/pwillia7/Text_Bookmarklet'>the project repository on Github.</a></li>
-                    </ul>
-                </div>
-            `;
+            overlay.className = 'help-overlay';
+
+            var card = document.createElement('div');
+            card.className = 'help-card';
+
+            var closeBtn = createIconButton(ICONS.close, 'Close');
+            closeBtn.className += ' help-close';
+            closeBtn.onclick = function() { close(); };
+            card.appendChild(closeBtn);
+
+            var heading = document.createElement('h2');
+            heading.textContent = 'Help & Tips';
+            card.appendChild(heading);
+
+            var list = document.createElement('ul');
+            var tips = [
+                ['New Note', 'Click "+ New Note" in the sidebar, then type a title right away.'],
+                ['Rename', 'Double-click a note title (in the sidebar or the open note) to rename it in place.'],
+                ['Split Panes', 'Drag a note from the sidebar onto the editor to open it side-by-side.'],
+                ['Reorder Notes', 'Drag and drop notes in the sidebar, or drag split pane titles to reorder them.'],
+                ['Checkboxes', 'Type "[ ] " for an unchecked box or "[x] " for a checked box.'],
+                ['Colors', 'Click the color dot next to a title, or the dot in the corner of a note, to customize colors.'],
+                ['Export a Note', 'Click the document icon in a note title bar to save it as a .txt file.'],
+                ['Save / Load Database', 'Use the icons in the top bar to back up or restore all your notes as a file.'],
+                ['Hide Panels', 'Use the small arrow tabs at the edges to hide the sidebar or top bar.']
+            ];
+            tips.forEach(function(tip) {
+                var li = document.createElement('li');
+                var strong = document.createElement('strong');
+                strong.textContent = tip[0] + ': ';
+                li.appendChild(strong);
+                li.appendChild(document.createTextNode(tip[1]));
+                list.appendChild(li);
+            });
+            card.appendChild(list);
+
+            var footer = document.createElement('p');
+            footer.className = 'help-footer';
+            var link = document.createElement('a');
+            link.href = 'https://github.com/pwillia7/Text_Bookmarklet';
+            link.textContent = 'Project repository on GitHub';
+            footer.appendChild(document.createTextNode('Read more at the '));
+            footer.appendChild(link);
+            card.appendChild(footer);
+
+            overlay.appendChild(card);
             document.body.appendChild(overlay);
 
-            overlay.onclick = function() {
-                document.body.removeChild(overlay);
-            };
-        };
+            function close() {
+                overlay.remove();
+                document.removeEventListener('keydown', onKeyDown);
+            }
+            function onKeyDown(e) {
+                if (e.key === 'Escape') close();
+            }
+            document.addEventListener('keydown', onKeyDown);
+            overlay.addEventListener('click', function(event) {
+                if (event.target === overlay) close();
+            });
+        }
+
+        helpButton.addEventListener('click', showHelpOverlay);
+
+        newEntryButton.addEventListener('click', function() {
+            var newEntry = addNewEntry("Untitled");
+            current = entries.length - 1;
+            updateEntryList();
+            var pane = clearAndLoadEntry(newEntry);
+            var titleSpan = pane.querySelector('.pane-title-text');
+            if (titleSpan) {
+                titleSpan.ondblclick();
+            }
+        });
 
         loadDbButton.addEventListener('click', function() {
             fileInput.click();
@@ -670,47 +893,6 @@ data:text/html,<html>
             a.click();
             URL.revokeObjectURL(url);
             document.body.removeChild(a);
-        });
-
-        entryTitle.addEventListener("keyup", function(t) {
-            if (t.keyCode === 13) {
-                var title = entryTitle.value.trim();
-                if (title) {
-                    var newEntry = addNewEntry(title);
-                    current = entries.length - 1;
-                    updateEntryList();
-                    clearAndLoadEntry(newEntry);
-                    entryTitle.value = "";
-                }
-            }
-        });
-        
-
-        saveButton.addEventListener('click', function() {
-            if (current >= 0) {
-                var content = entries[current].content;
-                var tempDiv = document.createElement("div");
-                tempDiv.innerHTML = content;
-                tempDiv.querySelectorAll('div').forEach(div => {
-                    if (div.querySelector('input[type="checkbox"]')) {
-                        var checkboxText = div.querySelector('input[type="checkbox"]').checked ? '[x] ' : '[ ] ';
-                        div.insertAdjacentText('afterbegin', checkboxText);
-                    }
-                    div.appendChild(document.createTextNode('\n'));
-                });
-                var plainText = tempDiv.textContent || tempDiv.innerText || "";
-                plainText = plainText.replace(/&nbsp;/g, ' ');
-                var title = entries[current].title || 'note';
-                var blob = new Blob([plainText], {type: 'text/plain;charset=utf-8'});
-                var a = document.createElement('a');
-                var url = URL.createObjectURL(blob);
-                a.href = url;
-                a.download = title + '.txt';
-                document.body.appendChild(a);
-                a.click();
-                URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-            }
         });
 
         entryContent.addEventListener('dragover', function(event) {
@@ -823,8 +1005,6 @@ data:text/html,<html>
             }, 250);
             addDragAndDropVisuals();
         });
-        
-        
 
     </script>
 </body>
