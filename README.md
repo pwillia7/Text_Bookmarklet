@@ -10,7 +10,7 @@ This bookmarklet allows users to take and manage notes directly within a browser
 - **Split Note Pane**: Split notes into multiple panes for side-by-side comparison or multitasking.
 - **Reorder Notes**: Drag and drop notes in the list to reorder them.
 - **Save and Load Notes**: Save your notes to a hidden textarea, which acts as a database. Load your notes from this database.
-- **Checkbox Support**: Add interactive checkboxes within your notes. Type `[]` for an unchecked box, or `[x]` for a checked box.
+- **Checkbox Support**: Add interactive checkboxes within your notes. Type `[ ]` for an unchecked box, or `[x]` for a checked box.
 - **Color Customization**: Set custom colors for note titles and backgrounds.
 - **Reordering Split Panes**: Rearrange the order of split note panes.
 - **Save as Text File**: Export individual notes as text files.
@@ -45,7 +45,7 @@ This bookmarklet allows users to take and manage notes directly within a browser
 
 ### Working with Checkboxes
 
-- Type `[]` for an unchecked box, or `[x]` for a checked box, which will convert to interactive checkboxes.
+- Type `[ ]` for an unchecked box, or `[x]` for a checked box, which will convert to interactive checkboxes.
 
 ### Saving and Loading Notes
 
