@@ -2,7 +2,7 @@ data:text/html,<html>
 <head>
     <title>Notes</title>
     <style>
-%3Aroot%20%7B%0A%20%20%20%20--primary-color%3A%20%235c6bc0%3B%0A%20%20%20%20--hover-color%3A%20%233949ab%3B%0A%20%20%20%20--background-color%3A%20%23f4f4f4%3B%0A%20%20%20%20--text-color%3A%20%23333%3B%0A%20%20%20%20--border-color%3A%20%23e0e0e0%3B%0A%20%20%20%20--border-hover-color%3A%20%23c0c0c0%3B%0A%20%20%20%20--input-border-color%3A%20%23ddd%3B%0A%20%20%20%20--pane-shadow%3A%20rgba(0%2C0%2C0%2C0.05)%3B%0A%20%20%20%20--active-border-color%3A%20%235c6bc0%3B%20%0A%20%20%20%20--pane-title-background%3A%20%23e8eaf6%3B%20%0A%7D%0A%0A*%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20box-sizing%3A%20border-box%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20font-family%3A%20%27Open%20Sans%27%2C%20sans-serif%3B%0A%20%20%20%20font-size%3A%2016px%3B%20%0A%20%20%20%20line-height%3A%201.6%3B%20%0A%20%20%20%20background-color%3A%20var(--background-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20height%3A%20100vh%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A.top-pane%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding%3A%2015px%3B%0A%20%20%20%20background%3A%20var(--background-color)%3B%0A%20%20%20%20box-shadow%3A%200%202px%204px%200%20rgba(0%2C0%2C0%2C0.05)%3B%0A%7D%0A%0A.pane-title%2C%20.button-bar%20button%2C%20%23entry-title%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A%23entry-title%20%7B%0A%20%20%20%20flex-grow%3A%201%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20font-size%3A%201.2rem%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%205px%3B%20%0A%20%20%20%20margin-right%3A%2010px%3B%0A%7D%0A%0A.button-bar%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%7D%0A%0A.button-container%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%7D%0A%0A.move-btn%2C%20.delete-btn%2C%20.color-btn%20%7B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.modal%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20background-color%3A%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20z-index%3A%202000%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%7D%0A%0A.modal-content%20%7B%0A%20%20%20%20background%3A%20white%3B%0A%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20box-shadow%3A%200%204px%208px%20rgba(0%2C%200%2C%200%2C%200.1)%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20max-width%3A%2090%25%3B%0A%20%20%20%20width%3A%20400px%3B%0A%7D%0A%0A.modal-content%20input%5Btype%3D%22text%22%5D%20%7B%0A%20%20%20%20width%3A%2080%25%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20margin-bottom%3A%2020px%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%7D%0A%0A.modal-content%20button%20%7B%0A%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20margin%3A%200%2010px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20transition%3A%20background-color%200.3s%20ease%3B%0A%7D%0A%0A.modal-content%20button%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.color-picker%20input%5Btype%3D%22color%22%5D%20%7B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20width%3A%2048px%3B%0A%20%20%20%20height%3A%2048px%3B%0A%20%20%20%20-webkit-appearance%3A%20none%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%7D%0A%0A.color-picker%20input%5Btype%3D%22color%22%5D%3A%3A-webkit-color-swatch-wrapper%20%7B%0A%20%20%20%20padding%3A%200%3B%0A%7D%0A%0A.color-picker%20input%5Btype%3D%22color%22%5D%3A%3A-webkit-color-swatch%20%7B%0A%20%20%20%20border%3A%20none%3B%0A%7D%0A%0A.entry-item.dragging%2C%20%0A.entry-pane.dragging%20%7B%0A%20%20%20%20opacity%3A%200.5%3B%0A%7D%0A%0A.entry-item.drag-over%2C%20%0A.entry-pane.drag-over%20%7B%0A%20%20%20%20border%3A%202px%20dashed%20var(--primary-color)%3B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.entry-item.dynamic-text-color%20%7B%0A%20%20%20%20color%3A%20var(--dynamic-text-color)%3B%0A%7D%0A%0A.color-picker-icon%20%7B%0A%20%20%20%20width%3A%2024px%3B%20%0A%20%20%20%20height%3A%2024px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.rename-input%20%7B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20padding%3A%200.5rem%3B%0A%20%20%20%20margin-bottom%3A%200.5rem%3B%0A%7D%0A%0A.save-rename-btn%2C%20.cancel-rename-btn%20%7B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20padding%3A%200.5rem%201rem%3B%0A%20%20%20%20margin-right%3A%200.5rem%3B%0A%7D%0A%0A.cancel-rename-btn%20%7B%0A%20%20%20%20background-color%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%7D%0A%0A.cancel-rename-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20%23bbb%3B%0A%7D%0A%0Ainput%5Btype%3D%27checkbox%27%5D%20%7B%0A%20%20%20%20-webkit-appearance%3A%20none%3B%0A%20%20%20%20-moz-appearance%3A%20none%3B%0A%20%20%20%20appearance%3A%20none%3B%0A%20%20%20%20background-color%3A%20var(--background-color)%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20width%3A%201em%3B%0A%20%20%20%20height%3A%201em%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20border-radius%3A%203px%3B%0A%20%20%20%20transform%3A%20translateY(-0.075em)%3B%0A%20%20%20%20display%3A%20inline-grid%3B%0A%20%20%20%20place-content%3A%20center%3B%0A%20%20%20%20margin-left%3A%200.5em%3B%0A%20%20%20%20margin-right%3A%200.5em%3B%0A%20%20%20%20padding-left%3A%200.5em%3B%0A%20%20%20%20padding-right%3A%200.5em%3B%0A%7D%0A%0Ainput%5Btype%3D%27checkbox%27%5D%3Achecked%3A%3Abefore%20%7B%0A%20%20%20%20content%3A%20%27%27%3B%0A%20%20%20%20width%3A%200.65em%3B%0A%20%20%20%20height%3A%200.65em%3B%0A%20%20%20%20clip-path%3A%20polygon(14%25%2044%25%2C%200%25%2070%25%2C%2050%25%20100%25%2C%20100%25%2028%25%2C%2085%25%2014%25%2C%2050%25%2068%25)%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0Ainput%5Btype%3D%27checkbox%27%5D%3Ahover%20%7B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20border-color%3A%20var(--hover-color)%3B%0A%7D%0A%0Ainput%5Btype%3D%27checkbox%27%5D%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--active-border-color)%3B%0A%7D%0A%0A.color-picker%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20transform%3A%20translate(-50%25%2C%20-50%25)%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20background-color%3A%20%23fff%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20z-index%3A%201000%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%7D%0A%0A.color-option%20%7B%0A%20%20%20%20width%3A%2030px%3B%0A%20%20%20%20height%3A%2030px%3B%0A%20%20%20%20margin%3A%205px%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.button-bar%20button%20%7B%0A%20%20%20%20padding%3A%2010px%2015px%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20margin-left%3A%2010px%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%205px%3B%20%0A%20%20%20%20transition%3A%20background-color%200.3s%20ease%3B%0A%7D%0A%0A.button-bar%20button%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--hover-color)%3B%0A%7D%0A%0A.button-bar%20button%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.button-bar%20button%2C%20.entry-item%20%7B%0A%20%20%20%20padding%3A%2012px%2018px%3B%0A%7D%0A%0A.button-bar%20button%2C%20.color-option%20%7B%0A%20%20%20%20border-radius%3A%208px%3B%0A%7D%0A%0A.content-area%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20calc(100%25%20-%2060px)%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20padding-left%3A%200%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A%23entry-list%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2020%25%3B%0A%20%20%20%20max-width%3A%20250px%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20border-right%3A%201px%20solid%20var(--border-color)%3B%0A%7D%0A%0A%23entry-list%2C%20.entry-pane%20%7B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%7D%0A%0A.entry-item%3Ahover%2C%20.button-bar%20button%3Ahover%20%7B%0A%20%20%20%20transition%3A%20box-shadow%200.3s%20ease%2C%20background-color%200.3s%20ease%3B%0A%7D%0A%0A%23entry-content%20%7B%0A%20%20%20%20flex-grow%3A%201%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A.top-pane%2C%20.entry-pane%2C%20.color-picker%20%7B%0A%20%20%20%20box-shadow%3A%200%201px%203px%200%20rgba(0%2C0%2C0%2C0.05)%3B%0A%7D%0A%0A.entry-item%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20margin-bottom%3A%2010px%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20border-radius%3A%208px%3B%20%0A%20%20%20%20transition%3A%20box-shadow%200.3s%20ease%2C%20border-color%200.3s%20ease%3B%0A%7D%0A%0A.entry-item%3Ahover%20%7B%0A%20%20%20%20box-shadow%3A%200%202px%204px%200%20rgba(0%2C0%2C0%2C0.1)%3B%0A%20%20%20%20border-color%3A%20var(--border-hover-color)%3B%0A%7D%0A%0A.entry-item.active%20%7B%0A%20%20%20%20border%3A%202px%20solid%20var(--active-border-color)%3B%0A%20%20%20%20font-weight%3A%20bold%3B%20%0A%7D%0A%0A%23entry-content-storage%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A.split-vertical%2C%20.split-horizontal%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%7D%0A%0A.split-horizontal%20%7B%0A%20%20%20%20flex-direction%3A%20row%3B%0A%7D%0A%0A.split-vertical%20%3E%20.entry-pane%2C%0A.split-horizontal%20%3E%20.entry-pane%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20margin%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%7D%0A%0A.pane-title%20%7B%0A%20%20%20%20background-color%3A%20var(--pane-title-background)%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%20%20%20%20border-top-right-radius%3A%205px%3B%0A%7D%0A%0A.entry-pane%20%7B%0A%20%20%20%20background-color%3A%20%23fff%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20box-shadow%3A%200%202px%204px%200%20var(--pane-shadow)%3B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%7D%0A%0A.bg-color-picker-icon%20%7B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20bottom%3A%2010px%3B%0A%20%20%20%20right%3A%2010px%3B%0A%7D%0A%0A.entry-pane%20%3E%20div%5Bcontenteditable%3D%22true%22%5D%20%7B%0A%20%20%20%20padding%3A%2015px%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20height%3A%20calc(100%25%20-%2050px)%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar%20%7B%0A%20%20%20%20width%3A%2010px%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-thumb%20%7B%0A%20%20%20%20background%3A%20var(--border-hover-color)%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%7D%0A%0A%40media%20screen%20and%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.content-area%20%7B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-list%2C%20%23entry-content%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20height%3A%20auto%3B%0A%20%20%20%20%20%20%20%20border-right%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.button-bar%20button%20%7B%0A%20%20%20%20%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20margin%3A%205px%200%3B%0A%20%20%20%20%7D%0A%7D%0A    </style>
+%3Aroot%20%7B%0A%20%20%20%20--primary-color%3A%20%236366f1%3B%0A%20%20%20%20--hover-color%3A%20%234f46e5%3B%0A%20%20%20%20--primary-soft%3A%20%23eef2ff%3B%0A%20%20%20%20--background-color%3A%20%23f8fafc%3B%0A%20%20%20%20--surface-color%3A%20%23ffffff%3B%0A%20%20%20%20--text-color%3A%20%231e293b%3B%0A%20%20%20%20--text-muted-color%3A%20%2364748b%3B%0A%20%20%20%20--border-color%3A%20%23e2e8f0%3B%0A%20%20%20%20--border-hover-color%3A%20%23cbd5e1%3B%0A%20%20%20%20--input-border-color%3A%20%23dbe1e8%3B%0A%20%20%20%20--pane-shadow%3A%20rgba(15%2C%2023%2C%2042%2C%200.06)%3B%0A%20%20%20%20--active-border-color%3A%20%236366f1%3B%0A%20%20%20%20--pane-title-background%3A%20%23eef2ff%3B%0A%20%20%20%20--radius-sm%3A%206px%3B%0A%20%20%20%20--radius-md%3A%2010px%3B%0A%20%20%20%20--radius-lg%3A%2014px%3B%0A%20%20%20%20--shadow-sm%3A%200%201px%202px%20rgba(15%2C%2023%2C%2042%2C%200.06)%3B%0A%20%20%20%20--shadow-md%3A%200%204px%2012px%20rgba(15%2C%2023%2C%2042%2C%200.08)%3B%0A%20%20%20%20--shadow-lg%3A%200%2012px%2032px%20rgba(15%2C%2023%2C%2042%2C%200.16)%3B%0A%7D%0A%0A%40media%20(prefers-color-scheme%3A%20dark)%20%7B%0A%20%20%20%20%3Aroot%20%7B%0A%20%20%20%20%20%20%20%20--primary-color%3A%20%23818cf8%3B%0A%20%20%20%20%20%20%20%20--hover-color%3A%20%23a5b4fc%3B%0A%20%20%20%20%20%20%20%20--primary-soft%3A%20%23232544%3B%0A%20%20%20%20%20%20%20%20--background-color%3A%20%2314161f%3B%0A%20%20%20%20%20%20%20%20--surface-color%3A%20%231c1f2b%3B%0A%20%20%20%20%20%20%20%20--text-color%3A%20%23e5e7eb%3B%0A%20%20%20%20%20%20%20%20--text-muted-color%3A%20%239aa1b4%3B%0A%20%20%20%20%20%20%20%20--border-color%3A%20%232c2f3d%3B%0A%20%20%20%20%20%20%20%20--border-hover-color%3A%20%233c3f52%3B%0A%20%20%20%20%20%20%20%20--input-border-color%3A%20%23343748%3B%0A%20%20%20%20%20%20%20%20--pane-shadow%3A%20rgba(0%2C%200%2C%200%2C%200.35)%3B%0A%20%20%20%20%20%20%20%20--active-border-color%3A%20%23818cf8%3B%0A%20%20%20%20%20%20%20%20--pane-title-background%3A%20%23232544%3B%0A%20%20%20%20%20%20%20%20--shadow-sm%3A%200%201px%202px%20rgba(0%2C%200%2C%200%2C%200.3)%3B%0A%20%20%20%20%20%20%20%20--shadow-md%3A%200%204px%2012px%20rgba(0%2C%200%2C%200%2C%200.35)%3B%0A%20%20%20%20%20%20%20%20--shadow-lg%3A%200%2012px%2032px%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20%7D%0A%7D%0A%0A*%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20box-sizing%3A%20border-box%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20font-family%3A%20-apple-system%2C%20BlinkMacSystemFont%2C%20'Segoe%20UI'%2C%20Roboto%2C%20Helvetica%2C%20Arial%2C%20sans-serif%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20line-height%3A%201.6%3B%0A%20%20%20%20background-color%3A%20var(--background-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20height%3A%20100vh%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A.top-pane%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2012px%3B%0A%20%20%20%20padding%3A%2014px%2018px%3B%0A%20%20%20%20background%3A%20var(--surface-color)%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20var(--border-color)%3B%0A%7D%0A%0A.pane-title%2C%20.button-bar%20button%2C%20%23entry-title%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A%23entry-title%20%7B%0A%20%20%20%20flex-grow%3A%201%3B%0A%20%20%20%20padding%3A%2010px%2014px%3B%0A%20%20%20%20font-size%3A%201.05rem%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20margin-right%3A%2010px%3B%0A%20%20%20%20transition%3A%20border-color%200.2s%20ease%2C%20box-shadow%200.2s%20ease%3B%0A%7D%0A%0A%23entry-title%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A%23entry-title%3A%3Aplaceholder%20%7B%0A%20%20%20%20color%3A%20var(--text-muted-color)%3B%0A%7D%0A%0A.button-bar%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20gap%3A%208px%3B%0A%7D%0A%0A.button-container%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A.move-btn%2C%20.delete-btn%2C%20.color-btn%20%7B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20color%3A%20var(--text-muted-color)%3B%0A%20%20%20%20transition%3A%20background-color%200.15s%20ease%2C%20color%200.15s%20ease%3B%0A%7D%0A%0A.move-btn%3Ahover%2C%20.delete-btn%3Ahover%2C%20.color-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.12)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%7D%0A%0A.modal%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20background-color%3A%20rgba(15%2C%2023%2C%2042%2C%200.5)%3B%0A%20%20%20%20backdrop-filter%3A%20blur(2px)%3B%0A%20%20%20%20z-index%3A%202000%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%7D%0A%0A.modal-content%20%7B%0A%20%20%20%20background%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20padding%3A%2024px%3B%0A%20%20%20%20border-radius%3A%20var(--radius-lg)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-lg)%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20max-width%3A%2090%25%3B%0A%20%20%20%20width%3A%20400px%3B%0A%7D%0A%0A.modal-content%20p%20%7B%0A%20%20%20%20margin-bottom%3A%2016px%3B%0A%7D%0A%0A.modal-content%20input%5Btype%3D%22text%22%5D%20%7B%0A%20%20%20%20width%3A%2080%25%3B%0A%20%20%20%20padding%3A%2010px%2012px%3B%0A%20%20%20%20margin-bottom%3A%2020px%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%7D%0A%0A.modal-content%20input%5Btype%3D%22text%22%5D%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.modal-content%20button%20%7B%0A%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20margin%3A%200%206px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20transition%3A%20background-color%200.2s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.modal-content%20button%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.modal-content%20button%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0A.entry-item.dragging%2C%0A.entry-pane.dragging%20%7B%0A%20%20%20%20opacity%3A%200.5%3B%0A%7D%0A%0A.entry-item.drag-over%2C%0A.entry-pane.drag-over%20%7B%0A%20%20%20%20border%3A%202px%20dashed%20var(--primary-color)%3B%0A%20%20%20%20background-color%3A%20var(--primary-soft)%3B%0A%7D%0A%0A.color-picker-icon%20%7B%0A%20%20%20%20width%3A%2020px%3B%0A%20%20%20%20height%3A%2020px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20opacity%3A%200.65%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20transition%3A%20opacity%200.15s%20ease%2C%20background-color%200.15s%20ease%3B%0A%7D%0A%0A.color-picker-icon%3Ahover%20%7B%0A%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.12)%3B%0A%7D%0A%0A.rename-input%20%7B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20padding%3A%2010px%2012px%3B%0A%20%20%20%20margin-bottom%3A%2012px%3B%0A%20%20%20%20width%3A%2080%25%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--input-border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%7D%0A%0A.rename-input%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.save-rename-btn%2C%20.cancel-rename-btn%20%7B%0A%20%20%20%20font-size%3A%200.95rem%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20padding%3A%2010px%2018px%3B%0A%20%20%20%20margin%3A%200%206px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.2s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.save-rename-btn%20%7B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%7D%0A%0A.save-rename-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%7D%0A%0A.modal-content%20.cancel-rename-btn%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.15)%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%7D%0A%0A.modal-content%20.cancel-rename-btn%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20rgba(100%2C%20116%2C%20139%2C%200.25)%3B%0A%7D%0A%0A.save-rename-btn%3Aactive%2C%20.cancel-rename-btn%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%20%7B%0A%20%20%20%20-webkit-appearance%3A%20none%3B%0A%20%20%20%20-moz-appearance%3A%20none%3B%0A%20%20%20%20appearance%3A%20none%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20width%3A%201.1em%3B%0A%20%20%20%20height%3A%201.1em%3B%0A%20%20%20%20border%3A%201.5px%20solid%20var(--border-hover-color)%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20transform%3A%20translateY(-0.075em)%3B%0A%20%20%20%20display%3A%20inline-grid%3B%0A%20%20%20%20place-content%3A%20center%3B%0A%20%20%20%20margin-left%3A%200.5em%3B%0A%20%20%20%20margin-right%3A%200.5em%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20border-color%200.15s%20ease%2C%20background-color%200.15s%20ease%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Achecked%20%7B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Achecked%3A%3Abefore%20%7B%0A%20%20%20%20content%3A%20''%3B%0A%20%20%20%20width%3A%200.65em%3B%0A%20%20%20%20height%3A%200.65em%3B%0A%20%20%20%20clip-path%3A%20polygon(14%25%2044%25%2C%200%25%2070%25%2C%2050%25%20100%25%2C%20100%25%2028%25%2C%2085%25%2014%25%2C%2050%25%2068%25)%3B%0A%20%20%20%20background-color%3A%20white%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Ahover%20%7B%0A%20%20%20%20border-color%3A%20var(--primary-color)%3B%0A%7D%0A%0Ainput%5Btype%3D'checkbox'%5D%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.button-bar%20button%20%7B%0A%20%20%20%20padding%3A%2010px%2016px%3B%0A%20%20%20%20font-size%3A%200.95rem%3B%0A%20%20%20%20background-color%3A%20var(--primary-color)%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20background-color%200.2s%20ease%2C%20transform%200.1s%20ease%2C%20box-shadow%200.2s%20ease%3B%0A%7D%0A%0A.button-bar%20button%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A.button-bar%20button%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20var(--hover-color)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%7D%0A%0A.button-bar%20button%3Aactive%20%7B%0A%20%20%20%20transform%3A%20translateY(1px)%3B%0A%7D%0A%0A.content-area%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20calc(100%25%20-%2060px)%3B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20padding-left%3A%200%3B%0A%20%20%20%20gap%3A%2014px%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%7D%0A%0A%23entry-list%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2022%25%3B%0A%20%20%20%20max-width%3A%20260px%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.entry-item%3Ahover%2C%20.button-bar%20button%3Ahover%20%7B%0A%20%20%20%20transition%3A%20box-shadow%200.2s%20ease%2C%20background-color%200.2s%20ease%2C%20border-color%200.2s%20ease%3B%0A%7D%0A%0A%23entry-content%20%7B%0A%20%20%20%20flex-grow%3A%201%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A.top-pane%20%7B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%7D%0A%0A.entry-item%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding%3A%2010px%2012px%3B%0A%20%20%20%20margin-bottom%3A%208px%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20border-radius%3A%20var(--radius-sm)%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20transition%3A%20box-shadow%200.2s%20ease%2C%20border-color%200.2s%20ease%2C%20transform%200.1s%20ease%3B%0A%7D%0A%0A.entry-item%3Ahover%20%7B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%20%20%20%20border-color%3A%20var(--border-hover-color)%3B%0A%7D%0A%0A.entry-item.active%20%7B%0A%20%20%20%20border%3A%202px%20solid%20var(--active-border-color)%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20box-shadow%3A%200%200%200%203px%20var(--primary-soft)%3B%0A%7D%0A%0A%23entry-content-storage%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A.split-vertical%2C%20.split-horizontal%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%7D%0A%0A.split-horizontal%20%7B%0A%20%20%20%20flex-direction%3A%20row%3B%0A%7D%0A%0A.split-vertical%20%3E%20.entry-pane%2C%0A.split-horizontal%20%3E%20.entry-pane%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.pane-title%20%7B%0A%20%20%20%20background-color%3A%20var(--pane-title-background)%3B%0A%20%20%20%20padding%3A%2012px%2016px%3B%0A%20%20%20%20border-bottom%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20cursor%3A%20grab%3B%0A%20%20%20%20border-top-left-radius%3A%20var(--radius-md)%3B%0A%20%20%20%20border-top-right-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.pane-title%3Aactive%20%7B%0A%20%20%20%20cursor%3A%20grabbing%3B%0A%7D%0A%0A.entry-pane%20%7B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20border%3A%201px%20solid%20var(--border-color)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-md)%3B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20border-radius%3A%20var(--radius-md)%3B%0A%7D%0A%0A.bg-color-picker-icon%20%7B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20bottom%3A%2010px%3B%0A%20%20%20%20right%3A%2010px%3B%0A%20%20%20%20background-color%3A%20var(--surface-color)%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-sm)%3B%0A%20%20%20%20padding%3A%204px%3B%0A%7D%0A%0A.entry-pane%20%3E%20div%5Bcontenteditable%3D%22true%22%5D%20%7B%0A%20%20%20%20padding%3A%2018px%3B%0A%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20height%3A%20calc(100%25%20-%2050px)%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%7D%0A%0A.entry-pane%20%3E%20div%5Bcontenteditable%3D%22true%22%5D%3Afocus%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar%20%7B%0A%20%20%20%20width%3A%2010px%3B%0A%20%20%20%20height%3A%2010px%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-track%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%7D%0A%0A%3A%3A-webkit-scrollbar-thumb%20%7B%0A%20%20%20%20background%3A%20var(--border-hover-color)%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20border%3A%202px%20solid%20transparent%3B%0A%20%20%20%20background-clip%3A%20padding-box%3B%0A%7D%0A%0A*%20%7B%0A%20%20%20%20scrollbar-width%3A%20thin%3B%0A%20%20%20%20scrollbar-color%3A%20var(--border-hover-color)%20transparent%3B%0A%7D%0A%0A%40media%20screen%20and%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.content-area%20%7B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23entry-list%2C%20%23entry-content%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20height%3A%20auto%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.button-bar%20button%20%7B%0A%20%20%20%20%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20margin%3A%205px%200%3B%0A%20%20%20%20%7D%0A%7D%0A    </style>
 </head>
 <body>
     <div class="top-pane">
@@ -84,34 +84,16 @@ data:text/html,<html>
         function loadEntries() {
             var storedEntries = entryContentStorage.value;
             if (!storedEntries) {
-                entries = []; 
-                var defaultEntry = addNewEntry("Notes"); 
-                current = defaultEntry.id;
+                entries = [];
+                var defaultEntry = addNewEntry("Notes");
+                current = 0;
                 updateEntryList();
                 clearAndLoadEntry(defaultEntry);
                 return;
             }
             try {
                 entries = JSON.parse(storedEntries);
-                entries.forEach(entry => {
-                    var entryElement = document.querySelector(`[data-index='${entry.id}']`);
-                    if (entryElement) {
-                        if (entry.titleBarColor) {
-                            var titleBar = entryElement.querySelector('.pane-title');
-                            if (titleBar) {
-                                titleBar.style.backgroundColor = entry.titleBarColor;
-                                titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
-                            }
-                        }
-                        if (entry.contentBackgroundColor) {
-                            var contentDiv = entryContent.querySelector(`[data-entry-id='${entry.id}'] .content-editable`);
-                            if (contentDiv) {
-                                contentDiv.style.backgroundColor = entry.contentBackgroundColor;
-                                contentDiv.style.color = isColorLight(entry.contentBackgroundColor) ? 'black' : 'white';
-                            }
-                        }
-                    }
-                });
+                nextEntryId = entries.reduce(function(max, entry) { return Math.max(max, entry.id); }, -1) + 1;
                 updateEntryList();
                 if (entries.length > 0) {
                     current = 0;
@@ -133,7 +115,7 @@ data:text/html,<html>
         function addNewEntry(title) {
             var defaultBackgroundColor = '%23ffffff';
             var newEntry = {
-                id: entries.length,
+                id: nextEntryId++,
                 title: title,
                 content: "",
                 titleBarColor: defaultBackgroundColor,
@@ -187,7 +169,8 @@ data:text/html,<html>
                 e.draggable = true;
         
                 if (entry.titleBarColor && entry.titleBarColor !== 'default') {
-                    updateEntryColor(e, entry.titleBarColor, false);
+                    e.style.backgroundColor = entry.titleBarColor;
+                    e.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
                 }
         
                 e.ondragstart = function(event) {
@@ -223,6 +206,8 @@ data:text/html,<html>
                         if (current === index) {
                             current = -1;
                             entryContent.classList.remove('active');
+                        } else if (current > index) {
+                            current -= 1;
                         }
                         updateEntryList();
                         addDragAndDropVisuals();
@@ -249,14 +234,9 @@ data:text/html,<html>
                     entryContent.classList.add('active');
                 }
         
-                if (entry.color && entry.color !== 'none') {
-                    updateEntryColor(e, entry.color, true);
-                }
-        
                 e.onclick = function() {
                     current = index;
                     clearAndLoadEntry(entries[index]);
-                    updateEntryContent();
                     updateEntryList();
                 };
         
@@ -275,40 +255,6 @@ data:text/html,<html>
             var b = parseInt(color.substr(4, 2), 16);
             var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
             return yiq >= 128;
-        }
-
-        function updateEntryColor(entryElement, color, isBackgroundColor) {
-            entryElement.style.backgroundColor = color;
-            var textColor = isColorLight(color) ? 'black' : 'white';
-            entryElement.style.color = textColor;
-            var entryIndex = parseInt(entryElement.dataset.index);
-            var entry = entries[entryIndex];
-            if (entry) {
-                if (isBackgroundColor) {
-                    entry.contentBackgroundColor = color;
-                    entryElement.style.backgroundColor = color;
-                    entryElement.style.color = isColorLight(color) ? 'black' : 'white';
-                } else {
-                    entry.titleBarColor = color;
-                    if (entryElement.querySelector('.pane-title')) {
-                        var titleBar = entryElement.querySelector('.pane-title');
-                        titleBar.style.backgroundColor = color;
-                        titleBar.style.color = isColorLight(color) ? 'black' : 'white';
-                    }
-                }
-                saveEntries();
-                clearAndLoadEntry(entry);
-            }
-            if (!isBackgroundColor) {
-                var pane = entryContent.querySelector(`[data-entry-id='${entryIndex}']`);
-                if (pane) {
-                    var titleBar = pane.querySelector('.pane-title');
-                    if (titleBar) {
-                        titleBar.style.backgroundColor = color;
-                        titleBar.style.color = textColor;
-                    }
-                }
-            }
         }
 
         function showColorPicker(entryElement, entry, isBackgroundColor) {
@@ -382,9 +328,8 @@ data:text/html,<html>
         }
 
         function updateEntryContent() {
-            if (current >= 0) {
-                entryContent.innerHTML = entries[current].content;
-                entryContent.classList.add('active');
+            if (current >= 0 && entries[current]) {
+                clearAndLoadEntry(entries[current]);
             } else {
                 entryContent.innerHTML = "";
                 entryContent.classList.remove('active');
@@ -393,7 +338,7 @@ data:text/html,<html>
 
         function showRenameModal(entry, updateEntryList) {
             var modal = document.createElement("div");
-            modal.className = "rename-modal";
+            modal.className = "modal";
             var modalContent = document.createElement("div");
             modalContent.className = "modal-content";
             var inputField = document.createElement("input");
@@ -452,16 +397,16 @@ data:text/html,<html>
             document.body.appendChild(modal);
         }
 
-        function createPane(entry, entryIndex) {
+        function createPane(entry, entryId) {
             var pane = document.createElement('div');
             pane.className = 'entry-pane';
-            pane.dataset.entryId = entryIndex.toString();
+            pane.dataset.entryId = entryId.toString();
             var titleBar = document.createElement('div');
             titleBar.className = 'pane-title';
             titleBar.textContent = entry.title;
             titleBar.draggable = true;
             titleBar.ondragstart = function(event) {
-                event.dataTransfer.setData("pane-id", entryIndex.toString());
+                event.dataTransfer.setData("pane-id", entryId.toString());
             };
             var defaultColor = '%23ffffff';
             var titleBarColor = entry.titleBarColor ? entry.titleBarColor : defaultColor;
@@ -516,8 +461,8 @@ data:text/html,<html>
         function splitPane(container, entryToSplit) {
             var entryIndex = entries.findIndex(entry => entry === entryToSplit);
             if (entryIndex === -1) return;
-        
-            var newPane = createPane(entryToSplit, entryIndex);
+
+            var newPane = createPane(entryToSplit, entryToSplit.id);
             if (container.children.length === 0) {
                 container.appendChild(newPane);
             } else {
@@ -607,7 +552,8 @@ data:text/html,<html>
                 titleBar.style.backgroundColor = entry.titleBarColor;
                 titleBar.style.color = isColorLight(entry.titleBarColor) ? 'black' : 'white';
             }
-            var sidebarEntry = document.querySelector(`[data-index='${entry.id}']`);
+            var entryPosition = entries.indexOf(entry);
+            var sidebarEntry = entryPosition !== -1 ? document.querySelector(`[data-index='${entryPosition}']`) : null;
             if (sidebarEntry) {
                 if (entry.titleBarColor) {
                     sidebarEntry.style.backgroundColor = entry.titleBarColor;
@@ -640,7 +586,8 @@ data:text/html,<html>
             saveButton = document.getElementById("save-button"),
             fileInput = document.getElementById("file-input"),
             entries = [],
-            current = -1;
+            current = -1,
+            nextEntryId = 0;
 
         var toggleSidebarButton = createToggleButton('<', 'vertical');
         toggleSidebarButton.onclick = toggleSidebar;
@@ -725,24 +672,12 @@ data:text/html,<html>
             document.body.removeChild(a);
         });
 
-        fileInput.addEventListener('change', function() {
-            var file = fileInput.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    entryContentStorage.value = e.target.result;
-                    loadEntries();
-                };
-                reader.readAsText(file);
-            }
-        });
-
         entryTitle.addEventListener("keyup", function(t) {
             if (t.keyCode === 13) {
                 var title = entryTitle.value.trim();
                 if (title) {
                     var newEntry = addNewEntry(title);
-                    current = newEntry.id;
+                    current = entries.length - 1;
                     updateEntryList();
                     clearAndLoadEntry(newEntry);
                     entryTitle.value = "";
@@ -797,48 +732,17 @@ data:text/html,<html>
             event.preventDefault();
         };
 
-        entryContent.addEventListener('input', function() {
+        entryContent.addEventListener('input', function(event) {
+            var editable = event.target.closest('.content-editable');
+            if (editable) {
+                ensureDivWrapper(editable);
+            }
             savePaneContent();
         });
 
         entryList.ondragover = function(event) {
             event.preventDefault();
         };
-
-        entryList.addEventListener('click', function(event) {
-            var target = event.target.closest('.entry-item');
-            if (target) {
-                var index = target.getAttribute('data-index');
-                clearAndLoadEntry(entries[index]);
-            }
-        });
-
-        entryList.ondrop = function(event) {
-            event.preventDefault();
-            var targetIndex = event.target.getAttribute('data-index');
-            var sourceIndex = event.dataTransfer.getData("text/plain");
-            if (sourceIndex !== null && targetIndex !== null) {
-                reorderEntries(parseInt(sourceIndex), parseInt(targetIndex));
-            }
-        };
-
-        document.getElementById('entry-content').addEventListener('click', function(event) {
-            if (event.target.classList.contains('title-color-picker-icon')) {
-                var entryPane = event.target.closest('.entry-pane');
-                if (entryPane && entryPane.dataset.entryId) {
-                    var entryIndex = parseInt(entryPane.dataset.entryId);
-                    var entry = entries[entryIndex];
-                    showColorPicker(entryPane, entry, false);
-                }
-            } else if (event.target.classList.contains('bg-color-picker-icon')) {
-                var entryPane = event.target.closest('.entry-pane');
-                if (entryPane && entryPane.dataset.entryId) {
-                    var entryIndex = parseInt(entryPane.dataset.entryId);
-                    var entry = entries[entryIndex];
-                    showColorPicker(entryPane, entry, true);
-                }
-            }
-        });
 
         entryList.addEventListener('dragstart', function(event) {
             if (event.target.classList.contains('entry-item')) {
@@ -850,7 +754,7 @@ data:text/html,<html>
         entryContent.addEventListener('drop', function(event) {
             event.preventDefault();
             var entryIndex = event.dataTransfer.getData("entry-index");
-            if (entryIndex !== null) {
+            if (entryIndex !== '') {
                 var entryToSplit = entries[parseInt(entryIndex)];
                 splitPane(entryContent, entryToSplit);
             }
@@ -910,19 +814,14 @@ data:text/html,<html>
                 if (entryContentStorage.value.trim().length > 0) {
                     loadEntries();
                 } else {
-                    entries = []; 
-                    var newEntry = addNewEntry("Notes"); 
-                    current = newEntry.id;
+                    entries = [];
+                    var newEntry = addNewEntry("Notes");
+                    current = 0;
                     updateEntryList();
                     clearAndLoadEntry(newEntry);
                 }
             }, 250);
             addDragAndDropVisuals();
-            var contentEditableDiv = document.querySelector("[contenteditable='true']");
-            if (contentEditableDiv) {
-                contentEditableDiv.addEventListener('input', ensureDivWrapper);
-                ensureDivWrapper();
-            }
         });
         
         
