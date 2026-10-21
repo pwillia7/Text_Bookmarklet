@@ -145,6 +145,87 @@ data:text/html,<html>
 
         function saveEntries() {
             entryContentStorage.value = JSON.stringify(entries);
+            persistEntries();
+        }
+
+        var HASH_PREFIX = 'n1.';
+        var WINDOW_NAME_PREFIX = 'text-bookmarklet:';
+        var HASH_PERSIST_DELAY = 500;
+        var hashPersistTimer = null;
+
+        function bytesToBase64Url(bytes) {
+            var binary = '';
+            for (var i = 0; i < bytes.length; i += 0x8000) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+            }
+            return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+
+        function base64UrlToBytes(str) {
+            var binary = atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+            var bytes = new Uint8Array(binary.length);
+            for (var i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes;
+        }
+
+        function compressText(text) {
+            var stream = new Blob([text]).stream().pipeThrough(new CompressionStream('deflate-raw'));
+            return new Response(stream).arrayBuffer().then(function(buffer) {
+                return bytesToBase64Url(new Uint8Array(buffer));
+            });
+        }
+
+        function decompressText(encoded) {
+            var stream = new Blob([base64UrlToBytes(encoded)]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+            return new Response(stream).text();
+        }
+
+        function persistEntries() {
+            var snapshot = JSON.stringify({ savedAt: Date.now(), entries: entries });
+            try {
+                window.name = WINDOW_NAME_PREFIX + snapshot;
+            } catch (e) {
+                console.error('Error saving notes to window.name:', e);
+            }
+            clearTimeout(hashPersistTimer);
+            hashPersistTimer = setTimeout(function() {
+                compressText(snapshot).then(function(encoded) {
+                    history.replaceState(null, '', location.href.split('%23')[0] + '%23' + HASH_PREFIX + encoded);
+                }).catch(function(e) {
+                    console.error('Error saving notes to the URL:', e);
+                });
+            }, HASH_PERSIST_DELAY);
+        }
+
+        function parseSnapshot(json) {
+            var snapshot = JSON.parse(json);
+            return snapshot && Array.isArray(snapshot.entries) ? snapshot : null;
+        }
+
+        function restorePersistedEntries() {
+            var fromWindowName = null;
+            if (window.name.indexOf(WINDOW_NAME_PREFIX) === 0) {
+                try {
+                    fromWindowName = parseSnapshot(window.name.slice(WINDOW_NAME_PREFIX.length));
+                } catch (e) {
+                    console.error('Error reading notes from window.name:', e);
+                }
+            }
+            var hash = location.hash.slice(1);
+            var fromHash = hash.indexOf(HASH_PREFIX) === 0
+                ? decompressText(hash.slice(HASH_PREFIX.length)).then(parseSnapshot).catch(function(e) {
+                    console.error('Error reading notes from the URL:', e);
+                    return null;
+                })
+                : Promise.resolve(null);
+            return fromHash.then(function(hashSnapshot) {
+                var newest = [hashSnapshot, fromWindowName].filter(Boolean).sort(function(a, b) {
+                    return b.savedAt - a.savedAt;
+                })[0];
+                return newest ? JSON.stringify(newest.entries) : '';
+            });
         }
 
         function loadEntries() {
@@ -219,7 +300,10 @@ data:text/html,<html>
             if (!html) return '';
             var tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
-            var text = (tempDiv.textContent || '').replace(/\s+/g, ' ').trim();
+            tempDiv.querySelectorAll('div, p, li, br').forEach(function(el) {
+                el.before(' ');
+            });
+            var text = (tempDiv.textContent || '').replace(/\[[ x]\]/g, '').replace(/\s+/g, ' ').trim();
             if (!text) return '';
             return text.length > 64 ? text.slice(0, 64) + '...' : text;
         }
@@ -812,6 +896,7 @@ data:text/html,<html>
                 ['Checkboxes', 'Type "[ ] " for an unchecked box or "[x] " for a checked box.'],
                 ['Colors', 'Click the color dot next to a title, or the dot in the corner of a note, to customize colors.'],
                 ['Export a Note', 'Click the document icon in a note title bar to save it as a .txt file.'],
+                ['Auto Save', 'Notes are saved in this page\'s address as you type, so a refresh is safe. To keep them after closing the tab, bookmark this page (Ctrl+D) and open that bookmark next time.'],
                 ['Save / Load Database', 'Use the icons in the top bar to back up or restore all your notes as a file.'],
                 ['Hide Panels', 'Use the small arrow tabs at the edges to hide the sidebar or top bar.']
             ];
@@ -872,6 +957,7 @@ data:text/html,<html>
                     reader.onload = function(event) {
                         entryContentStorage.value = event.target.result;
                         loadEntries();
+                        persistEntries();
                         lastSavedEntries = JSON.stringify(entries);
                     };
                     reader.readAsText(file);
@@ -992,18 +1078,12 @@ data:text/html,<html>
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                if (entryContentStorage.value.trim().length > 0) {
-                    loadEntries();
-                } else {
-                    entries = [];
-                    var newEntry = addNewEntry("Notes");
-                    current = 0;
-                    updateEntryList();
-                    clearAndLoadEntry(newEntry);
-                }
-            }, 250);
-            addDragAndDropVisuals();
+            restorePersistedEntries().then(function(storedEntries) {
+                entryContentStorage.value = storedEntries;
+                loadEntries();
+                lastSavedEntries = JSON.stringify(entries);
+                addDragAndDropVisuals();
+            });
         });
 
     </script>
