@@ -83,6 +83,12 @@ Opening the original bookmarklet always starts with a blank set of notes, becaus
 ### Themes
 ![Theme picker](img/themes.png)
 
+| Spring | Rose |
+|---|---|
+| ![Spring theme](img/theme-spring.png) | ![Rose theme](img/theme-rose.png) |
+| **Walnut** | **Forest** |
+| ![Walnut theme](img/theme-walnut.png) | ![Forest theme](img/theme-forest.png) |
+
 ### Dark Mode
 ![Dark Mode](img/dark-mode.png)
 
