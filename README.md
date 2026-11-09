@@ -1,6 +1,6 @@
 # Note-Taking Bookmarklet
 
-This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, split panes, note reordering, auto save, database saving and loading, checkbox interaction, color customization, and dark mode.
+This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, split panes, note reordering, auto save, database saving and loading, checkbox and bullet lists, color customization, and themes.
 
 ![](img/overview.png)
 
@@ -12,7 +12,7 @@ This bookmarklet allows users to take and manage notes directly within a browser
 - **Reorder Notes**: Drag and drop notes in the list to reorder them.
 - **Auto Save**: Notes are saved into the page's address as you type, so they survive a refresh. Bookmark the page to keep them after closing the tab.
 - **Save and Load Database**: Back up all your notes to a file and restore them later.
-- **Checkbox Support**: Add interactive checkboxes within your notes. Type `[ ]` for an unchecked box, or `[x]` for a checked box.
+- **Checkboxes and Bullets**: Type `[ ]` or `[x]` and a space for an interactive checkbox, or `*` / `-` and a space for a bullet. Press Enter to continue the list.
 - **Color Customization**: Pick a label color and a page color for each note from preset swatches or a custom color.
 - **Reordering Split Panes**: Rearrange the order of split note panes.
 - **Save as Text File**: Export individual notes as text files.
@@ -53,9 +53,12 @@ Opening the original bookmarklet always starts with a blank set of notes, becaus
 - Drag and drop notes in the sidebar, or drag split pane titles, to reorder them.
 - Click the × in a pane's title bar to close it.
 
-### Working with Checkboxes
+### Checkboxes and Bullets
 
-- Type `[ ]` for an unchecked box, or `[x]` for a checked box, which will convert to interactive checkboxes.
+- Start a line with `[ ]` (unchecked) or `[x]` (checked) followed by a space, and it turns into a checkbox right away.
+- Start a line with `*` or `-` followed by a space to make a bullet (`•`).
+- Press `Enter` on a checkbox or bullet line to add the next item; press `Enter` on an empty item to end the list.
+- `Ctrl+↑` / `Ctrl+↓` moves a checkbox line up or down.
 
 ### Customizing Colors
 
@@ -100,7 +103,6 @@ Opening the original bookmarklet always starts with a blank set of notes, becaus
 
 ## Known Issues
 
-- Checkboxes need a note reload to appear after being entered.
 - Notes live in the page address and in the browser tab, not on disk. Bookmark the page or use Save Database to keep them long-term.
 
 ## Building
