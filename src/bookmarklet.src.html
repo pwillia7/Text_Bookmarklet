@@ -1,0 +1,1259 @@
+<html>
+<head>
+    <title>Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+{{CSS}}</style>
+</head>
+<body>
+    <aside id="sidebar" class="sidebar" aria-label="Notes">
+        <div class="sidebar-header">
+            <span class="app-name">Notes</span>
+            <span id="note-count" class="note-count"></span>
+        </div>
+        <button id="new-entry-button" class="new-note-btn" type="button"></button>
+        <div id="entry-list" class="entry-list"></div>
+        <div class="sidebar-footer"></div>
+    </aside>
+    <div class="drawer-scrim"></div>
+    <main id="entry-content" class="editor"></main>
+    <textarea id="entry-content-storage" style="display:none;"></textarea>
+    <input id="file-input" type="file" style="display: none;">
+    <script type="text/javascript">
+        function svgEl(tag, attrs) {
+            var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+            for (var key in attrs) {
+                el.setAttribute(key, attrs[key]);
+            }
+            return el;
+        }
+
+        function createIcon(children) {
+            var svg = svgEl('svg', {
+                viewBox: '0 0 24 24',
+                width: '18',
+                height: '18',
+                fill: 'none',
+                stroke: 'currentColor',
+                'stroke-width': '1.8',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'aria-hidden': 'true'
+            });
+            svg.classList.add('icon');
+            children.forEach(function(child) {
+                svg.appendChild(svgEl(child.tag, child.attrs));
+            });
+            return svg;
+        }
+
+        var ICONS = {
+            plus: [
+                { tag: 'line', attrs: { x1: 12, y1: 5, x2: 12, y2: 19 } },
+                { tag: 'line', attrs: { x1: 5, y1: 12, x2: 19, y2: 12 } }
+            ],
+            trash: [
+                { tag: 'path', attrs: { d: 'M4 7h16' } },
+                { tag: 'path', attrs: { d: 'M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12' } },
+                { tag: 'path', attrs: { d: 'M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7' } }
+            ],
+            panel: [
+                { tag: 'rect', attrs: { x: 3, y: 4, width: 18, height: 16, rx: 2.5 } },
+                { tag: 'path', attrs: { d: 'M9 4v16' } }
+            ],
+            help: [
+                { tag: 'circle', attrs: { cx: 12, cy: 12, r: 9 } },
+                { tag: 'path', attrs: { d: 'M9.6 9.3a2.5 2.5 0 0 1 4.8 1c0 1.7-2.4 2.1-2.4 3.4' } },
+                { tag: 'path', attrs: { d: 'M12 17h.01' } }
+            ],
+            close: [
+                { tag: 'path', attrs: { d: 'M17 7L7 17' } },
+                { tag: 'path', attrs: { d: 'M7 7l10 10' } }
+            ],
+            exportTxt: [
+                { tag: 'path', attrs: { d: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' } },
+                { tag: 'path', attrs: { d: 'M14 3v5h5' } },
+                { tag: 'path', attrs: { d: 'M12 11v6' } },
+                { tag: 'path', attrs: { d: 'M9.5 14.5L12 17l2.5-2.5' } }
+            ],
+            download: [
+                { tag: 'path', attrs: { d: 'M12 4v11' } },
+                { tag: 'path', attrs: { d: 'M7.5 10.5L12 15l4.5-4.5' } },
+                { tag: 'path', attrs: { d: 'M5 20h14' } }
+            ],
+            upload: [
+                { tag: 'path', attrs: { d: 'M12 20V9' } },
+                { tag: 'path', attrs: { d: 'M7.5 13.5L12 9l4.5 4.5' } },
+                { tag: 'path', attrs: { d: 'M5 4h14' } }
+            ]
+        };
+
+        var DEFAULT_COLOR = '#ffffff';
+        var LABEL_COLORS = [
+            ['Red', '#dc2626'], ['Orange', '#ea580c'], ['Amber', '#d97706'], ['Green', '#16a34a'],
+            ['Blue', '#2563eb'], ['Violet', '#7c3aed']
+        ];
+        var PAGE_COLORS = [
+            ['Cream', '#fbf3df'], ['Rose', '#fbe4e2'], ['Butter', '#fdf2c4'], ['Mint', '#dff3e4'],
+            ['Sky', '#ddeefb'], ['Lavender', '#ece6fa']
+        ];
+        var MOBILE_QUERY = window.matchMedia('(max-width: 720px)');
+
+        function changeFavicon(url) {
+            var link = document.createElement('link'),
+                oldLink = document.querySelector('link[rel="shortcut icon"]') || document.querySelector('link[rel="icon"]');
+            link.rel = 'shortcut icon';
+            link.href = url;
+
+            if (oldLink) {
+                document.head.removeChild(oldLink);
+            }
+            document.head.appendChild(link);
+        }
+
+        function createIconButton(iconPaths, label) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'icon-btn';
+            button.title = label;
+            button.setAttribute('aria-label', label);
+            button.appendChild(createIcon(iconPaths));
+            return button;
+        }
+
+        function createTextButton(iconPaths, label, hint) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'text-btn';
+            if (hint) button.title = hint;
+            button.appendChild(createIcon(iconPaths));
+            button.appendChild(document.createTextNode(label));
+            return button;
+        }
+
+        function savePaneContent() {
+            var allPanes = entryContent.querySelectorAll('.entry-pane');
+            allPanes.forEach(pane => {
+                var entryId = pane.dataset.entryId;
+                var contentDiv = pane.querySelector('div[contenteditable="true"]');
+                if (contentDiv && entryId !== undefined) {
+                    var entryIndex = entries.findIndex(entry => entry.id.toString() === entryId);
+                    if (entryIndex !== -1) {
+                        var clone = contentDiv.cloneNode(true);
+                        clone.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                            var textNode = document.createTextNode(checkbox.checked ? '[x] ' : '[ ] ');
+                            checkbox.parentNode.replaceChild(textNode, checkbox);
+                        });
+                        entries[entryIndex].content = clone.innerHTML;
+                        updateEntryPreview(entries[entryIndex]);
+                    }
+                }
+            });
+            saveEntries();
+        }
+
+        function saveEntries() {
+            entryContentStorage.value = JSON.stringify(entries);
+            persistEntries();
+        }
+
+        var HASH_PREFIX = 'n1.';
+        var WINDOW_NAME_PREFIX = 'text-bookmarklet:';
+        var HASH_PERSIST_DELAY = 500;
+        var hashPersistTimer = null;
+
+        function bytesToBase64Url(bytes) {
+            var binary = '';
+            for (var i = 0; i < bytes.length; i += 0x8000) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+            }
+            return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+
+        function base64UrlToBytes(str) {
+            var binary = atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+            var bytes = new Uint8Array(binary.length);
+            for (var i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes;
+        }
+
+        function compressText(text) {
+            var stream = new Blob([text]).stream().pipeThrough(new CompressionStream('deflate-raw'));
+            return new Response(stream).arrayBuffer().then(function(buffer) {
+                return bytesToBase64Url(new Uint8Array(buffer));
+            });
+        }
+
+        function decompressText(encoded) {
+            var stream = new Blob([base64UrlToBytes(encoded)]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+            return new Response(stream).text();
+        }
+
+        function persistEntries() {
+            var snapshot = JSON.stringify({ savedAt: Date.now(), entries: entries });
+            try {
+                window.name = WINDOW_NAME_PREFIX + snapshot;
+            } catch (e) {
+                console.error('Error saving notes to window.name:', e);
+            }
+            clearTimeout(hashPersistTimer);
+            hashPersistTimer = setTimeout(function() {
+                compressText(snapshot).then(function(encoded) {
+                    history.replaceState(null, '', location.href.split('#')[0] + '#' + HASH_PREFIX + encoded);
+                }).catch(function(e) {
+                    console.error('Error saving notes to the URL:', e);
+                });
+            }, HASH_PERSIST_DELAY);
+        }
+
+        function parseSnapshot(json) {
+            var snapshot = JSON.parse(json);
+            return snapshot && Array.isArray(snapshot.entries) ? snapshot : null;
+        }
+
+        function restorePersistedEntries() {
+            var fromWindowName = null;
+            if (window.name.indexOf(WINDOW_NAME_PREFIX) === 0) {
+                try {
+                    fromWindowName = parseSnapshot(window.name.slice(WINDOW_NAME_PREFIX.length));
+                } catch (e) {
+                    console.error('Error reading notes from window.name:', e);
+                }
+            }
+            var hash = location.hash.slice(1);
+            var fromHash = hash.indexOf(HASH_PREFIX) === 0
+                ? decompressText(hash.slice(HASH_PREFIX.length)).then(parseSnapshot).catch(function(e) {
+                    console.error('Error reading notes from the URL:', e);
+                    return null;
+                })
+                : Promise.resolve(null);
+            return fromHash.then(function(hashSnapshot) {
+                var newest = [hashSnapshot, fromWindowName].filter(Boolean).sort(function(a, b) {
+                    return b.savedAt - a.savedAt;
+                })[0];
+                return newest ? JSON.stringify(newest.entries) : '';
+            });
+        }
+
+        function loadEntries() {
+            var storedEntries = entryContentStorage.value;
+            if (!storedEntries) {
+                entries = [];
+                var defaultEntry = addNewEntry("Notes");
+                current = 0;
+                updateEntryList();
+                clearAndLoadEntry(defaultEntry);
+                return;
+            }
+            try {
+                entries = JSON.parse(storedEntries);
+                nextEntryId = entries.reduce(function(max, entry) { return Math.max(max, entry.id); }, -1) + 1;
+                current = entries.length > 0 ? 0 : -1;
+                updateEntryList();
+                updateEntryContent();
+            } catch (e) {
+                console.error('Error parsing entries:', e);
+            }
+        }
+
+        function ensureDivWrapper(contentEditableDiv) {
+            var htmlContent = contentEditableDiv.innerHTML.trim();
+            if (htmlContent === "" || htmlContent === "<br>") {
+                contentEditableDiv.innerHTML = "<div><br></div>";
+            }
+        }
+
+        function addNewEntry(title) {
+            var newEntry = {
+                id: nextEntryId++,
+                title: title,
+                content: "",
+                titleBarColor: DEFAULT_COLOR,
+                contentBackgroundColor: DEFAULT_COLOR
+            };
+            entries.push(newEntry);
+            saveEntries();
+            return newEntry;
+        }
+
+        function reorderEntries(sourceIndex, targetIndex) {
+            if (isNaN(sourceIndex) || sourceIndex === targetIndex) return;
+            var currentEntry = entries[current];
+            const movedItem = entries.splice(sourceIndex, 1)[0];
+            entries.splice(targetIndex, 0, movedItem);
+            current = entries.indexOf(currentEntry);
+            updateEntryList();
+            saveEntries();
+        }
+
+        function getContentPreview(html) {
+            if (!html) return '';
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            tempDiv.querySelectorAll('div, p, li, br').forEach(function(el) {
+                el.before(' ');
+            });
+            var text = (tempDiv.textContent || '').replace(/\[[ x]\]/g, '').replace(/\s+/g, ' ').trim();
+            if (!text) return '';
+            return text.length > 80 ? text.slice(0, 80) + '\u2026' : text;
+        }
+
+        function updateEntryPreview(entry) {
+            var idx = entries.indexOf(entry);
+            if (idx === -1) return;
+            var row = entryList.querySelector('.entry-item[data-index="' + idx + '"]');
+            if (!row) return;
+            var previewEl = row.querySelector('.entry-item-preview');
+            if (previewEl) previewEl.textContent = getContentPreview(entry.content) || 'Empty note';
+        }
+
+        function isDefaultColor(color) {
+            return !color || color.toLowerCase() === DEFAULT_COLOR;
+        }
+
+        function applyColorDotStyle(dotEl, color) {
+            if (isDefaultColor(color)) {
+                dotEl.style.removeProperty('--dot');
+                dotEl.classList.add('color-dot-empty');
+            } else {
+                dotEl.style.setProperty('--dot', color);
+                dotEl.classList.remove('color-dot-empty');
+            }
+        }
+
+        function applyPageColor(pane, color) {
+            if (isDefaultColor(color)) {
+                pane.style.backgroundColor = '';
+                pane.style.color = '';
+                pane.classList.remove('has-page-color');
+            } else {
+                pane.style.backgroundColor = color;
+                pane.style.color = isColorLight(color) ? '#1d1b18' : '#f3efe9';
+                pane.classList.add('has-page-color');
+            }
+        }
+
+        function syncEntryColorUI(entry) {
+            var idx = entries.indexOf(entry);
+            if (idx !== -1) {
+                var sidebarDot = entryList.querySelector('.entry-item[data-index="' + idx + '"] .color-dot');
+                if (sidebarDot) applyColorDotStyle(sidebarDot, entry.titleBarColor);
+            }
+            document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"]').forEach(function(pane) {
+                var titleDot = pane.querySelector('.pane-color-dot');
+                if (titleDot) applyColorDotStyle(titleDot, entry.titleBarColor);
+                applyPageColor(pane, entry.contentBackgroundColor);
+            });
+        }
+
+        function attachInlineRename(entry, spanEl, inputEl, draggableToggleEl, onAfterCommit, trigger) {
+            function enterEditMode(event) {
+                if (event) event.stopPropagation();
+                inputEl.value = entry.title;
+                spanEl.style.display = 'none';
+                inputEl.style.display = '';
+                if (draggableToggleEl) draggableToggleEl.draggable = false;
+                inputEl.focus();
+                inputEl.select();
+            }
+            function exitEditMode() {
+                var newTitle = inputEl.value.trim();
+                if (newTitle && newTitle !== entry.title) {
+                    entry.title = newTitle;
+                    saveEntries();
+                }
+                spanEl.textContent = entry.title;
+                inputEl.style.display = 'none';
+                spanEl.style.display = '';
+                if (draggableToggleEl) draggableToggleEl.draggable = true;
+                if (onAfterCommit) onAfterCommit();
+            }
+            spanEl.addEventListener(trigger || 'dblclick', enterEditMode);
+            spanEl._rename = enterEditMode;
+            inputEl.addEventListener('blur', exitEditMode);
+            inputEl.addEventListener('click', function(e) { e.stopPropagation(); });
+            inputEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    inputEl.blur();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    inputEl.value = entry.title;
+                    inputEl.blur();
+                }
+            });
+            return { enter: enterEditMode };
+        }
+
+        function openEntry(index) {
+            current = index;
+            entryList.querySelectorAll('.entry-item').forEach(function(item) {
+                item.classList.toggle('active', item.getAttribute('data-index') === String(index));
+            });
+            clearAndLoadEntry(entries[index]);
+            closeDrawer();
+        }
+
+        function updateEntryList() {
+            var entryListContainer = document.createElement("div");
+            noteCount.textContent = entries.length;
+            entries.forEach(function(entry, index) {
+                var e = document.createElement("div");
+                e.className = "entry-item";
+                e.setAttribute('data-index', index.toString());
+                e.draggable = true;
+
+                e.ondragstart = function(event) {
+                    event.dataTransfer.setData("text/index", index.toString());
+                    event.dataTransfer.setData("entry-index", index.toString());
+                    e.classList.add('dragging');
+                };
+                e.ondragend = function() {
+                    e.classList.remove('dragging');
+                    entryContent.classList.remove('drop-target');
+                };
+                e.ondragover = function(event) {
+                    if (event.dataTransfer.types.indexOf('text/index') === -1) return;
+                    event.preventDefault();
+                    e.classList.add('drag-over');
+                };
+                e.ondragleave = function() {
+                    e.classList.remove('drag-over');
+                };
+                e.ondrop = function(event) {
+                    event.preventDefault();
+                    e.classList.remove('drag-over');
+                    reorderEntries(parseInt(event.dataTransfer.getData("text/index")), index);
+                };
+
+                var colorDot = document.createElement("button");
+                colorDot.type = "button";
+                colorDot.className = "color-dot";
+                colorDot.title = "Note colors";
+                colorDot.setAttribute('aria-label', 'Colors for ' + entry.title);
+                applyColorDotStyle(colorDot, entry.titleBarColor);
+                colorDot.onclick = function(event) {
+                    event.stopPropagation();
+                    showColorPopover(entry, colorDot);
+                };
+                e.appendChild(colorDot);
+
+                var textWrap = document.createElement("div");
+                textWrap.className = "entry-item-text";
+
+                var titleSpan = document.createElement("span");
+                titleSpan.className = "entry-item-title";
+                titleSpan.title = "Double-click to rename";
+                titleSpan.textContent = entry.title;
+
+                var titleInput = document.createElement("input");
+                titleInput.type = "text";
+                titleInput.className = "entry-item-title-input";
+                titleInput.setAttribute('aria-label', 'Note title');
+                titleInput.style.display = "none";
+
+                attachInlineRename(entry, titleSpan, titleInput, e, function() {
+                    document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"] .pane-title-text').forEach(function(el) {
+                        el.textContent = entry.title;
+                    });
+                });
+
+                textWrap.appendChild(titleSpan);
+                textWrap.appendChild(titleInput);
+
+                var previewSpan = document.createElement("span");
+                previewSpan.className = "entry-item-preview";
+                previewSpan.textContent = getContentPreview(entry.content) || 'Empty note';
+                textWrap.appendChild(previewSpan);
+
+                e.appendChild(textWrap);
+
+                var deleteBtn = createIconButton(ICONS.trash, "Delete note");
+                deleteBtn.className += " delete-btn";
+                deleteBtn.onclick = function(event) {
+                    event.stopPropagation();
+                    showModal('Delete \u201c' + entry.title + '\u201d?', 'This can\u2019t be undone.', function() {
+                        entries.splice(index, 1);
+                        if (current === index) {
+                            current = entries.length ? Math.min(index, entries.length - 1) : -1;
+                        } else if (current > index) {
+                            current -= 1;
+                        }
+                        updateEntryList();
+                        updateEntryContent();
+                        saveEntries();
+                    });
+                };
+                e.appendChild(deleteBtn);
+
+                if (index === current) {
+                    e.classList.add("active");
+                }
+
+                e.onclick = function(event) {
+                    if (event.detail > 1) return;
+                    openEntry(index);
+                };
+
+                entryListContainer.appendChild(e);
+            });
+            entryList.innerHTML = '';
+            entryList.appendChild(entryListContainer);
+        }
+
+        function isColorLight(color) {
+            if (color.startsWith('#')) {
+                color = color.substring(1);
+            }
+            var r = parseInt(color.substr(0, 2), 16);
+            var g = parseInt(color.substr(2, 2), 16);
+            var b = parseInt(color.substr(4, 2), 16);
+            var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+            return yiq >= 128;
+        }
+
+        var openPopover = null;
+
+        function closePopover(refocus) {
+            if (!openPopover) return;
+            var p = openPopover;
+            openPopover = null;
+            p.el.remove();
+            document.removeEventListener('mousedown', p.onOutside, true);
+            document.removeEventListener('keydown', p.onKey, true);
+            if (refocus && document.body.contains(p.anchor)) p.anchor.focus();
+        }
+
+        function showColorPopover(entry, anchor) {
+            var reopen = openPopover && openPopover.anchor === anchor;
+            closePopover();
+            if (reopen) return;
+
+            var pop = document.createElement('div');
+            pop.className = 'popover';
+            pop.setAttribute('role', 'dialog');
+            pop.setAttribute('aria-label', 'Colors for ' + entry.title);
+
+            function section(label, key, palette) {
+                var wrap = document.createElement('div');
+                wrap.className = 'popover-section';
+                var heading = document.createElement('span');
+                heading.className = 'popover-label';
+                heading.textContent = label;
+                wrap.appendChild(heading);
+                var grid = document.createElement('div');
+                grid.className = 'swatches';
+
+                function choose(color) {
+                    entry[key] = color;
+                    saveEntries();
+                    syncEntryColorUI(entry);
+                    grid.querySelectorAll('.swatch').forEach(function(s) {
+                        s.setAttribute('aria-pressed', String(s.dataset.color === color.toLowerCase()));
+                    });
+                }
+
+                function addSwatch(name, color, extraClass) {
+                    var b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'swatch' + (extraClass ? ' ' + extraClass : '');
+                    b.title = name;
+                    b.setAttribute('aria-label', name);
+                    b.dataset.color = color;
+                    b.style.setProperty('--swatch', color);
+                    b.setAttribute('aria-pressed', String((entry[key] || DEFAULT_COLOR).toLowerCase() === color));
+                    b.onclick = function() { choose(color); };
+                    grid.appendChild(b);
+                    return b;
+                }
+
+                addSwatch('None', DEFAULT_COLOR, 'swatch-none');
+                palette.forEach(function(c) { addSwatch(c[0], c[1]); });
+
+                var custom = document.createElement('label');
+                custom.className = 'swatch swatch-custom';
+                custom.title = 'Custom color';
+                var input = document.createElement('input');
+                input.type = 'color';
+                input.setAttribute('aria-label', label + ': custom color');
+                input.value = isDefaultColor(entry[key]) ? (key === 'titleBarColor' ? '#b4441c' : '#fbf3df') : entry[key];
+                input.oninput = function() { choose(input.value); };
+                custom.appendChild(input);
+                grid.appendChild(custom);
+
+                wrap.appendChild(grid);
+                return wrap;
+            }
+
+            pop.appendChild(section('Label', 'titleBarColor', LABEL_COLORS));
+            pop.appendChild(section('Page', 'contentBackgroundColor', PAGE_COLORS));
+            document.body.appendChild(pop);
+
+            var r = anchor.getBoundingClientRect();
+            var w = pop.offsetWidth, h = pop.offsetHeight;
+            var left = Math.min(Math.max(8, r.left), window.innerWidth - w - 8);
+            var top = r.bottom + 6;
+            if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 6);
+            pop.style.left = left + 'px';
+            pop.style.top = top + 'px';
+
+            var state = {
+                el: pop,
+                anchor: anchor,
+                onOutside: function(ev) {
+                    if (!pop.contains(ev.target) && !anchor.contains(ev.target)) closePopover();
+                },
+                onKey: function(ev) {
+                    if (ev.key === 'Escape') {
+                        ev.stopPropagation();
+                        closePopover(true);
+                    }
+                }
+            };
+            openPopover = state;
+            document.addEventListener('mousedown', state.onOutside, true);
+            document.addEventListener('keydown', state.onKey, true);
+            var selected = pop.querySelector('.swatch[aria-pressed="true"]') || pop.querySelector('.swatch');
+            selected.focus();
+        }
+
+        function reorderPanes(sourcePaneId, targetPaneId) {
+            if (sourcePaneId === targetPaneId) return;
+            var sourcePane = entryContent.querySelector(`[data-entry-id='${sourcePaneId}']`);
+            var targetPane = entryContent.querySelector(`[data-entry-id='${targetPaneId}']`);
+            if (sourcePane && targetPane) {
+                var isSourceBeforeTarget = sourcePane.compareDocumentPosition(targetPane) & Node.DOCUMENT_POSITION_FOLLOWING;
+                if (isSourceBeforeTarget) {
+                    targetPane.parentNode.insertBefore(sourcePane, targetPane.nextSibling);
+                } else {
+                    targetPane.parentNode.insertBefore(sourcePane, targetPane);
+                }
+                adjustPaneSizes();
+            }
+        }
+
+        function adjustPaneSizes() {
+            var splitContainers = entryContent.querySelectorAll('.split-horizontal');
+            splitContainers.forEach(container => {
+                var panes = Array.from(container.children);
+                panes.forEach(pane => {
+                    pane.style.flex = '1 1 0';
+                });
+            });
+        }
+
+        function renderEmptyState() {
+            entryContent.innerHTML = '';
+            var empty = document.createElement('div');
+            empty.className = 'empty-state';
+            var reveal = createIconButton(ICONS.panel, 'Show notes list');
+            reveal.className += ' reveal-btn';
+            reveal.onclick = toggleSidebar;
+            empty.appendChild(reveal);
+            var msg = document.createElement('p');
+            msg.textContent = entries.length ? 'Pick a note from the list, or start a new one.' : 'No notes yet.';
+            empty.appendChild(msg);
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'solid-btn';
+            btn.appendChild(createIcon(ICONS.plus));
+            btn.appendChild(document.createTextNode('New note'));
+            btn.onclick = createNote;
+            empty.appendChild(btn);
+            entryContent.appendChild(empty);
+        }
+
+        function updateEntryContent() {
+            if (current >= 0 && entries[current]) {
+                clearAndLoadEntry(entries[current]);
+            } else {
+                renderEmptyState();
+            }
+        }
+
+        function trapFocus(container, event) {
+            if (event.key !== 'Tab') return;
+            var items = container.querySelectorAll('button, a[href], input');
+            if (!items.length) return;
+            var first = items[0], last = items[items.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+
+        function showModal(title, detail, onConfirm) {
+            var returnFocus = document.activeElement;
+            var modal = document.createElement("div");
+            modal.className = "modal";
+            var modalContent = document.createElement("div");
+            modalContent.className = "modal-content";
+            modalContent.setAttribute('role', 'alertdialog');
+            modalContent.setAttribute('aria-modal', 'true');
+            modalContent.setAttribute('aria-labelledby', 'modal-title');
+            var heading = document.createElement("h2");
+            heading.id = 'modal-title';
+            heading.textContent = title;
+            var modalText = document.createElement("p");
+            modalText.textContent = detail;
+            var confirmButton = document.createElement("button");
+            confirmButton.type = 'button';
+            confirmButton.textContent = "Delete";
+            confirmButton.className = "solid-btn danger";
+            confirmButton.onclick = function() {
+                close();
+                onConfirm();
+            };
+            var cancelButton = document.createElement("button");
+            cancelButton.type = 'button';
+            cancelButton.textContent = "Cancel";
+            cancelButton.className = "ghost-btn";
+            cancelButton.onclick = close;
+            modalContent.appendChild(heading);
+            modalContent.appendChild(modalText);
+            var modalActions = document.createElement("div");
+            modalActions.className = "modal-actions";
+            modalActions.appendChild(cancelButton);
+            modalActions.appendChild(confirmButton);
+            modalContent.appendChild(modalActions);
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            cancelButton.focus();
+
+            function close() {
+                modal.remove();
+                document.removeEventListener('keydown', onKeyDown);
+                if (returnFocus && document.body.contains(returnFocus)) returnFocus.focus();
+            }
+            function onKeyDown(e) {
+                if (e.key === 'Escape') close();
+                trapFocus(modalContent, e);
+            }
+            document.addEventListener('keydown', onKeyDown);
+            modal.addEventListener('mousedown', function(event) {
+                if (event.target === modal) close();
+            });
+        }
+
+        function exportEntryAsText(entry) {
+            var tempDiv = document.createElement("div");
+            tempDiv.innerHTML = entry.content;
+            tempDiv.querySelectorAll('div').forEach(div => {
+                var checkbox = div.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    div.insertAdjacentText('afterbegin', checkbox.checked ? '[x] ' : '[ ] ');
+                }
+                div.appendChild(document.createTextNode('\n'));
+            });
+            var plainText = tempDiv.textContent || tempDiv.innerText || "";
+            plainText = plainText.replace(/&nbsp;/g, ' ');
+            var title = entry.title || 'note';
+            var blob = new Blob([plainText], {type: 'text/plain;charset=utf-8'});
+            var a = document.createElement('a');
+            var url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = title + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function closePane(pane) {
+            var split = pane.parentNode;
+            pane.remove();
+            if (split && split.classList.contains('split-horizontal') && split.children.length === 1) {
+                var remaining = split.firstChild;
+                split.replaceWith(remaining);
+            }
+            var firstPane = entryContent.querySelector('.entry-pane');
+            if (firstPane) {
+                var idx = entries.findIndex(function(en) { return en.id.toString() === firstPane.dataset.entryId; });
+                if (idx !== -1) {
+                    current = idx;
+                    entryList.querySelectorAll('.entry-item').forEach(function(item) {
+                        item.classList.toggle('active', item.getAttribute('data-index') === String(idx));
+                    });
+                }
+            }
+        }
+
+        function createPane(entry, entryId) {
+            var pane = document.createElement('div');
+            pane.className = 'entry-pane';
+            pane.dataset.entryId = entryId.toString();
+
+            var titleBar = document.createElement('div');
+            titleBar.className = 'pane-title';
+            titleBar.draggable = true;
+            titleBar.ondragstart = function(event) {
+                event.dataTransfer.setData("pane-id", entryId.toString());
+            };
+
+            var reveal = createIconButton(ICONS.panel, 'Show notes list');
+            reveal.className += ' reveal-btn';
+            reveal.onclick = toggleSidebar;
+            titleBar.appendChild(reveal);
+
+            var titleColorDot = document.createElement('button');
+            titleColorDot.type = 'button';
+            titleColorDot.className = 'pane-color-dot color-dot';
+            titleColorDot.title = 'Note colors';
+            titleColorDot.setAttribute('aria-label', 'Note colors');
+            applyColorDotStyle(titleColorDot, entry.titleBarColor);
+            titleColorDot.onclick = function(event) {
+                event.stopPropagation();
+                showColorPopover(entry, titleColorDot);
+            };
+            titleBar.appendChild(titleColorDot);
+
+            var titleTextSpan = document.createElement('span');
+            titleTextSpan.className = 'pane-title-text';
+            titleTextSpan.title = 'Click to rename';
+            titleTextSpan.textContent = entry.title;
+
+            var titleTextInput = document.createElement('input');
+            titleTextInput.type = 'text';
+            titleTextInput.className = 'pane-title-input';
+            titleTextInput.setAttribute('aria-label', 'Note title');
+            titleTextInput.style.display = 'none';
+
+            attachInlineRename(entry, titleTextSpan, titleTextInput, titleBar, function() {
+                updateEntryList();
+            }, 'click');
+
+            titleBar.appendChild(titleTextSpan);
+            titleBar.appendChild(titleTextInput);
+
+            var titleActions = document.createElement('div');
+            titleActions.className = 'pane-title-actions';
+            var exportBtn = createIconButton(ICONS.exportTxt, 'Save note as .txt');
+            exportBtn.onclick = function(event) {
+                event.stopPropagation();
+                exportEntryAsText(entry);
+            };
+            titleActions.appendChild(exportBtn);
+            var closeBtn = createIconButton(ICONS.close, 'Close pane');
+            closeBtn.className += ' close-pane-btn';
+            closeBtn.onclick = function(event) {
+                event.stopPropagation();
+                closePane(pane);
+            };
+            titleActions.appendChild(closeBtn);
+            titleBar.appendChild(titleActions);
+
+            pane.appendChild(titleBar);
+
+            var contentDiv = document.createElement('div');
+            contentDiv.contentEditable = true;
+            contentDiv.className = 'content-editable';
+            contentDiv.setAttribute('role', 'textbox');
+            contentDiv.setAttribute('aria-multiline', 'true');
+            contentDiv.setAttribute('aria-label', entry.title);
+            contentDiv.innerHTML = entry.content.replace(/\[ \]/g, '<input type="checkbox">').replace(/\[x\]/g, '<input type="checkbox" checked>');
+            pane.appendChild(contentDiv);
+
+            applyPageColor(pane, entry.contentBackgroundColor);
+            return pane;
+        }
+
+        function clearAndLoadEntry(entry) {
+            entryContent.innerHTML = '';
+            var pane = createPane(entry, entry.id);
+            entryContent.appendChild(pane);
+            ensureDivWrapper(pane.querySelector('.content-editable'));
+            return pane;
+        }
+
+        function splitPane(container, entryToSplit) {
+            var entryIndex = entries.findIndex(entry => entry === entryToSplit);
+            if (entryIndex === -1) return;
+
+            var newPane = createPane(entryToSplit, entryToSplit.id);
+            var firstChild = container.firstElementChild;
+            if (!firstChild || firstChild.classList.contains('empty-state')) {
+                container.innerHTML = '';
+                container.appendChild(newPane);
+                current = entryIndex;
+                updateEntryList();
+            } else {
+                var existingSplitContainer = container.querySelector('.split-horizontal');
+                if (existingSplitContainer) {
+                    existingSplitContainer.appendChild(newPane);
+                } else {
+                    var splitContainer = document.createElement('div');
+                    splitContainer.className = 'split-horizontal';
+                    splitContainer.appendChild(firstChild);
+                    splitContainer.appendChild(newPane);
+
+                    container.appendChild(splitContainer);
+                }
+            }
+            ensureDivWrapper(newPane.querySelector('.content-editable'));
+            adjustPaneSizes();
+        }
+
+        function closeDrawer() {
+            document.body.classList.remove('drawer-open');
+        }
+
+        function toggleSidebar() {
+            if (MOBILE_QUERY.matches) {
+                document.body.classList.toggle('drawer-open');
+                if (document.body.classList.contains('drawer-open')) collapseButton.focus();
+                return;
+            }
+            var collapsed = document.body.classList.toggle('sidebar-collapsed');
+            if (!collapsed) collapseButton.focus();
+        }
+
+        function moveCursorToEnd(element) {
+            var range = document.createRange();
+            var sel = window.getSelection();
+            range.setStart(element, 1);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            element.focus();
+        }
+
+        function createCheckboxLine() {
+            var newCheckbox = document.createElement('input');
+            newCheckbox.type = 'checkbox';
+            var newDiv = document.createElement('div');
+            newDiv.appendChild(newCheckbox);
+            newDiv.appendChild(document.createTextNode(' '));
+            return newDiv;
+        }
+
+        function createTextCheckboxLine() {
+            var newDiv = document.createElement('div');
+            newDiv.textContent = '[ ] ';
+            return newDiv;
+        }
+
+        function moveCheckboxLine(currentDiv, siblingDiv, direction) {
+            var movedDiv;
+            if (direction === "ArrowUp") {
+                currentDiv.parentNode.insertBefore(currentDiv, siblingDiv);
+                movedDiv = currentDiv;
+            } else {
+                var nextSibling = siblingDiv.nextElementSibling;
+                currentDiv.parentNode.insertBefore(currentDiv, nextSibling);
+                movedDiv = currentDiv;
+            }
+            return movedDiv;
+        }
+
+        function setCursorToEnd(div) {
+            var range = document.createRange();
+            var sel = window.getSelection();
+            range.selectNodeContents(div);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+
+        function autoSaveEntries() {
+            let currentEntries = JSON.stringify(entries);
+            if (currentEntries !== lastSavedEntries) {
+                saveEntries();
+                lastSavedEntries = currentEntries;
+            }
+        }
+
+        let lastSavedEntries = JSON.stringify(entries);
+
+        setInterval(autoSaveEntries, 60000);
+
+        var faviconUrl = '{{FAVICON}}';
+        changeFavicon(faviconUrl);
+
+        var entryList = document.getElementById("entry-list"),
+            entryContent = document.getElementById("entry-content"),
+            entryContentStorage = document.getElementById("entry-content-storage"),
+            fileInput = document.getElementById("file-input"),
+            newEntryButton = document.getElementById("new-entry-button"),
+            noteCount = document.getElementById("note-count"),
+            entries = [],
+            current = -1,
+            nextEntryId = 0;
+
+        newEntryButton.appendChild(createIcon(ICONS.plus));
+        newEntryButton.appendChild(document.createTextNode('New note'));
+
+        var collapseButton = createIconButton(ICONS.panel, 'Hide notes list');
+        collapseButton.title = 'Hide notes list (Ctrl+\\)';
+        collapseButton.onclick = toggleSidebar;
+        document.querySelector('.sidebar-header').appendChild(collapseButton);
+        document.querySelector('.drawer-scrim').onclick = closeDrawer;
+
+        var footer = document.querySelector('.sidebar-footer');
+        var saveDbButton = createTextButton(ICONS.download, 'Back up', 'Save all notes to a file');
+        var loadDbButton = createTextButton(ICONS.upload, 'Restore', 'Load notes from a backup file');
+        var helpButton = createIconButton(ICONS.help, 'Help and shortcuts');
+        footer.appendChild(saveDbButton);
+        footer.appendChild(loadDbButton);
+        footer.appendChild(helpButton);
+
+        function showHelpOverlay() {
+            var returnFocus = document.activeElement;
+            var overlay = document.createElement('div');
+            overlay.className = 'help-overlay';
+
+            var card = document.createElement('div');
+            card.className = 'help-card';
+            card.setAttribute('role', 'dialog');
+            card.setAttribute('aria-modal', 'true');
+            card.setAttribute('aria-labelledby', 'help-title');
+
+            var heading = document.createElement('h2');
+            heading.id = 'help-title';
+            heading.textContent = 'How it works';
+            card.appendChild(heading);
+
+            var closeBtn = createIconButton(ICONS.close, 'Close');
+            closeBtn.className += ' help-close';
+            closeBtn.onclick = function() { close(); };
+            card.appendChild(closeBtn);
+
+            function kbd(text) {
+                var k = document.createElement('kbd');
+                k.textContent = text;
+                return k;
+            }
+
+            var list = document.createElement('dl');
+            list.className = 'help-list';
+            var tips = [
+                ['Saving', ['Notes save into this page\u2019s address as you type, so refreshing is safe. To keep them after closing the tab, press ', kbd('Ctrl'), ' ', kbd('D'), ' to bookmark this page.']],
+                ['Backups', ['Back up saves every note to a file. Restore loads that file again.']],
+                ['Rename', ['Click the title of the open note, or double-click a note in the list.']],
+                ['Checkboxes', ['Type ', kbd('[ ]'), ' or ', kbd('[x]'), ' at the start of a line. They become clickable after you reopen the note. ', kbd('Ctrl'), ' ', kbd('\u2191'), ' / ', kbd('\u2193'), ' moves a checkbox line.']],
+                ['Arrange', ['Drag notes in the list to reorder them. Drag one onto the editor to open it side by side, and drag a pane\u2019s title to move it.']],
+                ['Colors', ['Click the dot beside a title to set the note\u2019s label and page color.']],
+                ['Export', ['The page icon beside a title saves that note as a .txt file.']],
+                ['Focus', [kbd('Ctrl'), ' ', kbd('\\'), ' hides or shows the notes list.']]
+            ];
+            tips.forEach(function(tip) {
+                var dt = document.createElement('dt');
+                dt.textContent = tip[0];
+                var dd = document.createElement('dd');
+                tip[1].forEach(function(part) {
+                    dd.appendChild(typeof part === 'string' ? document.createTextNode(part) : part);
+                });
+                list.appendChild(dt);
+                list.appendChild(dd);
+            });
+            card.appendChild(list);
+
+            var footerP = document.createElement('p');
+            footerP.className = 'help-footer';
+            var link = document.createElement('a');
+            link.href = 'https://github.com/pwillia7/Text_Bookmarklet';
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = 'project page on GitHub';
+            footerP.appendChild(document.createTextNode('Source and issues: '));
+            footerP.appendChild(link);
+            card.appendChild(footerP);
+
+            overlay.appendChild(card);
+            document.body.appendChild(overlay);
+            closeBtn.focus();
+
+            function close() {
+                overlay.remove();
+                document.removeEventListener('keydown', onKeyDown);
+                if (returnFocus && document.body.contains(returnFocus)) returnFocus.focus();
+            }
+            function onKeyDown(e) {
+                if (e.key === 'Escape') close();
+                trapFocus(card, e);
+            }
+            document.addEventListener('keydown', onKeyDown);
+            overlay.addEventListener('mousedown', function(event) {
+                if (event.target === overlay) close();
+            });
+        }
+
+        helpButton.addEventListener('click', showHelpOverlay);
+
+        function createNote() {
+            var newEntry = addNewEntry("Untitled");
+            current = entries.length - 1;
+            updateEntryList();
+            closeDrawer();
+            var pane = clearAndLoadEntry(newEntry);
+            var titleSpan = pane.querySelector('.pane-title-text');
+            if (titleSpan && titleSpan._rename) {
+                titleSpan._rename();
+            }
+        }
+
+        newEntryButton.addEventListener('click', createNote);
+
+        loadDbButton.addEventListener('click', function() {
+            fileInput.value = '';
+            fileInput.click();
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        entryContentStorage.value = event.target.result;
+                        loadEntries();
+                        persistEntries();
+                        lastSavedEntries = JSON.stringify(entries);
+                    };
+                    reader.readAsText(file);
+                }
+            };
+        });
+
+        saveDbButton.addEventListener('click', function() {
+            var content = entryContentStorage.value,
+                blob = new Blob([content], {type: 'text/plain;charset=utf-8'}),
+                a = document.createElement('a'),
+                date = new Date(),
+                dateString = date.toISOString().split('T')[0];
+
+            var url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'notes_database_' + dateString + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        });
+
+        entryContent.addEventListener('dragenter', function(event) {
+            if (event.dataTransfer.types.indexOf('entry-index') !== -1) {
+                entryContent.classList.add('drop-target');
+            }
+        });
+
+        entryContent.addEventListener('dragleave', function(event) {
+            if (!event.relatedTarget || !entryContent.contains(event.relatedTarget)) {
+                entryContent.classList.remove('drop-target');
+            }
+        });
+
+        entryContent.ondragover = function(event) {
+            event.preventDefault();
+        };
+
+        entryContent.ondrop = function(event) {
+            event.preventDefault();
+            var targetPane = event.target.closest('.entry-pane');
+            if (!targetPane) return;
+            var sourcePaneId = event.dataTransfer.getData("pane-id");
+            var targetPaneId = targetPane.dataset.entryId;
+            if (sourcePaneId && targetPaneId && sourcePaneId !== targetPaneId) {
+                reorderPanes(sourcePaneId, targetPaneId);
+            }
+        };
+
+        entryContent.addEventListener('drop', function(event) {
+            event.preventDefault();
+            entryContent.classList.remove('drop-target');
+            var entryIndex = event.dataTransfer.getData("entry-index");
+            if (entryIndex !== '') {
+                var entryToSplit = entries[parseInt(entryIndex)];
+                splitPane(entryContent, entryToSplit);
+            }
+        });
+
+        entryContent.addEventListener('input', function(event) {
+            var editable = event.target.closest('.content-editable');
+            if (editable) {
+                ensureDivWrapper(editable);
+            }
+            savePaneContent();
+        });
+
+        entryList.ondragover = function(event) {
+            event.preventDefault();
+        };
+
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+
+        MOBILE_QUERY.addEventListener('change', function() {
+            document.body.classList.remove('drawer-open', 'sidebar-collapsed');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === '\\') {
+                e.preventDefault();
+                toggleSidebar();
+            } else if (e.key === 'Escape' && document.body.classList.contains('drawer-open')) {
+                closeDrawer();
+            }
+        });
+
+        entryContent.addEventListener('keydown', function(e) {
+            if (e.target.closest && !e.target.closest('.content-editable')) return;
+            if (e.ctrlKey && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+                var selection = window.getSelection();
+                if (selection.rangeCount === 0) return;
+                var range = selection.getRangeAt(0);
+                var currentNode = range.startContainer;
+                var currentElement = currentNode.nodeType === Node.ELEMENT_NODE ? currentNode : currentNode.parentElement;
+                var isCheckboxLine = currentElement.nodeName === "INPUT" || (currentElement.nodeName === "DIV" && currentElement.querySelector('input[type="checkbox"]'));
+                if (!isCheckboxLine) return;
+                var currentDiv = currentElement.nodeName === "INPUT" ? currentElement : currentElement.closest('div');
+                var siblingDiv = e.key === "ArrowUp" ? currentDiv.previousElementSibling : currentDiv.nextElementSibling;
+                if (siblingDiv && (siblingDiv.querySelector('input[type="checkbox"]') || siblingDiv.nodeName === "INPUT")) {
+                    e.preventDefault();
+                    var movedDiv = moveCheckboxLine(currentDiv, siblingDiv, e.key);
+                    setCursorToEnd(movedDiv);
+                }
+            }
+            if (e.key === 'Enter') {
+                var selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    var range = selection.getRangeAt(0);
+                    var container = range.startContainer;
+                    var parentDiv = container.nodeType === 3 ? container.parentNode : container;
+                    var isCheckboxStart = parentDiv.textContent.trim().startsWith('[ ]');
+                    var containsCheckboxInput = parentDiv.querySelector('input[type="checkbox"]') !== null;
+                    var newLine;
+                    if (isCheckboxStart || containsCheckboxInput) {
+                        e.preventDefault();
+                        newLine = isCheckboxStart ? createTextCheckboxLine() : createCheckboxLine();
+                        var editable = parentDiv.closest('.content-editable');
+                        if (parentDiv.isSameNode(editable) && editable.childNodes.length === 1) {
+                            editable.appendChild(newLine);
+                        } else {
+                            parentDiv.after(newLine);
+                        }
+                        moveCursorToEnd(newLine);
+                    }
+                }
+            }
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            restorePersistedEntries().then(function(storedEntries) {
+                entryContentStorage.value = storedEntries;
+                loadEntries();
+                lastSavedEntries = JSON.stringify(entries);
+            });
+        });
+
+    </script>
+</body>
+</html>
