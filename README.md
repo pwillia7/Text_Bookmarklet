@@ -19,7 +19,7 @@ This bookmarklet allows users to take and manage notes directly within a browser
 - **Copy/Paste HTML Support**: Copy and paste HTML content directly into notes.
 - **Focus Mode**: Hide the notes list with the panel button or `Ctrl+\` for distraction-free writing.
 - **Mobile Friendly**: On narrow screens the notes list becomes a slide-out drawer.
-- **Dark Mode**: Follows your system's light/dark setting.
+- **Themes**: Pick from seven themes based on [Figma color palettes](https://www.figma.com/color-palettes/). The default, Blank Page, is monochromatic and follows your system's light/dark setting; Spring, Cascade, Driftwood and Rose are light, Walnut and Forest are dark.
 - **Help Overlay**: Accessible guide and tips for using the bookmarklet's features.
 
 ## Installation
@@ -61,6 +61,10 @@ Opening the original bookmarklet always starts with a blank set of notes, becaus
 
 - Click the color dot next to a note's title (in the sidebar or the open note) to choose its label and page colors.
 
+### Changing the Theme
+
+- Click the palette button at the bottom of the sidebar and pick a theme. Your choice is saved along with your notes.
+
 ### Exporting Notes
 
 - Click the page icon in a note's title bar to save it as a text file.
@@ -75,6 +79,9 @@ Opening the original bookmarklet always starts with a blank set of notes, becaus
 
 ### Color Customization
 ![Color Customization](img/colors.png)
+
+### Themes
+![Theme picker](img/themes.png)
 
 ### Dark Mode
 ![Dark Mode](img/dark-mode.png)

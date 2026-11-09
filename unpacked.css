@@ -1,52 +1,157 @@
 /* ------------------------------------------------------------------
-   Notes bookmarklet — "paper & ink"
-   Warm neutral surfaces, one ink accent, the note is the focus.
+   Notes bookmarklet
+   Themes come from Figma color palettes (figma.com/color-palettes).
+   Default: "Blank Page" (monochromatic), following system light/dark.
+   Each theme sets surfaces, ink, and one accent; the rest is derived.
    ------------------------------------------------------------------ */
 
 :root {
-    --paper: #fbfaf7;
-    --shelf: #f3f1ec;
-    --surface: #ffffff;
-    --ink: #1d1b18;
-    --muted: #67625b;
-    --faint: #b9b3aa;
-    --line: #e5e1d9;
-    --hover: rgba(29, 27, 24, 0.055);
-    --selected: #ffffff;
-    --accent: #b4441c;
-    --accent-ink: #ffffff;
-    --accent-soft: rgba(180, 68, 28, 0.09);
-    --danger: #b42318;
-    --scrim: rgba(29, 27, 24, 0.32);
-    --shadow-row: 0 1px 2px rgba(29, 27, 24, 0.07), 0 0 0 1px rgba(29, 27, 24, 0.04);
-    --shadow-float: 0 12px 32px rgba(29, 27, 24, 0.16), 0 0 0 1px rgba(29, 27, 24, 0.06);
     --font-ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-title: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
     --radius: 8px;
     --sidebar-w: 272px;
+
+    /* Blank Page — #F2F0EF #C9C8C7 #949392 #66615E */
+    --paper: #f8f7f6;
+    --shelf: #f2f0ef;
+    --surface: #ffffff;
+    --selected: #ffffff;
+    --ink: #262321;
+    --muted: #66615e;
+    --faint: #a6a4a3;
+    --line: #e0dedc;
+    --accent: #262321;
+    --accent-ink: #f8f7f6;
+    --danger: #a3231b;
+
+    --hover: color-mix(in srgb, var(--ink) 6%, transparent);
+    --accent-soft: color-mix(in srgb, var(--accent) 9%, transparent);
+    --scrim: rgba(20, 18, 17, 0.32);
+    --shadow-row: 0 1px 2px rgba(20, 18, 17, 0.07), 0 0 0 1px rgba(20, 18, 17, 0.04);
+    --shadow-float: 0 12px 32px rgba(20, 18, 17, 0.16), 0 0 0 1px rgba(20, 18, 17, 0.06);
     color-scheme: light;
 }
 
+/* Shared depth for dark themes */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --paper: #1b1a18;
-        --shelf: #141312;
-        --surface: #252321;
-        --ink: #ece8e2;
-        --muted: #a39d95;
-        --faint: #5d5852;
-        --line: #2f2c29;
-        --hover: rgba(255, 250, 240, 0.06);
-        --selected: #262421;
-        --accent: #f0895c;
-        --accent-ink: #1b1a18;
-        --accent-soft: rgba(240, 137, 92, 0.12);
-        --danger: #f47c6e;
+    :root:not([data-theme]),
+    :root[data-theme="blank"] {
         --scrim: rgba(0, 0, 0, 0.5);
-        --shadow-row: 0 0 0 1px rgba(255, 250, 240, 0.06);
-        --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 250, 240, 0.08);
+        --shadow-row: 0 0 0 1px rgba(255, 255, 255, 0.06);
+        --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
         color-scheme: dark;
+
+        /* Blank Page, dark */
+        --paper: #1c1b1a;
+        --shelf: #161514;
+        --surface: #262423;
+        --selected: #2a2827;
+        --ink: #edebea;
+        --muted: #a3a09e;
+        --faint: #66615e;
+        --line: #2f2d2b;
+        --accent: #edebea;
+        --accent-ink: #1c1b1a;
+        --danger: #f0806f;
     }
+}
+
+:root[data-theme="walnut"],
+:root[data-theme="forest"] {
+    --scrim: rgba(0, 0, 0, 0.5);
+    --shadow-row: 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    color-scheme: dark;
+}
+
+/* Emerald Spring Whisper — #135E4B #4CB572 #A1D8B5 #CCDCDB */
+:root[data-theme="spring"] {
+    --paper: #f6f9f8;
+    --shelf: #e8efee;
+    --surface: #ffffff;
+    --selected: #ffffff;
+    --ink: #10302a;
+    --muted: #46625a;
+    --faint: #94bfac;
+    --line: #d3e0de;
+    --accent: #135e4b;
+    --accent-ink: #ffffff;
+    --danger: #a3231b;
+}
+
+/* Blue Cascade — #6A89A7 #516E89 #8CA4BB */
+:root[data-theme="cascade"] {
+    --paper: #f6f8fa;
+    --shelf: #e8edf2;
+    --surface: #ffffff;
+    --selected: #ffffff;
+    --ink: #1a2633;
+    --muted: #4b6680;
+    --faint: #8ca4bb;
+    --line: #d5dee7;
+    --accent: #516e89;
+    --accent-ink: #ffffff;
+    --danger: #a3231b;
+}
+
+/* Driftwood Pearl Morning — #BC7B6F #E4A499 #5A322A #718A9E #CCCDC7 */
+:root[data-theme="driftwood"] {
+    --paper: #f8f7f4;
+    --shelf: #ebebe6;
+    --surface: #ffffff;
+    --selected: #ffffff;
+    --ink: #2f1b16;
+    --muted: #5a6b79;
+    --faint: #c9a29a;
+    --line: #dcdcd5;
+    --accent: #8f5246;
+    --accent-ink: #ffffff;
+    --danger: #a3231b;
+}
+
+/* Rose Quartz Evening — #64242F #B44446 #FC8F8F #DFD9D8 */
+:root[data-theme="rose"] {
+    --paper: #faf8f7;
+    --shelf: #f0ebea;
+    --surface: #ffffff;
+    --selected: #ffffff;
+    --ink: #3a141b;
+    --muted: #6e5357;
+    --faint: #e0a3a3;
+    --line: #e4dbda;
+    --accent: #b44446;
+    --accent-ink: #ffffff;
+    --danger: #8f1d22;
+}
+
+/* Amber Walnut Morning — #BB6C43 #4A413C #EBEFEE #C8906D #CCB499 */
+:root[data-theme="walnut"] {
+    --paper: #2c2623;
+    --shelf: #231e1b;
+    --surface: #3a322e;
+    --selected: #3a322e;
+    --ink: #ebefee;
+    --muted: #ccb499;
+    --faint: #6e6058;
+    --line: #3f3631;
+    --accent: #c8906d;
+    --accent-ink: #231e1b;
+    --danger: #f0806f;
+}
+
+/* Jade Amethyst Forest — #429155 #B69AD2 #1B1B1B #1C4C2D #3E2C5C #585858 */
+:root[data-theme="forest"] {
+    --paper: #1b1b1b;
+    --shelf: #151816;
+    --surface: #252826;
+    --selected: #1c2e23;
+    --ink: #e8ece9;
+    --muted: #9ba59e;
+    --faint: #585858;
+    --line: #2a2e2b;
+    --accent: #b69ad2;
+    --accent-ink: #1b1b1b;
+    --danger: #f0806f;
 }
 
 * {
@@ -370,7 +475,7 @@ body.sidebar-collapsed .sidebar {
     border-top: 1px solid var(--line);
 }
 
-.sidebar-footer .icon-btn {
+.sidebar-footer .theme-btn {
     margin-left: auto;
 }
 
@@ -885,4 +990,60 @@ kbd {
         border-top: 0;
         padding-top: 0;
     }
+}
+
+/* ---------- Theme picker ---------- */
+
+.theme-popover {
+    width: 240px;
+    padding: 6px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 7px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.theme-option:hover {
+    background: var(--hover);
+}
+
+.theme-option[aria-pressed="true"] {
+    font-weight: 600;
+}
+
+.theme-option .theme-check {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    visibility: hidden;
+}
+
+.theme-option[aria-pressed="true"] .theme-check {
+    visibility: visible;
+}
+
+.theme-chips {
+    display: flex;
+    flex: none;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.3);
+}
+
+.theme-chips span {
+    width: 10px;
+    height: 20px;
+}
+
+.theme-note {
+    padding: 6px 8px 4px;
+    font-size: 12px;
+    color: var(--muted);
 }

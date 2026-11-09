@@ -76,6 +76,13 @@
                 { tag: 'path', attrs: { d: 'M12 11v6' } },
                 { tag: 'path', attrs: { d: 'M9.5 14.5L12 17l2.5-2.5' } }
             ],
+            palette: [
+                { tag: 'path', attrs: { d: 'M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z' } },
+                { tag: 'circle', attrs: { cx: 7.5, cy: 11.5, r: 1 } },
+                { tag: 'circle', attrs: { cx: 10.5, cy: 7.5, r: 1 } },
+                { tag: 'circle', attrs: { cx: 15.5, cy: 8.5, r: 1 } }
+            ],
+            check: [{ tag: 'path', attrs: { d: 'M5 12.5l4.5 4.5L19 7.5' } }],
             download: [
                 { tag: 'path', attrs: { d: 'M12 4v11' } },
                 { tag: 'path', attrs: { d: 'M7.5 10.5L12 15l4.5-4.5' } },
@@ -97,6 +104,28 @@
             ['Cream', '#fbf3df'], ['Rose', '#fbe4e2'], ['Butter', '#fdf2c4'], ['Mint', '#dff3e4'],
             ['Sky', '#ddeefb'], ['Lavender', '#ece6fa']
         ];
+        var THEMES = [
+            { id: 'blank', name: 'Blank Page', chips: ['#f2f0ef', '#c9c8c7', '#949392', '#66615e'] },
+            { id: 'spring', name: 'Spring', chips: ['#ccdcdb', '#a1d8b5', '#4cb572', '#135e4b'] },
+            { id: 'cascade', name: 'Cascade', chips: ['#e8edf2', '#8ca4bb', '#6a89a7', '#516e89'] },
+            { id: 'driftwood', name: 'Driftwood', chips: ['#cccdc7', '#e4a499', '#bc7b6f', '#5a322a'] },
+            { id: 'rose', name: 'Rose', chips: ['#dfd9d8', '#fc8f8f', '#b44446', '#64242f'] },
+            { id: 'walnut', name: 'Walnut', chips: ['#4a413c', '#bb6c43', '#c8906d', '#ccb499'] },
+            { id: 'forest', name: 'Forest', chips: ['#1b1b1b', '#1c4c2d', '#429155', '#b69ad2'] }
+        ];
+        var DEFAULT_THEME = 'blank';
+        var currentTheme = DEFAULT_THEME;
+
+        function applyTheme(id) {
+            var known = THEMES.some(function(t) { return t.id === id; });
+            currentTheme = known ? id : DEFAULT_THEME;
+            if (currentTheme === DEFAULT_THEME) {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+            }
+        }
+
         var MOBILE_QUERY = window.matchMedia('(max-width: 720px)');
 
         function changeFavicon(url) {
@@ -192,7 +221,7 @@
         }
 
         function persistEntries() {
-            var snapshot = JSON.stringify({ savedAt: Date.now(), entries: entries });
+            var snapshot = JSON.stringify({ savedAt: Date.now(), entries: entries, theme: currentTheme });
             try {
                 window.name = WINDOW_NAME_PREFIX + snapshot;
             } catch (e) {
@@ -233,6 +262,7 @@
                 var newest = [hashSnapshot, fromWindowName].filter(Boolean).sort(function(a, b) {
                     return b.savedAt - a.savedAt;
                 })[0];
+                if (newest && newest.theme) applyTheme(newest.theme);
                 return newest ? JSON.stringify(newest.entries) : '';
             });
         }
@@ -590,6 +620,10 @@
 
             pop.appendChild(section('Label', 'titleBarColor', LABEL_COLORS));
             pop.appendChild(section('Page', 'contentBackgroundColor', PAGE_COLORS));
+            presentPopover(pop, anchor, '.swatch[aria-pressed="true"]');
+        }
+
+        function presentPopover(pop, anchor, focusSelector) {
             document.body.appendChild(pop);
 
             var r = anchor.getBoundingClientRect();
@@ -616,8 +650,54 @@
             openPopover = state;
             document.addEventListener('mousedown', state.onOutside, true);
             document.addEventListener('keydown', state.onKey, true);
-            var selected = pop.querySelector('.swatch[aria-pressed="true"]') || pop.querySelector('.swatch');
-            selected.focus();
+            var selected = pop.querySelector(focusSelector) || pop.querySelector('button');
+            if (selected) selected.focus();
+        }
+
+        function showThemePopover(anchor) {
+            var reopen = openPopover && openPopover.anchor === anchor;
+            closePopover();
+            if (reopen) return;
+
+            var pop = document.createElement('div');
+            pop.className = 'popover theme-popover';
+            pop.setAttribute('role', 'dialog');
+            pop.setAttribute('aria-label', 'Theme');
+
+            THEMES.forEach(function(theme) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'theme-option';
+                b.setAttribute('aria-pressed', String(theme.id === currentTheme));
+                var chips = document.createElement('span');
+                chips.className = 'theme-chips';
+                chips.setAttribute('aria-hidden', 'true');
+                theme.chips.forEach(function(c) {
+                    var chip = document.createElement('span');
+                    chip.style.background = c;
+                    chips.appendChild(chip);
+                });
+                b.appendChild(chips);
+                b.appendChild(document.createTextNode(theme.name));
+                var check = createIcon(ICONS.check);
+                check.classList.add('theme-check');
+                b.appendChild(check);
+                b.onclick = function() {
+                    applyTheme(theme.id);
+                    persistEntries();
+                    pop.querySelectorAll('.theme-option').forEach(function(o) {
+                        o.setAttribute('aria-pressed', String(o === b));
+                    });
+                };
+                pop.appendChild(b);
+            });
+
+            var note = document.createElement('p');
+            note.className = 'theme-note';
+            note.textContent = 'Blank Page follows your system\u2019s light or dark setting.';
+            pop.appendChild(note);
+
+            presentPopover(pop, anchor, '.theme-option[aria-pressed="true"]');
         }
 
         function reorderPanes(sourcePaneId, targetPaneId) {
@@ -997,9 +1077,13 @@
         var footer = document.querySelector('.sidebar-footer');
         var saveDbButton = createTextButton(ICONS.download, 'Back up', 'Save all notes to a file');
         var loadDbButton = createTextButton(ICONS.upload, 'Restore', 'Load notes from a backup file');
+        var themeButton = createIconButton(ICONS.palette, 'Theme');
+        themeButton.className += ' theme-btn';
+        themeButton.onclick = function() { showThemePopover(themeButton); };
         var helpButton = createIconButton(ICONS.help, 'Help and shortcuts');
         footer.appendChild(saveDbButton);
         footer.appendChild(loadDbButton);
+        footer.appendChild(themeButton);
         footer.appendChild(helpButton);
 
         function showHelpOverlay() {
@@ -1039,6 +1123,7 @@
                 ['Arrange', ['Drag notes in the list to reorder them. Drag one onto the editor to open it side by side, and drag a pane\u2019s title to move it.']],
                 ['Colors', ['Click the dot beside a title to set the note\u2019s label and page color.']],
                 ['Export', ['The page icon beside a title saves that note as a .txt file.']],
+                ['Theme', ['The palette button at the bottom of the list changes the app\u2019s colors. Your choice is saved with your notes.']],
                 ['Focus', [kbd('Ctrl'), ' ', kbd('\\'), ' hides or shows the notes list.']]
             ];
             tips.forEach(function(tip) {
