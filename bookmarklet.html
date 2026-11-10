@@ -3,7 +3,7 @@ data:text/html,<html>
     <title>Notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-%2F*%20------------------------------------------------------------------%0A%20%20%20Notes%20bookmarklet%0A%20%20%20Themes%20come%20from%20Figma%20color%20palettes%20(figma.com%2Fcolor-palettes).%0A%20%20%20Default%3A%20%22Blank%20Page%22%20(monochromatic)%2C%20following%20system%20light%2Fdark.%0A%20%20%20Each%20theme%20sets%20surfaces%2C%20ink%2C%20and%20one%20accent%3B%20the%20rest%20is%20derived.%0A%20%20%20------------------------------------------------------------------%20*%2F%0A%0A%3Aroot%20%7B%0A%20%20%20%20--font-ui%3A%20ui-sans-serif%2C%20system-ui%2C%20-apple-system%2C%20%22Segoe%20UI%22%2C%20Roboto%2C%20%22Helvetica%20Neue%22%2C%20Arial%2C%20sans-serif%3B%0A%20%20%20%20--font-title%3A%20%22Iowan%20Old%20Style%22%2C%20%22Charter%22%2C%20%22Bitstream%20Charter%22%2C%20%22Sitka%20Text%22%2C%20Cambria%2C%20Georgia%2C%20serif%3B%0A%20%20%20%20--radius%3A%208px%3B%0A%20%20%20%20--sidebar-w%3A%20272px%3B%0A%0A%20%20%20%20%2F*%20Blank%20Page%20%E2%80%94%20%23F2F0EF%20%23C9C8C7%20%23949392%20%2366615E%20*%2F%0A%20%20%20%20--paper%3A%20%23f8f7f6%3B%0A%20%20%20%20--shelf%3A%20%23f2f0ef%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%23262321%3B%0A%20%20%20%20--muted%3A%20%2366615e%3B%0A%20%20%20%20--faint%3A%20%23a6a4a3%3B%0A%20%20%20%20--line%3A%20%23e0dedc%3B%0A%20%20%20%20--accent%3A%20%23262321%3B%0A%20%20%20%20--accent-ink%3A%20%23f8f7f6%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%0A%20%20%20%20--hover%3A%20color-mix(in%20srgb%2C%20var(--ink)%206%25%2C%20transparent)%3B%0A%20%20%20%20--accent-soft%3A%20color-mix(in%20srgb%2C%20var(--accent)%209%25%2C%20transparent)%3B%0A%20%20%20%20--scrim%3A%20rgba(20%2C%2018%2C%2017%2C%200.32)%3B%0A%20%20%20%20--shadow-row%3A%200%201px%202px%20rgba(20%2C%2018%2C%2017%2C%200.07)%2C%200%200%200%201px%20rgba(20%2C%2018%2C%2017%2C%200.04)%3B%0A%20%20%20%20--shadow-float%3A%200%2012px%2032px%20rgba(20%2C%2018%2C%2017%2C%200.16)%2C%200%200%200%201px%20rgba(20%2C%2018%2C%2017%2C%200.06)%3B%0A%20%20%20%20color-scheme%3A%20light%3B%0A%7D%0A%0A%2F*%20Shared%20depth%20for%20dark%20themes%20*%2F%0A%40media%20(prefers-color-scheme%3A%20dark)%20%7B%0A%20%20%20%20%3Aroot%3Anot(%5Bdata-theme%5D)%2C%0A%20%20%20%20%3Aroot%5Bdata-theme%3D%22blank%22%5D%20%7B%0A%20%20%20%20%20%20%20%20--scrim%3A%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20%20%20%20%20--shadow-row%3A%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.06)%3B%0A%20%20%20%20%20%20%20%20--shadow-float%3A%200%2016px%2040px%20rgba(0%2C%200%2C%200%2C%200.5)%2C%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.08)%3B%0A%20%20%20%20%20%20%20%20color-scheme%3A%20dark%3B%0A%0A%20%20%20%20%20%20%20%20%2F*%20Blank%20Page%2C%20dark%20*%2F%0A%20%20%20%20%20%20%20%20--paper%3A%20%231c1b1a%3B%0A%20%20%20%20%20%20%20%20--shelf%3A%20%23161514%3B%0A%20%20%20%20%20%20%20%20--surface%3A%20%23262423%3B%0A%20%20%20%20%20%20%20%20--selected%3A%20%232a2827%3B%0A%20%20%20%20%20%20%20%20--ink%3A%20%23edebea%3B%0A%20%20%20%20%20%20%20%20--muted%3A%20%23a3a09e%3B%0A%20%20%20%20%20%20%20%20--faint%3A%20%2366615e%3B%0A%20%20%20%20%20%20%20%20--line%3A%20%232f2d2b%3B%0A%20%20%20%20%20%20%20%20--accent%3A%20%23edebea%3B%0A%20%20%20%20%20%20%20%20--accent-ink%3A%20%231c1b1a%3B%0A%20%20%20%20%20%20%20%20--danger%3A%20%23f0806f%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%3Aroot%5Bdata-theme%3D%22walnut%22%5D%2C%0A%3Aroot%5Bdata-theme%3D%22forest%22%5D%20%7B%0A%20%20%20%20--scrim%3A%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20--shadow-row%3A%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.06)%3B%0A%20%20%20%20--shadow-float%3A%200%2016px%2040px%20rgba(0%2C%200%2C%200%2C%200.5)%2C%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.08)%3B%0A%20%20%20%20color-scheme%3A%20dark%3B%0A%7D%0A%0A%2F*%20Emerald%20Spring%20Whisper%20%E2%80%94%20%23135E4B%20%234CB572%20%23A1D8B5%20%23CCDCDB%20*%2F%0A%3Aroot%5Bdata-theme%3D%22spring%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23f6f9f8%3B%0A%20%20%20%20--shelf%3A%20%23e8efee%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%2310302a%3B%0A%20%20%20%20--muted%3A%20%2346625a%3B%0A%20%20%20%20--faint%3A%20%2394bfac%3B%0A%20%20%20%20--line%3A%20%23d3e0de%3B%0A%20%20%20%20--accent%3A%20%23135e4b%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%7D%0A%0A%2F*%20Blue%20Cascade%20%E2%80%94%20%236A89A7%20%23516E89%20%238CA4BB%20*%2F%0A%3Aroot%5Bdata-theme%3D%22cascade%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23f6f8fa%3B%0A%20%20%20%20--shelf%3A%20%23e8edf2%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%231a2633%3B%0A%20%20%20%20--muted%3A%20%234b6680%3B%0A%20%20%20%20--faint%3A%20%238ca4bb%3B%0A%20%20%20%20--line%3A%20%23d5dee7%3B%0A%20%20%20%20--accent%3A%20%23516e89%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%7D%0A%0A%2F*%20Driftwood%20Pearl%20Morning%20%E2%80%94%20%23BC7B6F%20%23E4A499%20%235A322A%20%23718A9E%20%23CCCDC7%20*%2F%0A%3Aroot%5Bdata-theme%3D%22driftwood%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23f8f7f4%3B%0A%20%20%20%20--shelf%3A%20%23ebebe6%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%232f1b16%3B%0A%20%20%20%20--muted%3A%20%235a6b79%3B%0A%20%20%20%20--faint%3A%20%23c9a29a%3B%0A%20%20%20%20--line%3A%20%23dcdcd5%3B%0A%20%20%20%20--accent%3A%20%238f5246%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%7D%0A%0A%2F*%20Rose%20Quartz%20Evening%20%E2%80%94%20%2364242F%20%23B44446%20%23FC8F8F%20%23DFD9D8%20*%2F%0A%3Aroot%5Bdata-theme%3D%22rose%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23faf8f7%3B%0A%20%20%20%20--shelf%3A%20%23f0ebea%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%233a141b%3B%0A%20%20%20%20--muted%3A%20%236e5357%3B%0A%20%20%20%20--faint%3A%20%23e0a3a3%3B%0A%20%20%20%20--line%3A%20%23e4dbda%3B%0A%20%20%20%20--accent%3A%20%23b44446%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%238f1d22%3B%0A%7D%0A%0A%2F*%20Amber%20Walnut%20Morning%20%E2%80%94%20%23BB6C43%20%234A413C%20%23EBEFEE%20%23C8906D%20%23CCB499%20*%2F%0A%3Aroot%5Bdata-theme%3D%22walnut%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%232c2623%3B%0A%20%20%20%20--shelf%3A%20%23231e1b%3B%0A%20%20%20%20--surface%3A%20%233a322e%3B%0A%20%20%20%20--selected%3A%20%233a322e%3B%0A%20%20%20%20--ink%3A%20%23ebefee%3B%0A%20%20%20%20--muted%3A%20%23ccb499%3B%0A%20%20%20%20--faint%3A%20%236e6058%3B%0A%20%20%20%20--line%3A%20%233f3631%3B%0A%20%20%20%20--accent%3A%20%23c8906d%3B%0A%20%20%20%20--accent-ink%3A%20%23231e1b%3B%0A%20%20%20%20--danger%3A%20%23f0806f%3B%0A%7D%0A%0A%2F*%20Jade%20Amethyst%20Forest%20%E2%80%94%20%23429155%20%23B69AD2%20%231B1B1B%20%231C4C2D%20%233E2C5C%20%23585858%20*%2F%0A%3Aroot%5Bdata-theme%3D%22forest%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%231b1b1b%3B%0A%20%20%20%20--shelf%3A%20%23151816%3B%0A%20%20%20%20--surface%3A%20%23252826%3B%0A%20%20%20%20--selected%3A%20%231c2e23%3B%0A%20%20%20%20--ink%3A%20%23e8ece9%3B%0A%20%20%20%20--muted%3A%20%239ba59e%3B%0A%20%20%20%20--faint%3A%20%23585858%3B%0A%20%20%20%20--line%3A%20%232a2e2b%3B%0A%20%20%20%20--accent%3A%20%23b69ad2%3B%0A%20%20%20%20--accent-ink%3A%20%231b1b1b%3B%0A%20%20%20%20--danger%3A%20%23f0806f%3B%0A%7D%0A%0A*%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20box-sizing%3A%20border-box%3B%0A%7D%0A%0Ahtml%2C%0Abody%20%7B%0A%20%20%20%20height%3A%20100%25%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20font-family%3A%20var(--font-ui)%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20line-height%3A%201.5%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20background%3A%20var(--paper)%3B%0A%20%20%20%20-webkit-font-smoothing%3A%20antialiased%3B%0A%7D%0A%0Abutton%2C%0Ainput%20%7B%0A%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0Abutton%20%7B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20text-underline-offset%3A%202px%3B%0A%7D%0A%0A%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%202px%20solid%20var(--accent)%3B%0A%20%20%20%20outline-offset%3A%202px%3B%0A%7D%0A%0A.icon%20%7B%0A%20%20%20%20width%3A%2018px%3B%0A%20%20%20%20height%3A%2018px%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0A%2F*%20----------%20Shared%20buttons%20----------%20*%2F%0A%0A.icon-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2032px%3B%0A%20%20%20%20height%3A%2032px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20color%200.12s%20ease%3B%0A%7D%0A%0A.icon-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.text-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20height%3A%2032px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20color%200.12s%20ease%3B%0A%7D%0A%0A.text-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.text-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.solid-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20height%3A%2036px%3B%0A%20%20%20%20padding%3A%200%2016px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20background%3A%20var(--accent)%3B%0A%20%20%20%20color%3A%20var(--accent-ink)%3B%0A%7D%0A%0A.solid-btn%3Ahover%20%7B%0A%20%20%20%20filter%3A%20brightness(1.08)%3B%0A%7D%0A%0A.solid-btn.danger%20%7B%0A%20%20%20%20background%3A%20var(--danger)%3B%0A%20%20%20%20color%3A%20%23ffffff%3B%0A%7D%0A%0A.ghost-btn%20%7B%0A%20%20%20%20height%3A%2036px%3B%0A%20%20%20%20padding%3A%200%2016px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20var(--line)%3B%0A%7D%0A%0A.ghost-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A%2F*%20----------%20Sidebar%20----------%20*%2F%0A%0A.sidebar%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%20var(--sidebar-w)%3B%0A%20%20%20%20background%3A%20var(--shelf)%3B%0A%20%20%20%20border-right%3A%201px%20solid%20var(--line)%3B%0A%20%20%20%20transition%3A%20margin-left%200.2s%20ease%3B%0A%7D%0A%0Abody.sidebar-collapsed%20.sidebar%20%7B%0A%20%20%20%20margin-left%3A%20calc(-1%20*%20var(--sidebar-w))%3B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%7D%0A%0A.sidebar-header%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20padding%3A%2014px%2010px%206px%2018px%3B%0A%7D%0A%0A.app-name%20%7B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2019px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20letter-spacing%3A%20-0.01em%3B%0A%7D%0A%0A.note-count%20%7B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20font-variant-numeric%3A%20tabular-nums%3B%0A%7D%0A%0A.sidebar-header%20.icon-btn%20%7B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%7D%0A%0A.new-note-btn%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20margin%3A%206px%208px%208px%3B%0A%20%20%20%20height%3A%2038px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%3B%0A%7D%0A%0A.new-note-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--accent-soft)%3B%0A%7D%0A%0A.new-note-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2020px%3B%0A%20%20%20%20height%3A%2020px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20background%3A%20var(--accent)%3B%0A%20%20%20%20color%3A%20var(--accent-ink)%3B%0A%7D%0A%0A.entry-list%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%200%208px%2012px%3B%0A%7D%0A%0A.entry-list%20%3E%20div%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A.entry-item%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20flex-start%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20padding%3A%208px%206px%208px%204px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20user-select%3A%20none%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20box-shadow%200.12s%20ease%3B%0A%7D%0A%0A.entry-item%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A.entry-item.active%20%7B%0A%20%20%20%20background%3A%20var(--selected)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-row)%3B%0A%7D%0A%0A.entry-item.dragging%20%7B%0A%20%20%20%20opacity%3A%200.4%3B%0A%7D%0A%0A.entry-item.drag-over%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%202px%200%20var(--accent)%3B%0A%7D%0A%0A.entry-item-text%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20padding-top%3A%201px%3B%0A%7D%0A%0A.entry-item-title%2C%0A.entry-item-preview%20%7B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.entry-item-title%20%7B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2022px%3B%0A%7D%0A%0A.entry-item-preview%20%7B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20line-height%3A%2018px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.entry-item-title-input%2C%0A.pane-title-input%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--accent)%3B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.entry-item-title-input%20%7B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2022px%3B%0A%20%20%20%20padding%3A%200%204px%3B%0A%7D%0A%0A.entry-item%20.delete-btn%20%7B%0A%20%20%20%20width%3A%2028px%3B%0A%20%20%20%20height%3A%2028px%3B%0A%20%20%20%20opacity%3A%200%3B%0A%7D%0A%0A.entry-item%20.delete-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.entry-item%3Ahover%20.delete-btn%2C%0A.entry-item%3Afocus-within%20.delete-btn%2C%0A.entry-item.active%20.delete-btn%20%7B%0A%20%20%20%20opacity%3A%201%3B%0A%7D%0A%0A.entry-item%20.delete-btn%3Ahover%20%7B%0A%20%20%20%20color%3A%20var(--danger)%3B%0A%7D%0A%0A%40media%20(hover%3A%20none)%20%7B%0A%20%20%20%20.entry-item%20.delete-btn%20%7B%0A%20%20%20%20%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20%7D%0A%7D%0A%0A.sidebar-footer%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%202px%3B%0A%20%20%20%20padding%3A%208px%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%7D%0A%0A.sidebar-footer%20.theme-btn%20%7B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%7D%0A%0A%2F*%20----------%20Color%20dots%20%26%20swatches%20----------%20*%2F%0A%0A.color-dot%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2024px%3B%0A%20%20%20%20height%3A%2024px%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%7D%0A%0A.entry-item%20.color-dot%20%7B%0A%20%20%20%20margin-top%3A%20-1px%3B%0A%7D%0A%0A.color-dot%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%206px%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20background%3A%20var(--dot%2C%20transparent)%3B%0A%20%20%20%20transition%3A%20transform%200.12s%20ease%3B%0A%7D%0A%0A.color-dot.color-dot-empty%3A%3Aafter%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201.5px%20var(--faint)%3B%0A%7D%0A%0A.color-dot%3Ahover%3A%3Aafter%20%7B%0A%20%20%20%20transform%3A%20scale(1.2)%3B%0A%7D%0A%0A%2F*%20----------%20Editor%20----------%20*%2F%0A%0A.editor%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20background%3A%20var(--paper)%3B%0A%7D%0A%0A.split-horizontal%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%7D%0A%0A.split-horizontal%20%3E%20.entry-pane%20%2B%20.entry-pane%20%7B%0A%20%20%20%20border-left%3A%201px%20solid%20var(--line)%3B%0A%7D%0A%0A.entry-pane%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20background%3A%20var(--paper)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20--column%3A%20700px%3B%0A%20%20%20%20--gutter%3A%2040px%3B%0A%20%20%20%20--pad%3A%20max(var(--gutter)%2C%20calc((100%25%20-%20var(--column))%20%2F%202))%3B%0A%7D%0A%0A.split-horizontal%20.entry-pane%20%7B%0A%20%20%20%20--gutter%3A%2028px%3B%0A%7D%0A%0A.pane-title%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%204px%3B%0A%20%20%20%20padding%3A%2028px%20var(--pad)%206px%3B%0A%7D%0A%0A.pane-title%20.color-dot%20%7B%0A%20%20%20%20margin-left%3A%20-6px%3B%0A%7D%0A%0A.pane-title-text%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2030px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.25%3B%0A%20%20%20%20letter-spacing%3A%20-0.015em%3B%0A%20%20%20%20cursor%3A%20text%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%7D%0A%0A.pane-title-input%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2030px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.25%3B%0A%20%20%20%20letter-spacing%3A%20-0.015em%3B%0A%20%20%20%20padding%3A%200%206px%3B%0A%20%20%20%20margin-left%3A%20-6px%3B%0A%7D%0A%0A.split-horizontal%20.pane-title-text%2C%0A.split-horizontal%20.pane-title-input%20%7B%0A%20%20%20%20font-size%3A%2022px%3B%0A%7D%0A%0A.split-horizontal%20.pane-title%20%7B%0A%20%20%20%20padding-top%3A%2020px%3B%0A%20%20%20%20cursor%3A%20grab%3B%0A%7D%0A%0A.pane-title-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20gap%3A%202px%3B%0A%20%20%20%20margin-right%3A%20-8px%3B%0A%7D%0A%0A.pane-title-actions%20.swatch-preview%20%7B%0A%20%20%20%20width%3A%2014px%3B%0A%20%20%20%20height%3A%2014px%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201.5px%20currentColor%3B%0A%7D%0A%0A.reveal-btn%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%20%20%20%20margin-left%3A%20-10px%3B%0A%20%20%20%20margin-right%3A%204px%3B%0A%7D%0A%0Abody.sidebar-collapsed%20.editor%20%3E%20.entry-pane%20.reveal-btn%2C%0Abody.sidebar-collapsed%20.split-horizontal%20%3E%20.entry-pane%3Afirst-child%20.reveal-btn%2C%0Abody.sidebar-collapsed%20.empty-state%20.reveal-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%7D%0A%0A.editor%20%3E%20.entry-pane%20.close-pane-btn%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A.content-editable%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%2010px%20var(--pad)%2030vh%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20line-height%3A%201.7%3B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20overflow-wrap%3A%20anywhere%3B%0A%20%20%20%20caret-color%3A%20var(--accent)%3B%0A%7D%0A%0A.content-editable%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.content-editable%20a%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0A.content-editable%20input%5Btype%3D%22checkbox%22%5D%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%20%20%20%20margin-right%3A%206px%3B%0A%20%20%20%20vertical-align%3A%20-2px%3B%0A%20%20%20%20accent-color%3A%20var(--accent)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A%2F*%20Note%20page%20colors%3A%20the%20pane%20adopts%20the%20chosen%20paper%20and%20readable%20ink.%20*%2F%0A.entry-pane.has-page-color%20%7B%0A%20%20%20%20--muted%3A%20currentColor%3B%0A%20%20%20%20--hover%3A%20rgba(127%2C%20127%2C%20127%2C%200.16)%3B%0A%7D%0A%0A.entry-pane.has-page-color%20.icon-btn%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20opacity%3A%200.7%3B%0A%7D%0A%0A.entry-pane.has-page-color%20.icon-btn%3Ahover%20%7B%0A%20%20%20%20opacity%3A%201%3B%0A%7D%0A%0A%2F*%20Drop%20target%20when%20dragging%20a%20note%20onto%20the%20editor%20*%2F%0A.editor.drop-target%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22Drop%20to%20open%20side%20by%20side%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%2012px%3B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20place-items%3A%20center%3B%0A%20%20%20%20border%3A%202px%20dashed%20var(--accent)%3B%0A%20%20%20%20border-radius%3A%2014px%3B%0A%20%20%20%20background%3A%20var(--accent-soft)%3B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20z-index%3A%205%3B%0A%7D%0A%0A%2F*%20Empty%20state%20*%2F%0A.empty-state%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%2014px%3B%0A%20%20%20%20padding%3A%2024px%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%7D%0A%0A.empty-state%20p%20%7B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.empty-state%20.reveal-btn%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%2016px%3B%0A%20%20%20%20left%3A%2020px%3B%0A%20%20%20%20margin%3A%200%3B%0A%7D%0A%0A%2F*%20----------%20Popover%20(note%20colors)%20----------%20*%2F%0A%0A.popover%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20z-index%3A%2030%3B%0A%20%20%20%20width%3A%20268px%3B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20border-radius%3A%2012px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%7D%0A%0A.popover-section%20%2B%20.popover-section%20%7B%0A%20%20%20%20margin-top%3A%2014px%3B%0A%7D%0A%0A.popover-label%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20margin-bottom%3A%208px%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.swatches%20%7B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20grid-template-columns%3A%20repeat(8%2C%201fr)%3B%0A%20%20%20%20gap%3A%204px%3B%0A%7D%0A%0A.swatch%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20aspect-ratio%3A%201%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20background%3A%20var(--swatch)%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20rgba(127%2C%20127%2C%20127%2C%200.28)%3B%0A%7D%0A%0A.swatch%3Ahover%20%7B%0A%20%20%20%20transform%3A%20scale(1.1)%3B%0A%7D%0A%0A.swatch%5Baria-pressed%3D%22true%22%5D%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20rgba(127%2C%20127%2C%20127%2C%200.28)%2C%200%200%200%202px%20var(--surface)%2C%200%200%200%204px%20var(--ink)%3B%0A%7D%0A%0A.swatch.swatch-none%20%7B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%7D%0A%0A.swatch.swatch-none%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2018%25%3B%0A%20%20%20%20bottom%3A%2018%25%3B%0A%20%20%20%20width%3A%201.5px%3B%0A%20%20%20%20background%3A%20var(--danger)%3B%0A%20%20%20%20transform%3A%20rotate(45deg)%3B%0A%7D%0A%0A.swatch.swatch-custom%20%7B%0A%20%20%20%20background%3A%20conic-gradient(%23e5484d%2C%20%23f5a524%2C%20%2346a758%2C%20%230091ff%2C%20%238e4ec6%2C%20%23e5484d)%3B%0A%7D%0A%0A.swatch-custom%20input%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A%2F*%20----------%20Dialogs%20----------%20*%2F%0A%0A.modal%2C%0A.help-overlay%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20inset%3A%200%3B%0A%20%20%20%20z-index%3A%2040%3B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20place-items%3A%20center%3B%0A%20%20%20%20padding%3A%2016px%3B%0A%20%20%20%20background%3A%20var(--scrim)%3B%0A%20%20%20%20animation%3A%20fade-in%200.12s%20ease%3B%0A%7D%0A%0A.modal-content%2C%0A.help-card%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max-height%3A%20calc(100vh%20-%2032px)%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20border-radius%3A%2014px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%20%20%20%20animation%3A%20rise-in%200.16s%20ease%3B%0A%7D%0A%0A.modal-content%20%7B%0A%20%20%20%20max-width%3A%20380px%3B%0A%20%20%20%20padding%3A%2022px%3B%0A%7D%0A%0A.modal-content%20h2%20%7B%0A%20%20%20%20font-size%3A%2017px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.35%3B%0A%20%20%20%20overflow-wrap%3A%20anywhere%3B%0A%7D%0A%0A.modal-content%20p%20%7B%0A%20%20%20%20margin-top%3A%206px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A.modal-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20flex-end%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20margin-top%3A%2022px%3B%0A%7D%0A%0A.help-card%20%7B%0A%20%20%20%20max-width%3A%20560px%3B%0A%20%20%20%20padding%3A%2026px%2028px%2022px%3B%0A%7D%0A%0A.help-card%20h2%20%7B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2024px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20letter-spacing%3A%20-0.01em%3B%0A%7D%0A%0A.help-close%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%2014px%3B%0A%20%20%20%20right%3A%2014px%3B%0A%7D%0A%0A.help-list%20%7B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20grid-template-columns%3A%20128px%201fr%3B%0A%20%20%20%20column-gap%3A%2020px%3B%0A%20%20%20%20margin-top%3A%2018px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A.help-list%20dt%2C%0A.help-list%20dd%20%7B%0A%20%20%20%20padding%3A%2010px%200%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%7D%0A%0A.help-list%20dt%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A.help-list%20dd%20%7B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0Akbd%20%7B%0A%20%20%20%20display%3A%20inline-block%3B%0A%20%20%20%20min-width%3A%2020px%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20box-shadow%3A%20inset%200%20-1px%200%20var(--line)%3B%0A%20%20%20%20font-family%3A%20inherit%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2020px%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.help-footer%20%7B%0A%20%20%20%20margin-top%3A%2014px%3B%0A%20%20%20%20padding-top%3A%2014px%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.drawer-scrim%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A%40keyframes%20fade-in%20%7B%0A%20%20%20%20from%20%7B%20opacity%3A%200%3B%20%7D%0A%7D%0A%0A%40keyframes%20rise-in%20%7B%0A%20%20%20%20from%20%7B%20opacity%3A%200%3B%20transform%3A%20translateY(6px)%20scale(0.98)%3B%20%7D%0A%7D%0A%0A%40media%20(prefers-reduced-motion%3A%20reduce)%20%7B%0A%20%20%20%20*%2C%0A%20%20%20%20*%3A%3Abefore%2C%0A%20%20%20%20*%3A%3Aafter%20%7B%0A%20%20%20%20%20%20%20%20animation%3A%20none%20!important%3B%0A%20%20%20%20%20%20%20%20transition%3A%20none%20!important%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%2F*%20----------%20Narrow%20screens%3A%20the%20list%20becomes%20a%20drawer%20----------%20*%2F%0A%0A%40media%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20%20%20inset%3A%200%20auto%200%200%3B%0A%20%20%20%20%20%20%20%20z-index%3A%2020%3B%0A%20%20%20%20%20%20%20%20width%3A%20min(86vw%2C%20320px)%3B%0A%20%20%20%20%20%20%20%20margin-left%3A%200%3B%0A%20%20%20%20%20%20%20%20transform%3A%20translateX(-100%25)%3B%0A%20%20%20%20%20%20%20%20visibility%3A%20hidden%3B%0A%20%20%20%20%20%20%20%20transition%3A%20transform%200.2s%20ease%2C%20visibility%200.2s%3B%0A%20%20%20%20%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body.sidebar-collapsed%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20margin-left%3A%200%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body.drawer-open%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20transform%3A%20none%3B%0A%20%20%20%20%20%20%20%20visibility%3A%20visible%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body.drawer-open%20.drawer-scrim%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20%20%20inset%3A%200%3B%0A%20%20%20%20%20%20%20%20z-index%3A%2015%3B%0A%20%20%20%20%20%20%20%20background%3A%20var(--scrim)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.editor%20%3E%20.entry-pane%20.reveal-btn%2C%0A%20%20%20%20.split-horizontal%20%3E%20.entry-pane%3Afirst-child%20.reveal-btn%2C%0A%20%20%20%20.empty-state%20.reveal-btn%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.split-horizontal%20%7B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.split-horizontal%20%3E%20.entry-pane%20%2B%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20border-left%3A%200%3B%0A%20%20%20%20%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-pane%2C%0A%20%20%20%20.split-horizontal%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20--gutter%3A%2020px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.pane-title%20%7B%0A%20%20%20%20%20%20%20%20padding-top%3A%2014px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.pane-title-text%2C%0A%20%20%20%20.pane-title-input%20%7B%0A%20%20%20%20%20%20%20%20font-size%3A%2024px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.help-list%20%7B%0A%20%20%20%20%20%20%20%20grid-template-columns%3A%201fr%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.help-list%20dt%20%7B%0A%20%20%20%20%20%20%20%20padding-bottom%3A%202px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.help-list%20dd%20%7B%0A%20%20%20%20%20%20%20%20border-top%3A%200%3B%0A%20%20%20%20%20%20%20%20padding-top%3A%200%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%2F*%20----------%20Theme%20picker%20----------%20*%2F%0A%0A.theme-popover%20%7B%0A%20%20%20%20width%3A%20240px%3B%0A%20%20%20%20padding%3A%206px%3B%0A%7D%0A%0A.theme-option%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20padding%3A%207px%208px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.theme-option%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A.theme-option%5Baria-pressed%3D%22true%22%5D%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A.theme-option%20.theme-check%20%7B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%7D%0A%0A.theme-option%5Baria-pressed%3D%22true%22%5D%20.theme-check%20%7B%0A%20%20%20%20visibility%3A%20visible%3B%0A%7D%0A%0A.theme-chips%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20box-shadow%3A%200%200%200%201px%20rgba(127%2C%20127%2C%20127%2C%200.3)%3B%0A%7D%0A%0A.theme-chips%20span%20%7B%0A%20%20%20%20width%3A%2010px%3B%0A%20%20%20%20height%3A%2020px%3B%0A%7D%0A%0A.theme-note%20%7B%0A%20%20%20%20padding%3A%206px%208px%204px%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A</style>
+%2F*%20------------------------------------------------------------------%0A%20%20%20Notes%20bookmarklet%0A%20%20%20Themes%20come%20from%20Figma%20color%20palettes%20(figma.com%2Fcolor-palettes).%0A%20%20%20Default%3A%20%22Blank%20Page%22%20(monochromatic)%2C%20following%20system%20light%2Fdark.%0A%20%20%20Each%20theme%20sets%20surfaces%2C%20ink%2C%20and%20one%20accent%3B%20the%20rest%20is%20derived.%0A%20%20%20------------------------------------------------------------------%20*%2F%0A%0A%3Aroot%20%7B%0A%20%20%20%20--font-ui%3A%20ui-sans-serif%2C%20system-ui%2C%20-apple-system%2C%20%22Segoe%20UI%22%2C%20Roboto%2C%20%22Helvetica%20Neue%22%2C%20Arial%2C%20sans-serif%3B%0A%20%20%20%20--font-title%3A%20%22Iowan%20Old%20Style%22%2C%20%22Charter%22%2C%20%22Bitstream%20Charter%22%2C%20%22Sitka%20Text%22%2C%20Cambria%2C%20Georgia%2C%20serif%3B%0A%20%20%20%20--radius%3A%208px%3B%0A%20%20%20%20--sidebar-w%3A%20272px%3B%0A%0A%20%20%20%20%2F*%20Blank%20Page%20%E2%80%94%20%23F2F0EF%20%23C9C8C7%20%23949392%20%2366615E%20*%2F%0A%20%20%20%20--paper%3A%20%23f8f7f6%3B%0A%20%20%20%20--shelf%3A%20%23f2f0ef%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%23262321%3B%0A%20%20%20%20--muted%3A%20%2366615e%3B%0A%20%20%20%20--faint%3A%20%23a6a4a3%3B%0A%20%20%20%20--line%3A%20%23e0dedc%3B%0A%20%20%20%20--accent%3A%20%23262321%3B%0A%20%20%20%20--accent-ink%3A%20%23f8f7f6%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%0A%20%20%20%20--hover%3A%20color-mix(in%20srgb%2C%20var(--ink)%206%25%2C%20transparent)%3B%0A%20%20%20%20--accent-soft%3A%20color-mix(in%20srgb%2C%20var(--accent)%209%25%2C%20transparent)%3B%0A%20%20%20%20--scrim%3A%20rgba(20%2C%2018%2C%2017%2C%200.32)%3B%0A%20%20%20%20--shadow-row%3A%200%201px%202px%20rgba(20%2C%2018%2C%2017%2C%200.07)%2C%200%200%200%201px%20rgba(20%2C%2018%2C%2017%2C%200.04)%3B%0A%20%20%20%20--shadow-float%3A%200%2012px%2032px%20rgba(20%2C%2018%2C%2017%2C%200.16)%2C%200%200%200%201px%20rgba(20%2C%2018%2C%2017%2C%200.06)%3B%0A%20%20%20%20color-scheme%3A%20light%3B%0A%7D%0A%0A%2F*%20Shared%20depth%20for%20dark%20themes%20*%2F%0A%40media%20(prefers-color-scheme%3A%20dark)%20%7B%0A%20%20%20%20%3Aroot%3Anot(%5Bdata-theme%5D)%2C%0A%20%20%20%20%3Aroot%5Bdata-theme%3D%22blank%22%5D%20%7B%0A%20%20%20%20%20%20%20%20--scrim%3A%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20%20%20%20%20--shadow-row%3A%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.06)%3B%0A%20%20%20%20%20%20%20%20--shadow-float%3A%200%2016px%2040px%20rgba(0%2C%200%2C%200%2C%200.5)%2C%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.08)%3B%0A%20%20%20%20%20%20%20%20color-scheme%3A%20dark%3B%0A%0A%20%20%20%20%20%20%20%20%2F*%20Blank%20Page%2C%20dark%20*%2F%0A%20%20%20%20%20%20%20%20--paper%3A%20%231c1b1a%3B%0A%20%20%20%20%20%20%20%20--shelf%3A%20%23161514%3B%0A%20%20%20%20%20%20%20%20--surface%3A%20%23262423%3B%0A%20%20%20%20%20%20%20%20--selected%3A%20%232a2827%3B%0A%20%20%20%20%20%20%20%20--ink%3A%20%23edebea%3B%0A%20%20%20%20%20%20%20%20--muted%3A%20%23a3a09e%3B%0A%20%20%20%20%20%20%20%20--faint%3A%20%2366615e%3B%0A%20%20%20%20%20%20%20%20--line%3A%20%232f2d2b%3B%0A%20%20%20%20%20%20%20%20--accent%3A%20%23edebea%3B%0A%20%20%20%20%20%20%20%20--accent-ink%3A%20%231c1b1a%3B%0A%20%20%20%20%20%20%20%20--danger%3A%20%23f0806f%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%3Aroot%5Bdata-theme%3D%22walnut%22%5D%2C%0A%3Aroot%5Bdata-theme%3D%22forest%22%5D%20%7B%0A%20%20%20%20--scrim%3A%20rgba(0%2C%200%2C%200%2C%200.5)%3B%0A%20%20%20%20--shadow-row%3A%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.06)%3B%0A%20%20%20%20--shadow-float%3A%200%2016px%2040px%20rgba(0%2C%200%2C%200%2C%200.5)%2C%200%200%200%201px%20rgba(255%2C%20255%2C%20255%2C%200.08)%3B%0A%20%20%20%20color-scheme%3A%20dark%3B%0A%7D%0A%0A%2F*%20Emerald%20Spring%20Whisper%20%E2%80%94%20%23135E4B%20%234CB572%20%23A1D8B5%20%23CCDCDB%20*%2F%0A%3Aroot%5Bdata-theme%3D%22spring%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23f6f9f8%3B%0A%20%20%20%20--shelf%3A%20%23e8efee%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%2310302a%3B%0A%20%20%20%20--muted%3A%20%2346625a%3B%0A%20%20%20%20--faint%3A%20%2394bfac%3B%0A%20%20%20%20--line%3A%20%23d3e0de%3B%0A%20%20%20%20--accent%3A%20%23135e4b%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%7D%0A%0A%2F*%20Blue%20Cascade%20%E2%80%94%20%236A89A7%20%23516E89%20%238CA4BB%20*%2F%0A%3Aroot%5Bdata-theme%3D%22cascade%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23f6f8fa%3B%0A%20%20%20%20--shelf%3A%20%23e8edf2%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%231a2633%3B%0A%20%20%20%20--muted%3A%20%234b6680%3B%0A%20%20%20%20--faint%3A%20%238ca4bb%3B%0A%20%20%20%20--line%3A%20%23d5dee7%3B%0A%20%20%20%20--accent%3A%20%23516e89%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%7D%0A%0A%2F*%20Driftwood%20Pearl%20Morning%20%E2%80%94%20%23BC7B6F%20%23E4A499%20%235A322A%20%23718A9E%20%23CCCDC7%20*%2F%0A%3Aroot%5Bdata-theme%3D%22driftwood%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23f8f7f4%3B%0A%20%20%20%20--shelf%3A%20%23ebebe6%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%232f1b16%3B%0A%20%20%20%20--muted%3A%20%235a6b79%3B%0A%20%20%20%20--faint%3A%20%23c9a29a%3B%0A%20%20%20%20--line%3A%20%23dcdcd5%3B%0A%20%20%20%20--accent%3A%20%238f5246%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%23a3231b%3B%0A%7D%0A%0A%2F*%20Rose%20Quartz%20Evening%20%E2%80%94%20%2364242F%20%23B44446%20%23FC8F8F%20%23DFD9D8%20*%2F%0A%3Aroot%5Bdata-theme%3D%22rose%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%23faf8f7%3B%0A%20%20%20%20--shelf%3A%20%23f0ebea%3B%0A%20%20%20%20--surface%3A%20%23ffffff%3B%0A%20%20%20%20--selected%3A%20%23ffffff%3B%0A%20%20%20%20--ink%3A%20%233a141b%3B%0A%20%20%20%20--muted%3A%20%236e5357%3B%0A%20%20%20%20--faint%3A%20%23e0a3a3%3B%0A%20%20%20%20--line%3A%20%23e4dbda%3B%0A%20%20%20%20--accent%3A%20%23b44446%3B%0A%20%20%20%20--accent-ink%3A%20%23ffffff%3B%0A%20%20%20%20--danger%3A%20%238f1d22%3B%0A%7D%0A%0A%2F*%20Amber%20Walnut%20Morning%20%E2%80%94%20%23BB6C43%20%234A413C%20%23EBEFEE%20%23C8906D%20%23CCB499%20*%2F%0A%3Aroot%5Bdata-theme%3D%22walnut%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%232c2623%3B%0A%20%20%20%20--shelf%3A%20%23231e1b%3B%0A%20%20%20%20--surface%3A%20%233a322e%3B%0A%20%20%20%20--selected%3A%20%233a322e%3B%0A%20%20%20%20--ink%3A%20%23ebefee%3B%0A%20%20%20%20--muted%3A%20%23ccb499%3B%0A%20%20%20%20--faint%3A%20%236e6058%3B%0A%20%20%20%20--line%3A%20%233f3631%3B%0A%20%20%20%20--accent%3A%20%23c8906d%3B%0A%20%20%20%20--accent-ink%3A%20%23231e1b%3B%0A%20%20%20%20--danger%3A%20%23f0806f%3B%0A%7D%0A%0A%2F*%20Jade%20Amethyst%20Forest%20%E2%80%94%20%23429155%20%23B69AD2%20%231B1B1B%20%231C4C2D%20%233E2C5C%20%23585858%20*%2F%0A%3Aroot%5Bdata-theme%3D%22forest%22%5D%20%7B%0A%20%20%20%20--paper%3A%20%231b1b1b%3B%0A%20%20%20%20--shelf%3A%20%23151816%3B%0A%20%20%20%20--surface%3A%20%23252826%3B%0A%20%20%20%20--selected%3A%20%231c2e23%3B%0A%20%20%20%20--ink%3A%20%23e8ece9%3B%0A%20%20%20%20--muted%3A%20%239ba59e%3B%0A%20%20%20%20--faint%3A%20%23585858%3B%0A%20%20%20%20--line%3A%20%232a2e2b%3B%0A%20%20%20%20--accent%3A%20%23b69ad2%3B%0A%20%20%20%20--accent-ink%3A%20%231b1b1b%3B%0A%20%20%20%20--danger%3A%20%23f0806f%3B%0A%7D%0A%0A*%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20box-sizing%3A%20border-box%3B%0A%7D%0A%0Ahtml%2C%0Abody%20%7B%0A%20%20%20%20height%3A%20100%25%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20font-family%3A%20var(--font-ui)%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20line-height%3A%201.5%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20background%3A%20var(--paper)%3B%0A%20%20%20%20-webkit-font-smoothing%3A%20antialiased%3B%0A%7D%0A%0Abutton%2C%0Ainput%20%7B%0A%20%20%20%20font%3A%20inherit%3B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0Abutton%20%7B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20text-underline-offset%3A%202px%3B%0A%7D%0A%0A%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%202px%20solid%20var(--accent)%3B%0A%20%20%20%20outline-offset%3A%202px%3B%0A%7D%0A%0A.icon%20%7B%0A%20%20%20%20width%3A%2018px%3B%0A%20%20%20%20height%3A%2018px%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20display%3A%20block%3B%0A%7D%0A%0A%2F*%20----------%20Shared%20buttons%20----------%20*%2F%0A%0A.icon-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2032px%3B%0A%20%20%20%20height%3A%2032px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20color%200.12s%20ease%3B%0A%7D%0A%0A.icon-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.text-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20height%3A%2032px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20color%200.12s%20ease%3B%0A%7D%0A%0A.text-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.text-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.solid-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20height%3A%2036px%3B%0A%20%20%20%20padding%3A%200%2016px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20background%3A%20var(--accent)%3B%0A%20%20%20%20color%3A%20var(--accent-ink)%3B%0A%7D%0A%0A.solid-btn%3Ahover%20%7B%0A%20%20%20%20filter%3A%20brightness(1.08)%3B%0A%7D%0A%0A.solid-btn.danger%20%7B%0A%20%20%20%20background%3A%20var(--danger)%3B%0A%20%20%20%20color%3A%20%23ffffff%3B%0A%7D%0A%0A.ghost-btn%20%7B%0A%20%20%20%20height%3A%2036px%3B%0A%20%20%20%20padding%3A%200%2016px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20var(--line)%3B%0A%7D%0A%0A.ghost-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A%2F*%20----------%20Sidebar%20----------%20*%2F%0A%0A.sidebar%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%20var(--sidebar-w)%3B%0A%20%20%20%20background%3A%20var(--shelf)%3B%0A%20%20%20%20border-right%3A%201px%20solid%20var(--line)%3B%0A%20%20%20%20transition%3A%20margin-left%200.2s%20ease%3B%0A%7D%0A%0Abody.sidebar-collapsed%20.sidebar%20%7B%0A%20%20%20%20margin-left%3A%20calc(-1%20*%20var(--sidebar-w))%3B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%7D%0A%0A.sidebar-header%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20padding%3A%2014px%2010px%206px%2018px%3B%0A%7D%0A%0A.app-name%20%7B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2019px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20letter-spacing%3A%20-0.01em%3B%0A%7D%0A%0A.note-count%20%7B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20font-variant-numeric%3A%20tabular-nums%3B%0A%7D%0A%0A.sidebar-header%20.icon-btn%20%7B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%7D%0A%0A.new-row%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%204px%3B%0A%20%20%20%20margin%3A%206px%208px%208px%3B%0A%7D%0A%0A.new-schedule-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20height%3A%2038px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20color%200.12s%20ease%3B%0A%7D%0A%0A.new-schedule-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.new-schedule-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.new-note-btn%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20height%3A%2038px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%3B%0A%7D%0A%0A.new-note-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--accent-soft)%3B%0A%7D%0A%0A.new-note-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2020px%3B%0A%20%20%20%20height%3A%2020px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20background%3A%20var(--accent)%3B%0A%20%20%20%20color%3A%20var(--accent-ink)%3B%0A%7D%0A%0A.entry-list%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%200%208px%2012px%3B%0A%7D%0A%0A.entry-list%20%3E%20div%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A.entry-item%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20flex-start%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20padding%3A%208px%206px%208px%204px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20user-select%3A%20none%3B%0A%20%20%20%20transition%3A%20background-color%200.12s%20ease%2C%20box-shadow%200.12s%20ease%3B%0A%7D%0A%0A.entry-item%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A.entry-item.active%20%7B%0A%20%20%20%20background%3A%20var(--selected)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-row)%3B%0A%7D%0A%0A.entry-item.dragging%20%7B%0A%20%20%20%20opacity%3A%200.4%3B%0A%7D%0A%0A.entry-item.drag-over%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%202px%200%20var(--accent)%3B%0A%7D%0A%0A.entry-item-text%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20padding-top%3A%201px%3B%0A%7D%0A%0A.entry-item-title-row%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%205px%3B%0A%20%20%20%20min-width%3A%200%3B%0A%7D%0A%0A.entry-item-title-row%20.entry-item-title%20%7B%0A%20%20%20%20min-width%3A%200%3B%0A%7D%0A%0A.entry-type-icon%20%7B%0A%20%20%20%20width%3A%2014px%3B%0A%20%20%20%20height%3A%2014px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.entry-item-title%2C%0A.entry-item-preview%20%7B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.entry-item-title%20%7B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2022px%3B%0A%7D%0A%0A.entry-item-preview%20%7B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20line-height%3A%2018px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.entry-item-title-input%2C%0A.pane-title-input%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--accent)%3B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.entry-item-title-input%20%7B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2022px%3B%0A%20%20%20%20padding%3A%200%204px%3B%0A%7D%0A%0A.entry-item%20.delete-btn%20%7B%0A%20%20%20%20width%3A%2028px%3B%0A%20%20%20%20height%3A%2028px%3B%0A%20%20%20%20opacity%3A%200%3B%0A%7D%0A%0A.entry-item%20.delete-btn%20.icon%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.entry-item%3Ahover%20.delete-btn%2C%0A.entry-item%3Afocus-within%20.delete-btn%2C%0A.entry-item.active%20.delete-btn%20%7B%0A%20%20%20%20opacity%3A%201%3B%0A%7D%0A%0A.entry-item%20.delete-btn%3Ahover%20%7B%0A%20%20%20%20color%3A%20var(--danger)%3B%0A%7D%0A%0A%40media%20(hover%3A%20none)%20%7B%0A%20%20%20%20.entry-item%20.delete-btn%20%7B%0A%20%20%20%20%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20%7D%0A%7D%0A%0A.sidebar-footer%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%202px%3B%0A%20%20%20%20padding%3A%208px%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%7D%0A%0A.sidebar-footer%20.theme-btn%20%7B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%7D%0A%0A%2F*%20----------%20Color%20dots%20%26%20swatches%20----------%20*%2F%0A%0A.color-dot%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2024px%3B%0A%20%20%20%20height%3A%2024px%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%7D%0A%0A.entry-item%20.color-dot%20%7B%0A%20%20%20%20margin-top%3A%20-1px%3B%0A%7D%0A%0A.color-dot%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%206px%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20background%3A%20var(--dot%2C%20transparent)%3B%0A%20%20%20%20transition%3A%20transform%200.12s%20ease%3B%0A%7D%0A%0A.color-dot.color-dot-empty%3A%3Aafter%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201.5px%20var(--faint)%3B%0A%7D%0A%0A.color-dot%3Ahover%3A%3Aafter%20%7B%0A%20%20%20%20transform%3A%20scale(1.2)%3B%0A%7D%0A%0A%2F*%20----------%20Editor%20----------%20*%2F%0A%0A.editor%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20background%3A%20var(--paper)%3B%0A%7D%0A%0A.split-horizontal%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%7D%0A%0A.split-horizontal%20%3E%20.entry-pane%20%2B%20.entry-pane%20%7B%0A%20%20%20%20border-left%3A%201px%20solid%20var(--line)%3B%0A%7D%0A%0A.entry-pane%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20background%3A%20var(--paper)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20--column%3A%20700px%3B%0A%20%20%20%20--gutter%3A%2040px%3B%0A%20%20%20%20--pad%3A%20max(var(--gutter)%2C%20calc((100%25%20-%20var(--column))%20%2F%202))%3B%0A%7D%0A%0A.split-horizontal%20.entry-pane%20%7B%0A%20%20%20%20--gutter%3A%2028px%3B%0A%7D%0A%0A.pane-title%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%204px%3B%0A%20%20%20%20padding%3A%2028px%20var(--pad)%206px%3B%0A%7D%0A%0A.pane-title%20.color-dot%20%7B%0A%20%20%20%20margin-left%3A%20-6px%3B%0A%7D%0A%0A.pane-title-text%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2030px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.25%3B%0A%20%20%20%20letter-spacing%3A%20-0.015em%3B%0A%20%20%20%20cursor%3A%20text%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%7D%0A%0A.pane-title-input%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2030px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.25%3B%0A%20%20%20%20letter-spacing%3A%20-0.015em%3B%0A%20%20%20%20padding%3A%200%206px%3B%0A%20%20%20%20margin-left%3A%20-6px%3B%0A%7D%0A%0A.split-horizontal%20.pane-title-text%2C%0A.split-horizontal%20.pane-title-input%20%7B%0A%20%20%20%20font-size%3A%2022px%3B%0A%7D%0A%0A.split-horizontal%20.pane-title%20%7B%0A%20%20%20%20padding-top%3A%2020px%3B%0A%20%20%20%20cursor%3A%20grab%3B%0A%7D%0A%0A.pane-title-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20gap%3A%202px%3B%0A%20%20%20%20margin-right%3A%20-8px%3B%0A%7D%0A%0A.pane-title-actions%20.swatch-preview%20%7B%0A%20%20%20%20width%3A%2014px%3B%0A%20%20%20%20height%3A%2014px%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201.5px%20currentColor%3B%0A%7D%0A%0A.reveal-btn%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%20%20%20%20margin-left%3A%20-10px%3B%0A%20%20%20%20margin-right%3A%204px%3B%0A%7D%0A%0Abody.sidebar-collapsed%20.editor%20%3E%20.entry-pane%20.reveal-btn%2C%0Abody.sidebar-collapsed%20.split-horizontal%20%3E%20.entry-pane%3Afirst-child%20.reveal-btn%2C%0Abody.sidebar-collapsed%20.empty-state%20.reveal-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%7D%0A%0A.editor%20%3E%20.entry-pane%20.close-pane-btn%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A.content-editable%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%2010px%20var(--pad)%2030vh%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20line-height%3A%201.7%3B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20overflow-wrap%3A%20anywhere%3B%0A%20%20%20%20caret-color%3A%20var(--accent)%3B%0A%7D%0A%0A.content-editable%3Afocus-visible%20%7B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.content-editable%20a%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0A.content-editable%20input%5Btype%3D%22checkbox%22%5D%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%20%20%20%20margin-right%3A%206px%3B%0A%20%20%20%20vertical-align%3A%20-2px%3B%0A%20%20%20%20accent-color%3A%20var(--accent)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A%2F*%20Note%20page%20colors%3A%20the%20pane%20adopts%20the%20chosen%20paper%20and%20readable%20ink.%20*%2F%0A.entry-pane.has-page-color%20%7B%0A%20%20%20%20--muted%3A%20currentColor%3B%0A%20%20%20%20--hover%3A%20rgba(127%2C%20127%2C%20127%2C%200.16)%3B%0A%7D%0A%0A.entry-pane.has-page-color%20.icon-btn%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20opacity%3A%200.7%3B%0A%7D%0A%0A.entry-pane.has-page-color%20.icon-btn%3Ahover%20%7B%0A%20%20%20%20opacity%3A%201%3B%0A%7D%0A%0A%2F*%20Drop%20target%20when%20dragging%20a%20note%20onto%20the%20editor%20*%2F%0A.editor.drop-target%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22Drop%20to%20open%20side%20by%20side%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%2012px%3B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20place-items%3A%20center%3B%0A%20%20%20%20border%3A%202px%20dashed%20var(--accent)%3B%0A%20%20%20%20border-radius%3A%2014px%3B%0A%20%20%20%20background%3A%20var(--accent-soft)%3B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20z-index%3A%205%3B%0A%7D%0A%0A%2F*%20Empty%20state%20*%2F%0A.empty-state%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%2014px%3B%0A%20%20%20%20padding%3A%2024px%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%7D%0A%0A.empty-state%20p%20%7B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.empty-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%7D%0A%0A.ghost-btn%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20gap%3A%206px%3B%0A%7D%0A%0A.empty-state%20.reveal-btn%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%2016px%3B%0A%20%20%20%20left%3A%2020px%3B%0A%20%20%20%20margin%3A%200%3B%0A%7D%0A%0A%2F*%20----------%20Popover%20(note%20colors)%20----------%20*%2F%0A%0A.popover%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20z-index%3A%2030%3B%0A%20%20%20%20width%3A%20268px%3B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20border-radius%3A%2012px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%7D%0A%0A.popover-section%20%2B%20.popover-section%20%7B%0A%20%20%20%20margin-top%3A%2014px%3B%0A%7D%0A%0A.popover-label%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20margin-bottom%3A%208px%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.swatches%20%7B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20grid-template-columns%3A%20repeat(8%2C%201fr)%3B%0A%20%20%20%20gap%3A%204px%3B%0A%7D%0A%0A.swatch%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20aspect-ratio%3A%201%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20background%3A%20var(--swatch)%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20rgba(127%2C%20127%2C%20127%2C%200.28)%3B%0A%7D%0A%0A.swatch%3Ahover%20%7B%0A%20%20%20%20transform%3A%20scale(1.1)%3B%0A%7D%0A%0A.swatch%5Baria-pressed%3D%22true%22%5D%20%7B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20rgba(127%2C%20127%2C%20127%2C%200.28)%2C%200%200%200%202px%20var(--surface)%2C%200%200%200%204px%20var(--ink)%3B%0A%7D%0A%0A.swatch.swatch-none%20%7B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%7D%0A%0A.swatch.swatch-none%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2018%25%3B%0A%20%20%20%20bottom%3A%2018%25%3B%0A%20%20%20%20width%3A%201.5px%3B%0A%20%20%20%20background%3A%20var(--danger)%3B%0A%20%20%20%20transform%3A%20rotate(45deg)%3B%0A%7D%0A%0A.swatch.swatch-custom%20%7B%0A%20%20%20%20background%3A%20conic-gradient(%23e5484d%2C%20%23f5a524%2C%20%2346a758%2C%20%230091ff%2C%20%238e4ec6%2C%20%23e5484d)%3B%0A%7D%0A%0A.swatch-custom%20input%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A%2F*%20----------%20Dialogs%20----------%20*%2F%0A%0A.modal%2C%0A.help-overlay%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20inset%3A%200%3B%0A%20%20%20%20z-index%3A%2040%3B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20place-items%3A%20center%3B%0A%20%20%20%20padding%3A%2016px%3B%0A%20%20%20%20background%3A%20var(--scrim)%3B%0A%20%20%20%20animation%3A%20fade-in%200.12s%20ease%3B%0A%7D%0A%0A.modal-content%2C%0A.help-card%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max-height%3A%20calc(100vh%20-%2032px)%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20border-radius%3A%2014px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%20%20%20%20animation%3A%20rise-in%200.16s%20ease%3B%0A%7D%0A%0A.modal-content%20%7B%0A%20%20%20%20max-width%3A%20380px%3B%0A%20%20%20%20padding%3A%2022px%3B%0A%7D%0A%0A.modal-content%20h2%20%7B%0A%20%20%20%20font-size%3A%2017px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.35%3B%0A%20%20%20%20overflow-wrap%3A%20anywhere%3B%0A%7D%0A%0A.modal-content%20p%20%7B%0A%20%20%20%20margin-top%3A%206px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A.modal-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20flex-end%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20margin-top%3A%2022px%3B%0A%7D%0A%0A.help-card%20%7B%0A%20%20%20%20max-width%3A%20560px%3B%0A%20%20%20%20padding%3A%2026px%2028px%2022px%3B%0A%7D%0A%0A.help-card%20h2%20%7B%0A%20%20%20%20font-family%3A%20var(--font-title)%3B%0A%20%20%20%20font-size%3A%2024px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20letter-spacing%3A%20-0.01em%3B%0A%7D%0A%0A.help-close%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%2014px%3B%0A%20%20%20%20right%3A%2014px%3B%0A%7D%0A%0A.help-list%20%7B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20grid-template-columns%3A%20128px%201fr%3B%0A%20%20%20%20column-gap%3A%2020px%3B%0A%20%20%20%20margin-top%3A%2018px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A.help-list%20dt%2C%0A.help-list%20dd%20%7B%0A%20%20%20%20padding%3A%2010px%200%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%7D%0A%0A.help-list%20dt%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A.help-list%20dd%20%7B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0Akbd%20%7B%0A%20%20%20%20display%3A%20inline-block%3B%0A%20%20%20%20min-width%3A%2020px%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20box-shadow%3A%20inset%200%20-1px%200%20var(--line)%3B%0A%20%20%20%20font-family%3A%20inherit%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2020px%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.help-footer%20%7B%0A%20%20%20%20margin-top%3A%2014px%3B%0A%20%20%20%20padding-top%3A%2014px%3B%0A%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.drawer-scrim%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A%40keyframes%20fade-in%20%7B%0A%20%20%20%20from%20%7B%20opacity%3A%200%3B%20%7D%0A%7D%0A%0A%40keyframes%20rise-in%20%7B%0A%20%20%20%20from%20%7B%20opacity%3A%200%3B%20transform%3A%20translateY(6px)%20scale(0.98)%3B%20%7D%0A%7D%0A%0A%40media%20(prefers-reduced-motion%3A%20reduce)%20%7B%0A%20%20%20%20*%2C%0A%20%20%20%20*%3A%3Abefore%2C%0A%20%20%20%20*%3A%3Aafter%20%7B%0A%20%20%20%20%20%20%20%20animation%3A%20none%20!important%3B%0A%20%20%20%20%20%20%20%20transition%3A%20none%20!important%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%2F*%20----------%20Narrow%20screens%3A%20the%20list%20becomes%20a%20drawer%20----------%20*%2F%0A%0A%40media%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20%20%20inset%3A%200%20auto%200%200%3B%0A%20%20%20%20%20%20%20%20z-index%3A%2020%3B%0A%20%20%20%20%20%20%20%20width%3A%20min(86vw%2C%20320px)%3B%0A%20%20%20%20%20%20%20%20margin-left%3A%200%3B%0A%20%20%20%20%20%20%20%20transform%3A%20translateX(-100%25)%3B%0A%20%20%20%20%20%20%20%20visibility%3A%20hidden%3B%0A%20%20%20%20%20%20%20%20transition%3A%20transform%200.2s%20ease%2C%20visibility%200.2s%3B%0A%20%20%20%20%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body.sidebar-collapsed%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20margin-left%3A%200%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body.drawer-open%20.sidebar%20%7B%0A%20%20%20%20%20%20%20%20transform%3A%20none%3B%0A%20%20%20%20%20%20%20%20visibility%3A%20visible%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20body.drawer-open%20.drawer-scrim%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20%20%20inset%3A%200%3B%0A%20%20%20%20%20%20%20%20z-index%3A%2015%3B%0A%20%20%20%20%20%20%20%20background%3A%20var(--scrim)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.editor%20%3E%20.entry-pane%20.reveal-btn%2C%0A%20%20%20%20.split-horizontal%20%3E%20.entry-pane%3Afirst-child%20.reveal-btn%2C%0A%20%20%20%20.empty-state%20.reveal-btn%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.split-horizontal%20%7B%0A%20%20%20%20%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.split-horizontal%20%3E%20.entry-pane%20%2B%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20border-left%3A%200%3B%0A%20%20%20%20%20%20%20%20border-top%3A%201px%20solid%20var(--line)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.entry-pane%2C%0A%20%20%20%20.split-horizontal%20.entry-pane%20%7B%0A%20%20%20%20%20%20%20%20--gutter%3A%2020px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.pane-title%20%7B%0A%20%20%20%20%20%20%20%20padding-top%3A%2014px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.pane-title-text%2C%0A%20%20%20%20.pane-title-input%20%7B%0A%20%20%20%20%20%20%20%20font-size%3A%2024px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.help-list%20%7B%0A%20%20%20%20%20%20%20%20grid-template-columns%3A%201fr%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.help-list%20dt%20%7B%0A%20%20%20%20%20%20%20%20padding-bottom%3A%202px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.help-list%20dd%20%7B%0A%20%20%20%20%20%20%20%20border-top%3A%200%3B%0A%20%20%20%20%20%20%20%20padding-top%3A%200%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%2F*%20----------%20Theme%20picker%20----------%20*%2F%0A%0A.theme-popover%20%7B%0A%20%20%20%20width%3A%20240px%3B%0A%20%20%20%20padding%3A%206px%3B%0A%7D%0A%0A.theme-option%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20padding%3A%207px%208px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.theme-option%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A.theme-option%5Baria-pressed%3D%22true%22%5D%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A.theme-option%20.theme-check%20%7B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%20%20%20%20visibility%3A%20hidden%3B%0A%7D%0A%0A.theme-option%5Baria-pressed%3D%22true%22%5D%20.theme-check%20%7B%0A%20%20%20%20visibility%3A%20visible%3B%0A%7D%0A%0A.theme-chips%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20box-shadow%3A%200%200%200%201px%20rgba(127%2C%20127%2C%20127%2C%200.3)%3B%0A%7D%0A%0A.theme-chips%20span%20%7B%0A%20%20%20%20width%3A%2010px%3B%0A%20%20%20%20height%3A%2020px%3B%0A%7D%0A%0A.theme-note%20%7B%0A%20%20%20%20padding%3A%206px%208px%204px%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A%2F*%20----------%20Schedule%20notes%20----------%20*%2F%0A%0A%5Bhidden%5D%20%7B%0A%20%20%20%20display%3A%20none%20!important%3B%0A%7D%0A%0A.schedule%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20overflow-y%3A%20auto%3B%0A%20%20%20%20padding%3A%204px%20var(--pad)%2030vh%3B%0A%20%20%20%20--ev%3A%20var(--accent)%3B%0A%7D%0A%0A.schedule-head%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20gap%3A%208px%2012px%3B%0A%7D%0A%0A.schedule-date-wrap%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20min-width%3A%200%3B%0A%7D%0A%0A.schedule-date%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20margin-left%3A%20-6px%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20padding%3A%202px%206px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.schedule-date%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.schedule-rel%20%7B%0A%20%20%20%20padding%3A%200%207px%3B%0A%20%20%20%20border-radius%3A%20999px%3B%0A%20%20%20%20background%3A%20var(--accent-soft)%3B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%2020px%3B%0A%7D%0A%0A.has-page-color%20.schedule-rel%20%7B%0A%20%20%20%20background%3A%20rgba(127%2C%20127%2C%20127%2C%200.16)%3B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0A.schedule-date-input%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20top%3A%20100%25%3B%0A%20%20%20%20width%3A%201px%3B%0A%20%20%20%20height%3A%201px%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20border%3A%200%3B%0A%7D%0A%0A.schedule-date-input.visible%20%7B%0A%20%20%20%20width%3A%20auto%3B%0A%20%20%20%20height%3A%20auto%3B%0A%20%20%20%20padding%3A%204px%208px%3B%0A%20%20%20%20opacity%3A%201%3B%0A%20%20%20%20pointer-events%3A%20auto%3B%0A%20%20%20%20z-index%3A%203%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%7D%0A%0A.segmented%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20margin-left%3A%20auto%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20border-radius%3A%208px%3B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A.segmented-btn%20%7B%0A%20%20%20%20height%3A%2026px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.segmented-btn%5Baria-pressed%3D%22true%22%5D%20%7B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-row)%3B%0A%7D%0A%0A.has-page-color%20.segmented-btn%5Baria-pressed%3D%22true%22%5D%20%7B%0A%20%20%20%20background%3A%20rgba(255%2C%20255%2C%20255%2C%200.55)%3B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0A.schedule-status%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20gap%3A%206px%2012px%3B%0A%20%20%20%20min-height%3A%2026px%3B%0A%20%20%20%20margin-top%3A%206px%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.status-chip%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20baseline%3B%0A%20%20%20%20gap%3A%204px%3B%0A%20%20%20%20max-width%3A%20100%25%3B%0A%20%20%20%20padding%3A%202px%2010px%3B%0A%20%20%20%20border-radius%3A%20999px%3B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.status-chip.now%20%7B%0A%20%20%20%20background%3A%20var(--accent)%3B%0A%20%20%20%20color%3A%20var(--accent-ink)%3B%0A%7D%0A%0A.schedule-add%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20margin-top%3A%2014px%3B%0A%20%20%20%20padding%3A%200%2012px%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20background%3A%20var(--surface)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-row)%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.has-page-color%20.schedule-add%20%7B%0A%20%20%20%20background%3A%20rgba(255%2C%20255%2C%20255%2C%200.5)%3B%0A%7D%0A%0A.schedule-add%3Afocus-within%20%7B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--accent)%3B%0A%7D%0A%0A.schedule-add-input%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20height%3A%2044px%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20background%3A%20none%3B%0A%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.has-page-color%20.schedule-add-input%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0A.schedule-add-input%3A%3Aplaceholder%20%7B%0A%20%20%20%20color%3A%20var(--faint)%3B%0A%7D%0A%0A.schedule-add-hint%20%7B%0A%20%20%20%20min-height%3A%2020px%3B%0A%20%20%20%20margin%3A%206px%202px%200%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20white-space%3A%20pre-wrap%3B%0A%7D%0A%0A.schedule-add-hint.active%20%7B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%7D%0A%0A.schedule-add-hint%20strong%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20var(--accent)%3B%0A%7D%0A%0A.has-page-color%20.schedule-add-hint%20strong%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%7D%0A%0A.schedule-body%20%7B%0A%20%20%20%20margin-top%3A%2014px%3B%0A%7D%0A%0A.schedule-foot%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20gap%3A%204px%3B%0A%20%20%20%20margin%3A%2018px%200%200%20-10px%3B%0A%7D%0A%0A%2F*%20Timeline%20*%2F%0A%0A.timeline%20%7B%0A%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20margin-top%3A%2010px%3B%0A%20%20%20%20user-select%3A%20none%3B%0A%20%20%20%20-webkit-user-select%3A%20none%3B%0A%7D%0A%0A.tl-hour%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%2052px%3B%0A%20%20%20%20transform%3A%20translateY(-50%25)%3B%0A%20%20%20%20font-size%3A%2011px%3B%0A%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20font-variant-numeric%3A%20tabular-nums%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%7D%0A%0A.tl-events%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20inset%3A%200%200%200%2060px%3B%0A%20%20%20%20cursor%3A%20cell%3B%0A%20%20%20%20background%3A%0A%20%20%20%20%20%20%20%20repeating-linear-gradient(to%20bottom%2C%20var(--line)%200%201px%2C%20transparent%201px%20var(--hour))%2C%0A%20%20%20%20%20%20%20%20repeating-linear-gradient(to%20bottom%2C%20transparent%200%20calc(var(--hour)%20%2F%202)%2C%20color-mix(in%20srgb%2C%20var(--line)%2055%25%2C%20transparent)%20calc(var(--hour)%20%2F%202)%20calc(var(--hour)%20%2F%202%20%2B%201px)%2C%20transparent%20calc(var(--hour)%20%2F%202%20%2B%201px)%20var(--hour))%3B%0A%7D%0A%0A.has-page-color%20.tl-events%20%7B%0A%20%20%20%20background%3A%0A%20%20%20%20%20%20%20%20repeating-linear-gradient(to%20bottom%2C%20rgba(127%2C%20127%2C%20127%2C%200.28)%200%201px%2C%20transparent%201px%20var(--hour))%2C%0A%20%20%20%20%20%20%20%20repeating-linear-gradient(to%20bottom%2C%20transparent%200%20calc(var(--hour)%20%2F%202)%2C%20rgba(127%2C%20127%2C%20127%2C%200.12)%20calc(var(--hour)%20%2F%202)%20calc(var(--hour)%20%2F%202%20%2B%201px)%2C%20transparent%20calc(var(--hour)%20%2F%202%20%2B%201px)%20var(--hour))%3B%0A%7D%0A%0A.tl-event%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20flex-start%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20padding%3A%204px%208px%204px%206px%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20border-left%3A%203px%20solid%20var(--ev)%3B%0A%20%20%20%20background%3A%20color-mix(in%20srgb%2C%20var(--ev)%2014%25%2C%20var(--paper))%3B%0A%20%20%20%20color%3A%20var(--ink)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20line-height%3A%201.3%3B%0A%20%20%20%20cursor%3A%20grab%3B%0A%20%20%20%20touch-action%3A%20pan-y%3B%0A%20%20%20%20transition%3A%20box-shadow%200.12s%20ease%2C%20opacity%200.12s%20ease%3B%0A%7D%0A%0A.has-page-color%20.tl-event%20%7B%0A%20%20%20%20background%3A%20color-mix(in%20srgb%2C%20var(--ev)%2018%25%2C%20rgba(255%2C%20255%2C%20255%2C%200.55))%3B%0A%20%20%20%20color%3A%20%231d1b18%3B%0A%7D%0A%0A.tl-event%3Ahover%20%7B%0A%20%20%20%20box-shadow%3A%200%200%200%201px%20color-mix(in%20srgb%2C%20var(--ev)%2045%25%2C%20transparent)%3B%0A%7D%0A%0A.tl-event%3Afocus-visible%20%7B%0A%20%20%20%20outline-offset%3A%201px%3B%0A%7D%0A%0A.tl-event.current%20%7B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--ev)%3B%0A%7D%0A%0A.tl-event.past%3Anot(.current)%20%7B%0A%20%20%20%20opacity%3A%200.7%3B%0A%7D%0A%0A.tl-event.done%20%7B%0A%20%20%20%20opacity%3A%200.5%3B%0A%7D%0A%0A.tl-event.done%20.tl-title%2C%0A.agenda-row.done%20.agenda-title%20%7B%0A%20%20%20%20text-decoration%3A%20line-through%3B%0A%7D%0A%0A.tl-event.dragging%20%7B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20cursor%3A%20grabbing%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%20%20%20%20opacity%3A%201%3B%0A%7D%0A%0A.schedule.dragging%2C%0A.schedule.dragging%20*%20%7B%0A%20%20%20%20cursor%3A%20grabbing%3B%0A%7D%0A%0A.tl-event.just-added%2C%0A.agenda-row.just-added%20%7B%0A%20%20%20%20animation%3A%20pop-in%200.5s%20ease%3B%0A%7D%0A%0A%40keyframes%20pop-in%20%7B%0A%20%20%20%200%25%20%7B%20transform%3A%20scale(0.96)%3B%20box-shadow%3A%200%200%200%203px%20var(--ev)%3B%20%7D%0A%20%20%20%20100%25%20%7B%20transform%3A%20none%3B%20%7D%0A%7D%0A%0A.tl-ghost%20%7B%0A%20%20%20%20border-left-style%3A%20dashed%3B%0A%20%20%20%20background%3A%20var(--accent-soft)%3B%0A%20%20%20%20pointer-events%3A%20none%3B%0A%7D%0A%0A.tl-text%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20flex%3A%201%3B%0A%7D%0A%0A.tl-title%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.tl-time%20%7B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20font-variant-numeric%3A%20tabular-nums%3B%0A%7D%0A%0A.has-page-color%20.tl-time%20%7B%0A%20%20%20%20color%3A%20%235c5650%3B%0A%7D%0A%0A.tl-event.short%20%7B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20padding-top%3A%200%3B%0A%20%20%20%20padding-bottom%3A%200%3B%0A%7D%0A%0A.tl-event.short%20.tl-text%20%7B%0A%20%20%20%20flex-direction%3A%20row%3B%0A%20%20%20%20align-items%3A%20baseline%3B%0A%20%20%20%20gap%3A%208px%3B%0A%7D%0A%0A.tl-event.short%20.tl-title%20%7B%0A%20%20%20%20flex%3A%200%201%20auto%3B%0A%20%20%20%20min-width%3A%202em%3B%0A%7D%0A%0A.tl-event.short%20.tl-time%20%7B%0A%20%20%20%20flex%3A%200%20100%20auto%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20text-overflow%3A%20ellipsis%3B%0A%7D%0A%0A.event-check%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2014px%3B%0A%20%20%20%20height%3A%2014px%3B%0A%20%20%20%20margin-top%3A%202px%3B%0A%20%20%20%20accent-color%3A%20var(--ev)%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.tl-event.short%20.event-check%20%7B%0A%20%20%20%20margin-top%3A%200%3B%0A%7D%0A%0A.tl-ghost%20.event-check%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A.tl-resize%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20height%3A%207px%3B%0A%20%20%20%20cursor%3A%20ns-resize%3B%0A%20%20%20%20touch-action%3A%20none%3B%0A%7D%0A%0A.tl-resize%3A%3Aafter%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20bottom%3A%202px%3B%0A%20%20%20%20width%3A%2018px%3B%0A%20%20%20%20height%3A%202px%3B%0A%20%20%20%20margin-left%3A%20-9px%3B%0A%20%20%20%20border-radius%3A%202px%3B%0A%20%20%20%20background%3A%20var(--ev)%3B%0A%20%20%20%20opacity%3A%200%3B%0A%20%20%20%20transition%3A%20opacity%200.12s%20ease%3B%0A%7D%0A%0A.tl-event%3Ahover%20.tl-resize%3A%3Aafter%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%7D%0A%0A.tl-now%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2056px%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20height%3A%202px%3B%0A%20%20%20%20margin-top%3A%20-1px%3B%0A%20%20%20%20background%3A%20var(--danger)%3B%0A%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20z-index%3A%203%3B%0A%7D%0A%0A.tl-now%3A%3Abefore%20%7B%0A%20%20%20%20content%3A%20%22%22%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%20-4px%3B%0A%20%20%20%20top%3A%20-3px%3B%0A%20%20%20%20width%3A%208px%3B%0A%20%20%20%20height%3A%208px%3B%0A%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20background%3A%20var(--danger)%3B%0A%7D%0A%0A%2F*%20List%20(agenda)%20view%20*%2F%0A%0A.agenda%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20gap%3A%202px%3B%0A%7D%0A%0A.agenda-empty%20%7B%0A%20%20%20%20padding%3A%2024px%200%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.agenda-row%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%2012px%3B%0A%20%20%20%20padding%3A%208px%2010px%3B%0A%20%20%20%20border-radius%3A%20var(--radius)%3B%0A%20%20%20%20border-left%3A%203px%20solid%20var(--ev)%3B%0A%20%20%20%20background%3A%20color-mix(in%20srgb%2C%20var(--ev)%208%25%2C%20transparent)%3B%0A%7D%0A%0A.agenda-row.current%20%7B%0A%20%20%20%20background%3A%20color-mix(in%20srgb%2C%20var(--ev)%2018%25%2C%20transparent)%3B%0A%7D%0A%0A.agenda-row.done%20%7B%0A%20%20%20%20opacity%3A%200.55%3B%0A%7D%0A%0A.agenda-row%20.event-check%20%7B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%7D%0A%0A.agenda-time%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20width%3A%2076px%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20line-height%3A%201.25%3B%0A%20%20%20%20font-variant-numeric%3A%20tabular-nums%3B%0A%7D%0A%0A.agenda-end%20%7B%0A%20%20%20%20font-weight%3A%20400%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.agenda-title%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20padding%3A%202px%204px%3B%0A%20%20%20%20margin%3A%20-2px%20-4px%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20overflow-wrap%3A%20anywhere%3B%0A%7D%0A%0A.agenda-title%3Ahover%20%7B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%7D%0A%0A.agenda-length%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.agenda-gap%20%7B%0A%20%20%20%20padding%3A%202px%200%202px%20104px%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--faint)%3B%0A%7D%0A%0A.has-page-color%20.agenda-gap%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%7D%0A%0A%2F*%20Event%20editor%20popover%20*%2F%0A%0A.event-popover%20%7B%0A%20%20%20%20width%3A%20300px%3B%0A%7D%0A%0A.event-title-input%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%2036px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20outline%3A%20none%3B%0A%7D%0A%0A.event-title-input%3Afocus%20%7B%0A%20%20%20%20box-shadow%3A%200%200%200%202px%20var(--accent)%3B%0A%7D%0A%0A.event-times%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%206px%3B%0A%20%20%20%20margin%3A%2010px%200%2012px%3B%0A%7D%0A%0A.event-time-input%20%7B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20height%3A%2032px%3B%0A%20%20%20%20padding%3A%200%206px%3B%0A%20%20%20%20border%3A%200%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20background%3A%20var(--hover)%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-variant-numeric%3A%20tabular-nums%3B%0A%7D%0A%0A.event-dash%20%7B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%7D%0A%0A.event-length%20%7B%0A%20%20%20%20flex%3A%20none%3B%0A%20%20%20%20min-width%3A%2046px%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20color%3A%20var(--muted)%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.event-swatches%20%7B%0A%20%20%20%20grid-template-columns%3A%20repeat(7%2C%201fr)%3B%0A%20%20%20%20gap%3A%208px%3B%0A%7D%0A%0A.event-actions%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20justify-content%3A%20space-between%3B%0A%20%20%20%20margin-top%3A%2012px%3B%0A%7D%0A%0A.event-done%20%7B%0A%20%20%20%20display%3A%20inline-flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.event-done%20input%20%7B%0A%20%20%20%20width%3A%2016px%3B%0A%20%20%20%20height%3A%2016px%3B%0A%20%20%20%20accent-color%3A%20var(--accent)%3B%0A%7D%0A%0A.event-delete%3Ahover%20%7B%0A%20%20%20%20color%3A%20var(--danger)%3B%0A%7D%0A%0A%2F*%20Toasts%20*%2F%0A%0A.toast-host%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20bottom%3A%2020px%3B%0A%20%20%20%20z-index%3A%2050%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20width%3A%20min(440px%2C%20calc(100vw%20-%2032px))%3B%0A%20%20%20%20transform%3A%20translateX(-50%25)%3B%0A%20%20%20%20pointer-events%3A%20none%3B%0A%7D%0A%0A.toast%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20gap%3A%208px%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20padding%3A%208px%206px%208px%2014px%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20background%3A%20var(--ink)%3B%0A%20%20%20%20color%3A%20var(--paper)%3B%0A%20%20%20%20box-shadow%3A%20var(--shadow-float)%3B%0A%20%20%20%20pointer-events%3A%20auto%3B%0A%20%20%20%20animation%3A%20rise-in%200.16s%20ease%3B%0A%7D%0A%0A.toast-body%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%20%20%20%20flex%3A%201%3B%0A%20%20%20%20min-width%3A%200%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A.toast-text%20%7B%0A%20%20%20%20font-weight%3A%20600%3B%0A%7D%0A%0A.toast-detail%20%7B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.75%3B%0A%7D%0A%0A.toast-action%20%7B%0A%20%20%20%20height%3A%2030px%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20box-shadow%3A%20inset%200%200%200%201px%20currentColor%3B%0A%7D%0A%0A.toast%20.icon-btn%20%7B%0A%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20opacity%3A%200.7%3B%0A%7D%0A%0A.toast%20.icon-btn%3Ahover%20%7B%0A%20%20%20%20background%3A%20rgba(127%2C%20127%2C%20127%2C%200.25)%3B%0A%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20opacity%3A%201%3B%0A%7D%0A%0A%40media%20(max-width%3A%20720px)%20%7B%0A%20%20%20%20.segmented%20%7B%0A%20%20%20%20%20%20%20%20margin-left%3A%200%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tl-hour%20%7B%0A%20%20%20%20%20%20%20%20width%3A%2040px%3B%0A%20%20%20%20%20%20%20%20font-size%3A%2010px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tl-events%20%7B%0A%20%20%20%20%20%20%20%20left%3A%2046px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.tl-now%20%7B%0A%20%20%20%20%20%20%20%20left%3A%2042px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.agenda-time%20%7B%0A%20%20%20%20%20%20%20%20width%3A%2064px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.agenda-gap%20%7B%0A%20%20%20%20%20%20%20%20padding-left%3A%2092px%3B%0A%20%20%20%20%7D%0A%7D%0A</style>
 </head>
 <body>
     <aside id="sidebar" class="sidebar" aria-label="Notes">
@@ -11,7 +11,10 @@ data:text/html,<html>
             <span class="app-name">Notes</span>
             <span id="note-count" class="note-count"></span>
         </div>
-        <button id="new-entry-button" class="new-note-btn" type="button"></button>
+        <div class="new-row">
+            <button id="new-entry-button" class="new-note-btn" type="button"></button>
+            <button id="new-schedule-button" class="new-schedule-btn" type="button" title="Plan a day with a timeline of events"></button>
+        </div>
         <div id="entry-list" class="entry-list"></div>
         <div class="sidebar-footer"></div>
     </aside>
@@ -92,6 +95,28 @@ data:text/html,<html>
                 { tag: 'path', attrs: { d: 'M12 20V9' } },
                 { tag: 'path', attrs: { d: 'M7.5 13.5L12 9l4.5 4.5' } },
                 { tag: 'path', attrs: { d: 'M5 4h14' } }
+            ],
+            calendar: [
+                { tag: 'rect', attrs: { x: 3.5, y: 5, width: 17, height: 15.5, rx: 2.5 } },
+                { tag: 'path', attrs: { d: 'M3.5 10h17' } },
+                { tag: 'path', attrs: { d: 'M8 3v4' } },
+                { tag: 'path', attrs: { d: 'M16 3v4' } }
+            ],
+            calendarExport: [
+                { tag: 'path', attrs: { d: 'M20.5 12V7.5A2.5 2.5 0 0 0 18 5H6a2.5 2.5 0 0 0-2.5 2.5V18A2.5 2.5 0 0 0 6 20.5h6' } },
+                { tag: 'path', attrs: { d: 'M3.5 10h17' } },
+                { tag: 'path', attrs: { d: 'M8 3v4' } },
+                { tag: 'path', attrs: { d: 'M16 3v4' } },
+                { tag: 'path', attrs: { d: 'M18 14.5v6' } },
+                { tag: 'path', attrs: { d: 'M15.5 18l2.5 2.5 2.5-2.5' } }
+            ],
+            copy: [
+                { tag: 'rect', attrs: { x: 8.5, y: 8.5, width: 12, height: 12, rx: 2 } },
+                { tag: 'path', attrs: { d: 'M15.5 8.5V5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3' } }
+            ],
+            arrowRight: [
+                { tag: 'path', attrs: { d: 'M5 12h14' } },
+                { tag: 'path', attrs: { d: 'M13 6l6 6-6 6' } }
             ]
         };
 
@@ -280,6 +305,9 @@ data:text/html,<html>
             try {
                 entries = JSON.parse(storedEntries);
                 nextEntryId = entries.reduce(function(max, entry) { return Math.max(max, entry.id); }, -1) + 1;
+                entries.forEach(function(entry) {
+                    if (isSchedule(entry)) normalizeSchedule(entry);
+                });
                 current = entries.length > 0 ? 0 : -1;
                 updateEntryList();
                 updateEntryContent();
@@ -289,6 +317,7 @@ data:text/html,<html>
         }
 
         function ensureDivWrapper(contentEditableDiv) {
+            if (!contentEditableDiv) return;
             var htmlContent = contentEditableDiv.innerHTML.trim();
             if (htmlContent === "" || htmlContent === "<br>") {
                 contentEditableDiv.innerHTML = "<div><br></div>";
@@ -336,7 +365,7 @@ data:text/html,<html>
             var row = entryList.querySelector('.entry-item[data-index="' + idx + '"]');
             if (!row) return;
             var previewEl = row.querySelector('.entry-item-preview');
-            if (previewEl) previewEl.textContent = getContentPreview(entry.content) || 'Empty note';
+            if (previewEl) previewEl.textContent = entryPreview(entry);
         }
 
         function isDefaultColor(color) {
@@ -392,6 +421,7 @@ data:text/html,<html>
                 var newTitle = inputEl.value.trim();
                 if (newTitle && newTitle !== entry.title) {
                     entry.title = newTitle;
+                    delete entry.autoTitle;
                     saveEntries();
                 }
                 spanEl.textContent = entry.title;
@@ -432,7 +462,7 @@ data:text/html,<html>
             noteCount.textContent = entries.length;
             entries.forEach(function(entry, index) {
                 var e = document.createElement("div");
-                e.className = "entry-item";
+                e.className = "entry-item" + (isSchedule(entry) ? " is-schedule" : "");
                 e.setAttribute('data-index', index.toString());
                 e.draggable = true;
 
@@ -491,12 +521,20 @@ data:text/html,<html>
                     });
                 });
 
-                textWrap.appendChild(titleSpan);
-                textWrap.appendChild(titleInput);
+                var titleRow = document.createElement("div");
+                titleRow.className = "entry-item-title-row";
+                if (isSchedule(entry)) {
+                    var typeIcon = createIcon(ICONS.calendar);
+                    typeIcon.classList.add('entry-type-icon');
+                    titleRow.appendChild(typeIcon);
+                }
+                titleRow.appendChild(titleSpan);
+                titleRow.appendChild(titleInput);
+                textWrap.appendChild(titleRow);
 
                 var previewSpan = document.createElement("span");
                 previewSpan.className = "entry-item-preview";
-                previewSpan.textContent = getContentPreview(entry.content) || 'Empty note';
+                previewSpan.textContent = entryPreview(entry);
                 textWrap.appendChild(previewSpan);
 
                 e.appendChild(textWrap);
@@ -554,6 +592,7 @@ data:text/html,<html>
             p.el.remove();
             document.removeEventListener('mousedown', p.onOutside, true);
             document.removeEventListener('keydown', p.onKey, true);
+            if (p.onClose) p.onClose();
             if (refocus && document.body.contains(p.anchor)) p.anchor.focus();
         }
 
@@ -742,7 +781,17 @@ data:text/html,<html>
             btn.appendChild(createIcon(ICONS.plus));
             btn.appendChild(document.createTextNode('New note'));
             btn.onclick = createNote;
-            empty.appendChild(btn);
+            var schedBtn = document.createElement('button');
+            schedBtn.type = 'button';
+            schedBtn.className = 'ghost-btn';
+            schedBtn.appendChild(createIcon(ICONS.calendar));
+            schedBtn.appendChild(document.createTextNode('New schedule'));
+            schedBtn.onclick = createSchedule;
+            var btnRow = document.createElement('div');
+            btnRow.className = 'empty-actions';
+            btnRow.appendChild(btn);
+            btnRow.appendChild(schedBtn);
+            empty.appendChild(btnRow);
             entryContent.appendChild(empty);
         }
 
@@ -821,7 +870,23 @@ data:text/html,<html>
             });
         }
 
+        function downloadFile(filename, text, mime) {
+            var blob = new Blob([text], { type: mime || 'text/plain;charset=utf-8' });
+            var a = document.createElement('a');
+            var url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
         function exportEntryAsText(entry) {
+            if (isSchedule(entry)) {
+                downloadFile((entry.title || 'schedule') + '.txt', scheduleAsText(entry));
+                return;
+            }
             var tempDiv = document.createElement("div");
             tempDiv.innerHTML = entry.content;
             tempDiv.querySelectorAll('div').forEach(div => {
@@ -913,7 +978,15 @@ data:text/html,<html>
 
             var titleActions = document.createElement('div');
             titleActions.className = 'pane-title-actions';
-            var exportBtn = createIconButton(ICONS.exportTxt, 'Save note as .txt');
+            if (isSchedule(entry)) {
+                var icsBtn = createIconButton(ICONS.calendarExport, 'Export to calendar (.ics)');
+                icsBtn.onclick = function(event) {
+                    event.stopPropagation();
+                    exportScheduleIcs(entry);
+                };
+                titleActions.appendChild(icsBtn);
+            }
+            var exportBtn = createIconButton(ICONS.exportTxt, isSchedule(entry) ? 'Save agenda as .txt' : 'Save note as .txt');
             exportBtn.onclick = function(event) {
                 event.stopPropagation();
                 exportEntryAsText(entry);
@@ -929,6 +1002,12 @@ data:text/html,<html>
             titleBar.appendChild(titleActions);
 
             pane.appendChild(titleBar);
+
+            if (isSchedule(entry)) {
+                pane.appendChild(buildSchedule(entry, pane));
+                applyPageColor(pane, entry.contentBackgroundColor);
+                return pane;
+            }
 
             var contentDiv = document.createElement('div');
             contentDiv.contentEditable = true;
@@ -948,6 +1027,7 @@ data:text/html,<html>
             var pane = createPane(entry, entry.id);
             entryContent.appendChild(pane);
             ensureDivWrapper(pane.querySelector('.content-editable'));
+            if (pane._afterMount) pane._afterMount();
             return pane;
         }
 
@@ -977,6 +1057,7 @@ data:text/html,<html>
             }
             ensureDivWrapper(newPane.querySelector('.content-editable'));
             adjustPaneSizes();
+            if (newPane._afterMount) newPane._afterMount();
         }
 
         function closeDrawer() {
@@ -1114,6 +1195,1116 @@ data:text/html,<html>
             sel.addRange(range);
         }
 
+        var SNAP_MIN = 15;
+        var DEFAULT_EVENT_MIN = 30;
+        var HOUR_PX = 56;
+        var DAY_MIN = 1440;
+        var nextEventSeq = 0;
+        var lastTickMinute = -1;
+        var lastTickDate = '';
+
+        function el(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text !== undefined) node.textContent = text;
+            return node;
+        }
+
+        function pad2(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
+
+        function clamp(v, lo, hi) {
+            return Math.max(lo, Math.min(hi, v));
+        }
+
+        function dateKey(d) {
+            d = d || new Date();
+            return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+        }
+
+        function keyToDate(key) {
+            var p = String(key || '').split('-');
+            var d = new Date(+p[0], +p[1] - 1, +p[2]);
+            return isNaN(d.getTime()) ? new Date() : d;
+        }
+
+        function shiftDateKey(key, days) {
+            var d = keyToDate(key);
+            d.setDate(d.getDate() + days);
+            return dateKey(d);
+        }
+
+        function dayOffset(key) {
+            return Math.round((keyToDate(key) - keyToDate(dateKey())) / 86400000);
+        }
+
+        function nowMinutes() {
+            var d = new Date();
+            return d.getHours() * 60 + d.getMinutes();
+        }
+
+        function toHHMM(min) {
+            min = min % DAY_MIN;
+            return pad2(Math.floor(min / 60)) + ':' + pad2(min % 60);
+        }
+
+        function fromHHMM(value) {
+            var m = /^(\d{1,2}):(\d{2})/.exec(value || '');
+            return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null;
+        }
+
+        function formatTime(min) {
+            var d = new Date(2000, 0, 1, Math.floor(min / 60), min % 60);
+            return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        }
+
+        function formatHour(h) {
+            return new Date(2000, 0, 1, h % 24).toLocaleTimeString([], { hour: 'numeric' });
+        }
+
+        function formatRange(ev) {
+            return formatTime(ev.start) + ' \u2013 ' + formatTime(ev.end);
+        }
+
+        function formatDuration(min) {
+            var h = Math.floor(min / 60), m = min % 60;
+            if (!h) return m + 'm';
+            return h + 'h' + (m ? ' ' + m + 'm' : '');
+        }
+
+        function longDateLabel(key) {
+            return keyToDate(key).toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+        }
+
+        function shortDateLabel(key) {
+            return keyToDate(key).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+
+        function relativeDayLabel(key) {
+            var off = dayOffset(key);
+            if (off === 0) return 'Today';
+            if (off === 1) return 'Tomorrow';
+            if (off === -1) return 'Yesterday';
+            return '';
+        }
+
+        function newEventId() {
+            nextEventSeq += 1;
+            return Date.now().toString(36) + '-' + nextEventSeq.toString(36);
+        }
+
+        function snapMinutes(min) {
+            return Math.round(min / SNAP_MIN) * SNAP_MIN;
+        }
+
+        function isSchedule(entry) {
+            return !!entry && entry.type === 'schedule';
+        }
+
+        function sortEvents(entry) {
+            entry.events.sort(function(a, b) {
+                return a.start - b.start || a.end - b.end;
+            });
+        }
+
+        function normalizeSchedule(entry) {
+            if (!Array.isArray(entry.events)) entry.events = [];
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.date || '')) entry.date = dateKey();
+            if (entry.view !== 'list') entry.view = 'day';
+            entry.events = entry.events.filter(function(ev) { return ev && typeof ev === 'object'; });
+            entry.events.forEach(function(ev) {
+                if (!ev.id) ev.id = newEventId();
+                ev.start = clamp(Math.round(+ev.start || 0), 0, DAY_MIN - 5);
+                ev.end = clamp(Math.round(+ev.end || ev.start + DEFAULT_EVENT_MIN), ev.start + 5, DAY_MIN);
+                ev.title = String(ev.title || '');
+                ev.done = !!ev.done;
+            });
+            sortEvents(entry);
+        }
+
+        function scheduleState(entry) {
+            var state = { now: null, next: null };
+            if (dayOffset(entry.date) !== 0) return state;
+            var m = nowMinutes();
+            entry.events.forEach(function(ev) {
+                if (ev.done) return;
+                if (!state.now && ev.start <= m && ev.end > m) state.now = ev;
+                if (!state.next && ev.start > m) state.next = ev;
+            });
+            return state;
+        }
+
+        function schedulePreview(entry) {
+            var label = relativeDayLabel(entry.date) || shortDateLabel(entry.date);
+            var state = scheduleState(entry);
+            var total = entry.events.length;
+            var open = entry.events.filter(function(ev) { return !ev.done; }).length;
+            var detail;
+            if (state.now) detail = 'Now: ' + (state.now.title || 'Untitled');
+            else if (state.next) detail = 'Next ' + formatTime(state.next.start) + ' ' + (state.next.title || 'Untitled');
+            else if (!total) detail = 'No events yet';
+            else if (!open) detail = 'All ' + total + ' done';
+            else detail = total + (total === 1 ? ' event' : ' events');
+            return label + ' \u00b7 ' + detail;
+        }
+
+        function entryPreview(entry) {
+            if (isSchedule(entry)) return schedulePreview(entry);
+            return getContentPreview(entry.content) || 'Empty note';
+        }
+
+        var CLOCK = '(\\d{1,2})(?:[:.](\\d{2}))?(?:\\s*([ap])\\.?m\\.?|([ap]))?(?![a-z\\d:])';
+        var RANGE_RE = new RegExp('(?:^|\\s)((?:from|at|@)\\s*)?' + CLOCK + '\\s*(?:-|\\u2013|to|until|till)\\s*' + CLOCK, 'i');
+        var LEAD_RE = new RegExp('^((?:at|@)\\s*)?' + CLOCK, 'i');
+        var AT_RE = new RegExp('(?:^|\\s)((?:at|@)\\s*)' + CLOCK, 'i');
+        var ANY_CLOCK_RE = new RegExp('(?:^|\\s)()' + CLOCK, 'gi');
+        var DURATION_RE = /(?:^|\s)(?:for\s+)?(\d+(?:\.\d+)?)\s*(h|hrs?|hours?|m|mins?|minutes?)(?:\s*(\d+)\s*(m|mins?|minutes?))?(?![a-z])/i;
+
+        function clockParts(m, i) {
+            if (!m[i]) return null;
+            var h = parseInt(m[i], 10);
+            var min = m[i + 1] ? parseInt(m[i + 1], 10) : 0;
+            var mer = (m[i + 2] || m[i + 3] || '').toLowerCase();
+            if (min > 59) return null;
+            if (mer) {
+                if (h < 1 || h > 12) return null;
+                h = h % 12 + (mer === 'p' ? 12 : 0);
+            } else if (h > 23) {
+                return null;
+            }
+            return {
+                min: h * 60 + min,
+                fixed: !!mer || h === 0 || h > 12 || m[i].charAt(0) === '0',
+                marked: !!mer || !!m[i + 1]
+            };
+        }
+
+        function preferDaytime(c) {
+            if (!c.fixed && c.min >= 60 && c.min < 7 * 60) c.min += 720;
+            return c;
+        }
+
+        function cutMatch(text, m) {
+            return text.slice(0, m.index) + ' ' + text.slice(m.index + m[0].length);
+        }
+
+        function parseEventText(raw) {
+            var text = String(raw || '').replace(/\s+/g, ' ').trim();
+            var result = { title: '', start: null, end: null, duration: 0 };
+            var m = RANGE_RE.exec(text), a, b;
+            if (m) {
+                a = clockParts(m, 2);
+                b = clockParts(m, 6);
+                if (!(a && b && (m.index === 0 || m[1] || a.marked || b.marked))) m = null;
+            }
+            if (m) {
+                if (!a.fixed && b.fixed) {
+                    if (a.min < 720 && a.min + 720 < b.min) a.min += 720;
+                } else if (!a.fixed) {
+                    preferDaytime(a);
+                }
+                if (b.fixed && b.min === 0 && a.min > 0) b.min = DAY_MIN;
+                while (!b.fixed && b.min <= a.min && b.min + 720 <= DAY_MIN) b.min += 720;
+                result.start = a.min;
+                result.end = b.min > a.min ? b.min : Math.min(DAY_MIN, a.min + DEFAULT_EVENT_MIN);
+                text = cutMatch(text, m);
+            } else {
+                m = LEAD_RE.exec(text) || AT_RE.exec(text);
+                a = m && clockParts(m, 2);
+                if (!a) {
+                    m = null;
+                    ANY_CLOCK_RE.lastIndex = 0;
+                    var found;
+                    while ((found = ANY_CLOCK_RE.exec(text))) {
+                        var c = clockParts(found, 2);
+                        if (c && c.marked) {
+                            m = found;
+                            a = c;
+                            break;
+                        }
+                    }
+                }
+                if (m) {
+                    result.start = preferDaytime(a).min;
+                    text = cutMatch(text, m);
+                }
+            }
+            var d = DURATION_RE.exec(text);
+            if (d) {
+                var dur = parseFloat(d[1]) * (d[2].charAt(0).toLowerCase() === 'h' ? 60 : 1) + (d[3] ? parseInt(d[3], 10) : 0);
+                if (dur > 0) {
+                    result.duration = Math.round(dur);
+                    if (result.start !== null && result.end === null) result.end = Math.min(DAY_MIN, result.start + result.duration);
+                    text = cutMatch(text, d);
+                }
+            }
+            result.title = text.replace(/\s+/g, ' ')
+                .replace(/^(?:[\s,;:\u2013-]|at\b|from\b)+/i, '')
+                .replace(/(?:[\s,;:\u2013-]|\bat|\bfrom|\bfor|@)+$/i, '')
+                .trim();
+            return result;
+        }
+
+        function nextFreeStart(entry) {
+            var start = 9 * 60;
+            if (entry.events.length) {
+                start = entry.events.reduce(function(max, ev) { return Math.max(max, ev.end); }, 0);
+            }
+            if (dayOffset(entry.date) === 0) {
+                start = Math.max(start, Math.ceil(nowMinutes() / SNAP_MIN) * SNAP_MIN);
+            }
+            return Math.min(start, DAY_MIN - SNAP_MIN);
+        }
+
+        function resolveParsed(entry, p) {
+            var start = p.start !== null ? p.start : nextFreeStart(entry);
+            var end = p.end !== null ? p.end : start + (p.duration || DEFAULT_EVENT_MIN);
+            start = clamp(start, 0, DAY_MIN - 5);
+            return { start: start, end: clamp(end, start + 5, DAY_MIN) };
+        }
+
+        function addEventFromText(entry, text) {
+            var p = parseEventText(text);
+            if (!p.title && p.start === null) return null;
+            var times = resolveParsed(entry, p);
+            var ev = { id: newEventId(), start: times.start, end: times.end, title: p.title, done: false };
+            entry.events.push(ev);
+            sortEvents(entry);
+            return ev;
+        }
+
+        function commitSchedule(entry) {
+            sortEvents(entry);
+            saveEntries();
+            updateEntryPreview(entry);
+            renderSchedulePanes(entry);
+        }
+
+        function renderSchedulePanes(entry) {
+            document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"]').forEach(function(pane) {
+                if (pane._renderSchedule) pane._renderSchedule();
+            });
+        }
+
+        function removeEvent(entry, ev, quiet) {
+            var idx = entry.events.indexOf(ev);
+            if (idx === -1) return;
+            entry.events.splice(idx, 1);
+            commitSchedule(entry);
+            if (quiet) return;
+            showToast({
+                text: 'Deleted \u201c' + (ev.title || 'Untitled') + '\u201d',
+                actionLabel: 'Undo',
+                onAction: function() {
+                    entry.events.push(ev);
+                    commitSchedule(entry);
+                }
+            });
+        }
+
+        function layoutEvents(events) {
+            var out = [], cluster = [], columns = [], clusterEnd = -1;
+            function flush() {
+                cluster.forEach(function(item) { item.cols = columns.length; });
+                cluster = [];
+                columns = [];
+            }
+            events.forEach(function(ev) {
+                var visualEnd = Math.max(ev.end, ev.start + 20);
+                if (ev.start >= clusterEnd) flush();
+                var col = 0;
+                while (col < columns.length && columns[col] > ev.start) col++;
+                columns[col] = visualEnd;
+                var item = { ev: ev, col: col, cols: 1 };
+                cluster.push(item);
+                out.push(item);
+                clusterEnd = Math.max(clusterEnd, visualEnd);
+            });
+            flush();
+            return out;
+        }
+
+        function scheduleAsText(entry) {
+            var lines = [entry.title];
+            var dateLine = longDateLabel(entry.date);
+            if (dateLine !== entry.title) lines.push(dateLine);
+            lines.push('');
+            if (!entry.events.length) lines.push('(no events)');
+            entry.events.forEach(function(ev) {
+                lines.push((ev.done ? '[x] ' : '[ ] ') + formatRange(ev) + '  ' + (ev.title || 'Untitled'));
+            });
+            return lines.join('\n');
+        }
+
+        function icsEscape(s) {
+            return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+        }
+
+        function icsStamp(key, min) {
+            if (min >= DAY_MIN) {
+                key = shiftDateKey(key, 1);
+                min -= DAY_MIN;
+            }
+            return key.replace(/-/g, '') + 'T' + pad2(Math.floor(min / 60)) + pad2(min % 60) + '00';
+        }
+
+        function exportScheduleIcs(entry) {
+            if (!entry.events.length) {
+                showToast({ text: 'Add an event first, then export it to your calendar.' });
+                return;
+            }
+            var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+            var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-' + '/' + '/Text Bookmarklet' + '/' + '/Schedule' + '/' + '/EN', 'CALSCALE:GREGORIAN'];
+            entry.events.forEach(function(ev) {
+                lines.push(
+                    'BEGIN:VEVENT',
+                    'UID:' + ev.id + '-' + entry.id + '@text-bookmarklet',
+                    'DTSTAMP:' + stamp,
+                    'DTSTART:' + icsStamp(entry.date, ev.start),
+                    'DTEND:' + icsStamp(entry.date, ev.end),
+                    'SUMMARY:' + icsEscape(ev.title || 'Untitled'),
+                    'END:VEVENT'
+                );
+            });
+            lines.push('END:VCALENDAR');
+            downloadFile((entry.title || 'schedule') + '.ics', lines.join('\r\n') + '\r\n', 'text/calendar;charset=utf-8');
+        }
+
+        function copyText(text) {
+            function fallback() {
+                var ta = el('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                var ok = false;
+                try {
+                    ok = document.execCommand('copy');
+                } catch (e) {
+                    ok = false;
+                }
+                ta.remove();
+                return ok ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text).catch(fallback);
+            }
+            return fallback();
+        }
+
+        function showToast(opts) {
+            var host = document.querySelector('.toast-host');
+            if (!host) {
+                host = el('div', 'toast-host');
+                host.setAttribute('role', 'status');
+                host.setAttribute('aria-live', 'polite');
+                document.body.appendChild(host);
+            }
+            var toast = el('div', 'toast');
+            var body = el('div', 'toast-body');
+            body.appendChild(el('span', 'toast-text', opts.text));
+            if (opts.detail) body.appendChild(el('span', 'toast-detail', opts.detail));
+            toast.appendChild(body);
+            var timer;
+            function dismiss() {
+                clearTimeout(timer);
+                toast.remove();
+            }
+            if (opts.actionLabel) {
+                var action = el('button', 'toast-action', opts.actionLabel);
+                action.type = 'button';
+                action.onclick = function() {
+                    dismiss();
+                    opts.onAction();
+                };
+                toast.appendChild(action);
+            }
+            var close = createIconButton(ICONS.close, 'Dismiss');
+            close.onclick = dismiss;
+            toast.appendChild(close);
+            host.appendChild(toast);
+            timer = setTimeout(dismiss, opts.timeout || 8000);
+            return toast;
+        }
+
+        function scheduleDateTaken(key, except) {
+            return entries.some(function(e) { return e !== except && isSchedule(e) && e.date === key; });
+        }
+
+        function addNewSchedule(key) {
+            var entry = {
+                id: nextEntryId++,
+                type: 'schedule',
+                title: shortDateLabel(key),
+                autoTitle: true,
+                date: key,
+                view: 'day',
+                events: [],
+                content: '',
+                titleBarColor: DEFAULT_COLOR,
+                contentBackgroundColor: DEFAULT_COLOR
+            };
+            entries.push(entry);
+            saveEntries();
+            return entry;
+        }
+
+        function focusScheduleInput(pane) {
+            var input = pane && pane.querySelector('.schedule-add-input');
+            if (input) input.focus();
+        }
+
+        function openNewSchedule(entry) {
+            current = entries.indexOf(entry);
+            updateEntryList();
+            closeDrawer();
+            focusScheduleInput(clearAndLoadEntry(entry));
+        }
+
+        function createSchedule() {
+            var key = dateKey();
+            while (scheduleDateTaken(key)) key = shiftDateKey(key, 1);
+            openNewSchedule(addNewSchedule(key));
+        }
+
+        function planNextDay(entry) {
+            var key = shiftDateKey(entry.date, 1);
+            var next = addNewSchedule(key);
+            next.events = entry.events.filter(function(ev) { return !ev.done; }).map(function(ev) {
+                return { id: newEventId(), start: ev.start, end: ev.end, title: ev.title, done: false, color: ev.color };
+            });
+            next.titleBarColor = entry.titleBarColor;
+            next.contentBackgroundColor = entry.contentBackgroundColor;
+            entries.splice(entries.indexOf(next), 1);
+            entries.splice(entries.indexOf(entry) + 1, 0, next);
+            saveEntries();
+            openNewSchedule(next);
+            var carried = next.events.length;
+            showToast({ text: carried ? 'Carried over ' + carried + ' unfinished ' + (carried === 1 ? 'event' : 'events') + '.' : 'Started a plan for ' + longDateLabel(key) + '.' });
+        }
+
+        function setScheduleDate(entry, key) {
+            if (!key || key === entry.date) return;
+            entry.date = key;
+            if (entry.autoTitle) {
+                entry.title = shortDateLabel(key);
+                document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"] .pane-title-text').forEach(function(span) {
+                    span.textContent = entry.title;
+                });
+            }
+            commitSchedule(entry);
+            updateEntryList();
+        }
+
+        function showEventEditor(entry, ev, anchor) {
+            closePopover();
+            var pop = el('div', 'popover event-popover');
+            pop.setAttribute('role', 'dialog');
+            pop.setAttribute('aria-label', 'Edit event');
+
+            var title = el('input', 'event-title-input');
+            title.type = 'text';
+            title.value = ev.title;
+            title.placeholder = 'What\u2019s happening?';
+            title.setAttribute('aria-label', 'Event title');
+            title.oninput = function() {
+                ev.title = title.value;
+                commitSchedule(entry);
+            };
+            title.onkeydown = function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    closePopover(true);
+                }
+            };
+            pop.appendChild(title);
+
+            var times = el('div', 'event-times');
+            var startInput = el('input', 'event-time-input');
+            startInput.type = 'time';
+            startInput.step = 300;
+            startInput.setAttribute('aria-label', 'Start time');
+            var endInput = el('input', 'event-time-input');
+            endInput.type = 'time';
+            endInput.step = 300;
+            endInput.setAttribute('aria-label', 'End time');
+            var lengthLabel = el('span', 'event-length');
+            function syncTimes() {
+                startInput.value = toHHMM(ev.start);
+                endInput.value = toHHMM(ev.end);
+                lengthLabel.textContent = formatDuration(ev.end - ev.start);
+            }
+            startInput.onchange = function() {
+                var s = fromHHMM(startInput.value);
+                if (s === null) return;
+                var len = ev.end - ev.start;
+                ev.start = clamp(s, 0, DAY_MIN - 5);
+                ev.end = Math.min(DAY_MIN, ev.start + len);
+                syncTimes();
+                commitSchedule(entry);
+            };
+            endInput.onchange = function() {
+                var e = fromHHMM(endInput.value);
+                if (e === null) return;
+                if (e === 0) e = DAY_MIN;
+                if (e <= ev.start) e = Math.min(DAY_MIN, ev.start + SNAP_MIN);
+                ev.end = e;
+                syncTimes();
+                commitSchedule(entry);
+            };
+            syncTimes();
+            times.appendChild(startInput);
+            times.appendChild(el('span', 'event-dash', '\u2013'));
+            times.appendChild(endInput);
+            times.appendChild(lengthLabel);
+            pop.appendChild(times);
+
+            var grid = el('div', 'swatches event-swatches');
+            function addSwatch(name, color) {
+                var b = el('button', 'swatch' + (color ? '' : ' swatch-none'));
+                b.type = 'button';
+                b.title = name;
+                b.setAttribute('aria-label', 'Color: ' + name);
+                if (color) b.style.setProperty('--swatch', color);
+                b.setAttribute('aria-pressed', String((ev.color || '') === color));
+                b.onclick = function() {
+                    if (color) ev.color = color;
+                    else delete ev.color;
+                    grid.querySelectorAll('.swatch').forEach(function(s) {
+                        s.setAttribute('aria-pressed', String(s === b));
+                    });
+                    commitSchedule(entry);
+                };
+                grid.appendChild(b);
+            }
+            addSwatch('Default', '');
+            LABEL_COLORS.forEach(function(c) { addSwatch(c[0], c[1]); });
+            pop.appendChild(grid);
+
+            var actions = el('div', 'event-actions');
+            var doneLabel = el('label', 'event-done');
+            var doneBox = el('input');
+            doneBox.type = 'checkbox';
+            doneBox.checked = ev.done;
+            doneBox.onchange = function() {
+                ev.done = doneBox.checked;
+                commitSchedule(entry);
+            };
+            doneLabel.appendChild(doneBox);
+            doneLabel.appendChild(document.createTextNode('Done'));
+            actions.appendChild(doneLabel);
+            var del = createTextButton(ICONS.trash, 'Delete');
+            del.classList.add('event-delete');
+            var deleting = false;
+            del.onclick = function() {
+                deleting = true;
+                closePopover();
+                removeEvent(entry, ev);
+            };
+            actions.appendChild(del);
+            pop.appendChild(actions);
+
+            presentPopover(pop, anchor, '.event-title-input');
+            title.select();
+            openPopover.onClose = function() {
+                if (deleting) return;
+                if (!ev.title.trim() && entry.events.indexOf(ev) !== -1) {
+                    removeEvent(entry, ev, true);
+                } else if (ev.title !== ev.title.trim()) {
+                    ev.title = ev.title.trim();
+                    commitSchedule(entry);
+                }
+                var block = document.querySelector('.entry-pane[data-entry-id="' + entry.id + '"] .tl-event[data-event-id="' + ev.id + '"], .entry-pane[data-entry-id="' + entry.id + '"] .agenda-row[data-event-id="' + ev.id + '"] .agenda-title');
+                if (block && document.activeElement === document.body) block.focus();
+            };
+        }
+
+        function buildSchedule(entry, pane) {
+            normalizeSchedule(entry);
+            pane.classList.add('is-schedule');
+            var root = el('div', 'schedule');
+
+            var head = el('div', 'schedule-head');
+            var dateWrap = el('div', 'schedule-date-wrap');
+            var dateBtn = el('button', 'schedule-date');
+            dateBtn.type = 'button';
+            dateBtn.title = 'Change the day this plan is for';
+            var dateText = el('span', 'schedule-date-text');
+            var relBadge = el('span', 'schedule-rel');
+            dateBtn.appendChild(dateText);
+            dateBtn.appendChild(relBadge);
+            var dateInput = el('input', 'schedule-date-input');
+            dateInput.type = 'date';
+            dateInput.tabIndex = -1;
+            dateInput.setAttribute('aria-label', 'Plan date');
+            dateBtn.onclick = function() {
+                dateInput.value = entry.date;
+                if (dateInput.showPicker) {
+                    try {
+                        dateInput.showPicker();
+                        return;
+                    } catch (e) {
+                        dateInput.classList.add('visible');
+                    }
+                }
+                dateInput.classList.add('visible');
+                dateInput.focus();
+            };
+            dateInput.onchange = function() {
+                if (dateInput.value) setScheduleDate(entry, dateInput.value);
+            };
+            dateInput.onblur = function() {
+                dateInput.classList.remove('visible');
+            };
+            dateWrap.appendChild(dateBtn);
+            dateWrap.appendChild(dateInput);
+            head.appendChild(dateWrap);
+
+            var views = el('div', 'segmented');
+            views.setAttribute('role', 'group');
+            views.setAttribute('aria-label', 'View');
+            [['day', 'Timeline'], ['list', 'List']].forEach(function(v) {
+                var b = el('button', 'segmented-btn', v[1]);
+                b.type = 'button';
+                b.dataset.view = v[0];
+                b.onclick = function() {
+                    entry.view = v[0];
+                    saveEntries();
+                    render();
+                };
+                views.appendChild(b);
+            });
+            head.appendChild(views);
+            root.appendChild(head);
+
+            var status = el('div', 'schedule-status');
+            root.appendChild(status);
+
+            var add = el('div', 'schedule-add');
+            add.appendChild(createIcon(ICONS.plus));
+            var addInput = el('input', 'schedule-add-input');
+            addInput.type = 'text';
+            addInput.placeholder = 'Add an event \u2014 9:30 Standup, 2-3pm Gym, Lunch at 12 for 1h';
+            addInput.setAttribute('aria-label', 'Add an event');
+            addInput.setAttribute('autocomplete', 'off');
+            add.appendChild(addInput);
+            root.appendChild(add);
+            var hint = el('div', 'schedule-add-hint');
+            hint.setAttribute('aria-live', 'polite');
+            root.appendChild(hint);
+
+            function updateHint() {
+                var value = addInput.value.trim();
+                hint.textContent = '';
+                hint.classList.toggle('active', !!value);
+                if (!value) {
+                    hint.textContent = 'Press Enter to add. Paste a list to add several at once. No time? It goes after your last event.';
+                    return;
+                }
+                var p = parseEventText(value);
+                var t = resolveParsed(entry, p);
+                hint.appendChild(el('strong', '', formatTime(t.start) + ' \u2013 ' + formatTime(t.end)));
+                hint.appendChild(document.createTextNode('  ' + (p.title || 'Untitled') + (p.start === null ? '  (next free slot)' : '')));
+            }
+
+            function flash(ids) {
+                ids.forEach(function(id) {
+                    var node = root.querySelector('[data-event-id="' + id + '"]');
+                    if (node) {
+                        node.classList.add('just-added');
+                        if (node.scrollIntoView) node.scrollIntoView({ block: 'nearest' });
+                    }
+                });
+            }
+
+            function addLines(lines) {
+                var ids = [];
+                lines.forEach(function(line) {
+                    var marker = /^\s*(?:(?:[-*\u2022]|\[[ xX]?\])\s*)+/.exec(line);
+                    var clean = marker ? line.slice(marker[0].length) : line;
+                    var ev = clean.trim() && addEventFromText(entry, clean);
+                    if (!ev) return;
+                    if (marker && /\[[xX]\]/.test(marker[0])) ev.done = true;
+                    ids.push(ev.id);
+                });
+                if (!ids.length) return;
+                commitSchedule(entry);
+                flash(ids);
+            }
+
+            addInput.onkeydown = function(e) {
+                if (e.key === 'Enter' && !e.isComposing) {
+                    e.preventDefault();
+                    if (!addInput.value.trim()) return;
+                    addLines([addInput.value]);
+                    addInput.value = '';
+                    updateHint();
+                } else if (e.key === 'Escape' && addInput.value) {
+                    e.stopPropagation();
+                    addInput.value = '';
+                    updateHint();
+                }
+            };
+            addInput.oninput = updateHint;
+            addInput.onpaste = function(e) {
+                var text = e.clipboardData && e.clipboardData.getData('text/plain');
+                if (!text || !/\n/.test(text.trim())) return;
+                e.preventDefault();
+                addLines(text.split(/\r?\n/));
+            };
+            updateHint();
+
+            var body = el('div', 'schedule-body');
+            root.appendChild(body);
+
+            var foot = el('div', 'schedule-foot');
+            var copyBtn = createTextButton(ICONS.copy, 'Copy agenda', 'Copy this plan as text, e.g. for a standup message');
+            copyBtn.onclick = function() {
+                copyText(scheduleAsText(entry)).then(function() {
+                    showToast({ text: 'Agenda copied.' });
+                }, function() {
+                    showToast({ text: 'Couldn\u2019t copy. Use the .txt export instead.' });
+                });
+            };
+            var nextBtn = createTextButton(ICONS.arrowRight, 'Plan next day', 'Start a plan for the following day with this plan\u2019s unfinished events');
+            nextBtn.onclick = function() { planNextDay(entry); };
+            foot.appendChild(copyBtn);
+            foot.appendChild(nextBtn);
+            root.appendChild(foot);
+
+            var drag = null;
+
+            function renderStatus() {
+                status.innerHTML = '';
+                var state = scheduleState(entry);
+                var chip = null;
+                if (state.now) {
+                    chip = el('span', 'status-chip now');
+                    chip.appendChild(el('strong', '', 'Now'));
+                    chip.appendChild(document.createTextNode(' ' + (state.now.title || 'Untitled') + ' \u00b7 until ' + formatTime(state.now.end)));
+                } else if (state.next) {
+                    var mins = state.next.start - nowMinutes();
+                    chip = el('span', 'status-chip');
+                    chip.appendChild(el('strong', '', 'Next'));
+                    chip.appendChild(document.createTextNode(' ' + (state.next.title || 'Untitled') + ' \u00b7 ' + (mins < 60 ? 'in ' + mins + 'm' : formatTime(state.next.start))));
+                }
+                if (chip) status.appendChild(chip);
+                var total = entry.events.length;
+                if (!total) {
+                    status.appendChild(el('span', 'status-summary', 'Nothing planned yet.'));
+                    return;
+                }
+                var planned = entry.events.reduce(function(sum, ev) { return sum + (ev.end - ev.start); }, 0);
+                var done = entry.events.filter(function(ev) { return ev.done; }).length;
+                status.appendChild(el('span', 'status-summary', total + (total === 1 ? ' event' : ' events') + ' \u00b7 ' + formatDuration(planned) + ' planned \u00b7 ' + done + '/' + total + ' done'));
+            }
+
+            function eventClasses(node, ev) {
+                var today = dayOffset(entry.date) === 0, m = nowMinutes();
+                node.classList.toggle('done', ev.done);
+                node.classList.toggle('past', today && ev.end <= m);
+                node.classList.toggle('current', today && !ev.done && ev.start <= m && ev.end > m);
+                if (ev.color) node.style.setProperty('--ev', ev.color);
+            }
+
+            function doneToggle(ev) {
+                var cb = el('input', 'event-check');
+                cb.type = 'checkbox';
+                cb.checked = ev.done;
+                cb.title = ev.done ? 'Mark as not done' : 'Mark as done';
+                cb.setAttribute('aria-label', 'Done: ' + (ev.title || 'Untitled'));
+                cb.onchange = function() {
+                    ev.done = cb.checked;
+                    commitSchedule(entry);
+                };
+                return cb;
+            }
+
+            function renderTimeline() {
+                var startH = 7, endH = 21;
+                var today = dayOffset(entry.date) === 0, now = nowMinutes();
+                entry.events.forEach(function(ev) {
+                    startH = Math.min(startH, Math.floor(ev.start / 60));
+                    endH = Math.max(endH, Math.ceil(ev.end / 60));
+                });
+                if (today) {
+                    startH = Math.min(startH, Math.floor(now / 60));
+                    endH = Math.max(endH, Math.floor(now / 60) + 1);
+                }
+                endH = Math.min(24, endH);
+                var rangeStart = startH * 60, rangeEnd = endH * 60;
+                function y(min) {
+                    return (min - rangeStart) / 60 * HOUR_PX;
+                }
+
+                var tl = el('div', 'timeline');
+                tl.style.height = y(rangeEnd) + 'px';
+                tl.style.setProperty('--hour', HOUR_PX + 'px');
+                for (var h = startH; h <= endH; h++) {
+                    var label = el('span', 'tl-hour', formatHour(h));
+                    label.style.top = y(h * 60) + 'px';
+                    tl.appendChild(label);
+                }
+                var layer = el('div', 'tl-events');
+                tl.appendChild(layer);
+
+                function place(node, ev, col, cols) {
+                    node.style.top = y(ev.start) + 'px';
+                    node.style.height = Math.max(20, y(ev.end) - y(ev.start) - 2) + 'px';
+                    if (cols !== undefined) {
+                        node.style.left = 'calc(' + (col / cols * 100) + '% + 2px)';
+                        node.style.width = 'calc(' + (100 / cols) + '% - 4px)';
+                    }
+                    node.classList.toggle('short', ev.end - ev.start < 45);
+                    var time = node.querySelector('.tl-time');
+                    if (time) time.textContent = formatRange(ev);
+                }
+
+                layoutEvents(entry.events).forEach(function(item) {
+                    var ev = item.ev;
+                    var node = el('div', 'tl-event');
+                    node.dataset.eventId = ev.id;
+                    node.tabIndex = 0;
+                    node.setAttribute('role', 'button');
+                    node.setAttribute('aria-label', (ev.title || 'Untitled') + ', ' + formatRange(ev) + (ev.done ? ', done' : ''));
+                    eventClasses(node, ev);
+                    node.appendChild(doneToggle(ev));
+                    var text = el('div', 'tl-text');
+                    text.appendChild(el('span', 'tl-title', ev.title || 'Untitled'));
+                    text.appendChild(el('span', 'tl-time'));
+                    node.appendChild(text);
+                    var grip = el('div', 'tl-resize');
+                    grip.title = 'Drag to change the end time';
+                    node.appendChild(grip);
+                    node.onkeydown = function(e) {
+                        if (e.target !== node) return;
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            showEventEditor(entry, ev, node);
+                        } else if (e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+                            e.preventDefault();
+                            var step = e.key === 'ArrowUp' ? -SNAP_MIN : SNAP_MIN;
+                            if (e.shiftKey) {
+                                ev.end = clamp(ev.end + step, ev.start + SNAP_MIN, DAY_MIN);
+                            } else {
+                                var len = ev.end - ev.start;
+                                ev.start = clamp(ev.start + step, 0, DAY_MIN - len);
+                                ev.end = ev.start + len;
+                            }
+                            commitSchedule(entry);
+                            var again = root.querySelector('.tl-event[data-event-id="' + ev.id + '"]');
+                            if (again) again.focus();
+                        } else if (e.key === 'Delete') {
+                            e.preventDefault();
+                            removeEvent(entry, ev);
+                        }
+                    };
+                    place(node, ev, item.col, item.cols);
+                    node._ev = ev;
+                    layer.appendChild(node);
+                });
+
+                if (today) {
+                    var line = el('div', 'tl-now');
+                    line.style.top = y(now) + 'px';
+                    line.setAttribute('aria-hidden', 'true');
+                    tl.appendChild(line);
+                }
+
+                function minuteAt(clientY) {
+                    return rangeStart + (clientY - layer.getBoundingClientRect().top) / HOUR_PX * 60;
+                }
+
+                layer.onpointerdown = function(e) {
+                    if (e.button !== 0 || e.target.closest('input')) return;
+                    if (openPopover) {
+                        closePopover();
+                        e.preventDefault();
+                        return;
+                    }
+                    var node = e.target.closest('.tl-event');
+                    drag = { id: e.pointerId, y0: e.clientY, moved: false, node: node };
+                    if (node) {
+                        drag.ev = node._ev;
+                        drag.mode = e.target.closest('.tl-resize') ? 'resize' : 'move';
+                        drag.start = drag.ev.start;
+                        drag.end = drag.ev.end;
+                        if (e.pointerType === 'mouse' || drag.mode === 'resize') e.preventDefault();
+                    } else {
+                        drag.mode = 'create';
+                        drag.anchor = clamp(Math.floor(minuteAt(e.clientY) / SNAP_MIN) * SNAP_MIN, rangeStart, rangeEnd - SNAP_MIN);
+                        e.preventDefault();
+                    }
+                    try {
+                        layer.setPointerCapture(e.pointerId);
+                    } catch (err) {
+                        drag.capture = false;
+                    }
+                };
+
+                layer.onpointermove = function(e) {
+                    if (!drag || e.pointerId !== drag.id) return;
+                    var dy = e.clientY - drag.y0;
+                    if (!drag.moved && Math.abs(dy) < 4) return;
+                    if (!drag.moved) {
+                        drag.moved = true;
+                        pane._dragging = true;
+                        root.classList.add('dragging');
+                        if (drag.node) drag.node.classList.add('dragging');
+                    }
+                    var delta = snapMinutes(dy / HOUR_PX * 60);
+                    if (drag.mode === 'move') {
+                        var len = drag.end - drag.start;
+                        drag.ev.start = clamp(drag.start + delta, rangeStart, rangeEnd - len);
+                        drag.ev.end = drag.ev.start + len;
+                        place(drag.node, drag.ev);
+                    } else if (drag.mode === 'resize') {
+                        drag.ev.end = clamp(drag.end + delta, drag.ev.start + SNAP_MIN, rangeEnd);
+                        place(drag.node, drag.ev);
+                    } else {
+                        var cur = clamp(snapMinutes(minuteAt(e.clientY)), rangeStart, rangeEnd);
+                        var ghostEv = {
+                            start: Math.min(drag.anchor, cur),
+                            end: Math.max(Math.min(drag.anchor, cur) + SNAP_MIN, Math.max(drag.anchor + SNAP_MIN, cur))
+                        };
+                        if (!drag.ghost) {
+                            drag.ghost = el('div', 'tl-event tl-ghost');
+                            drag.ghost.appendChild(el('span', 'tl-time'));
+                            drag.ghost.style.left = '2px';
+                            drag.ghost.style.right = '2px';
+                            layer.appendChild(drag.ghost);
+                        }
+                        drag.ghostEv = ghostEv;
+                        place(drag.ghost, ghostEv);
+                    }
+                };
+
+                function endDrag(e, cancelled) {
+                    if (!drag || e.pointerId !== drag.id) return;
+                    var d = drag;
+                    drag = null;
+                    pane._dragging = false;
+                    root.classList.remove('dragging');
+                    if (cancelled) {
+                        if (d.ev) {
+                            d.ev.start = d.start;
+                            d.ev.end = d.end;
+                        }
+                        render();
+                        return;
+                    }
+                    if (d.mode === 'create') {
+                        var span = d.moved && d.ghostEv ? d.ghostEv : { start: d.anchor, end: Math.min(rangeEnd, d.anchor + DEFAULT_EVENT_MIN) };
+                        var ev = { id: newEventId(), start: span.start, end: Math.max(span.end, span.start + SNAP_MIN), title: '', done: false };
+                        entry.events.push(ev);
+                        commitSchedule(entry);
+                        var created = root.querySelector('.tl-event[data-event-id="' + ev.id + '"]');
+                        if (created) showEventEditor(entry, ev, created);
+                    } else if (d.moved) {
+                        commitSchedule(entry);
+                    } else if (d.node) {
+                        showEventEditor(entry, d.ev, d.node);
+                    }
+                }
+                layer.onpointerup = function(e) { endDrag(e, false); };
+                layer.onpointercancel = function(e) { endDrag(e, true); };
+
+                body.appendChild(tl);
+            }
+
+            function renderList() {
+                var list = el('div', 'agenda');
+                if (!entry.events.length) {
+                    list.appendChild(el('p', 'agenda-empty', 'No events yet. Add one above.'));
+                }
+                var prevEnd = null;
+                entry.events.forEach(function(ev) {
+                    if (prevEnd !== null && ev.start - prevEnd >= SNAP_MIN) {
+                        list.appendChild(el('div', 'agenda-gap', formatDuration(ev.start - prevEnd) + ' free'));
+                    }
+                    prevEnd = prevEnd === null ? ev.end : Math.max(prevEnd, ev.end);
+                    var row = el('div', 'agenda-row');
+                    row.dataset.eventId = ev.id;
+                    eventClasses(row, ev);
+                    row.appendChild(doneToggle(ev));
+                    var time = el('span', 'agenda-time');
+                    time.appendChild(el('span', '', formatTime(ev.start)));
+                    time.appendChild(el('span', 'agenda-end', formatTime(ev.end)));
+                    row.appendChild(time);
+                    var titleBtn = el('button', 'agenda-title', ev.title || 'Untitled');
+                    titleBtn.type = 'button';
+                    titleBtn.title = 'Edit event';
+                    titleBtn.onclick = function() { showEventEditor(entry, ev, titleBtn); };
+                    row.appendChild(titleBtn);
+                    row.appendChild(el('span', 'agenda-length', formatDuration(ev.end - ev.start)));
+                    list.appendChild(row);
+                });
+                body.appendChild(list);
+            }
+
+            function render() {
+                dateText.textContent = longDateLabel(entry.date);
+                var rel = relativeDayLabel(entry.date);
+                relBadge.textContent = rel;
+                relBadge.hidden = !rel;
+                views.querySelectorAll('.segmented-btn').forEach(function(b) {
+                    b.setAttribute('aria-pressed', String(b.dataset.view === entry.view));
+                });
+                renderStatus();
+                body.innerHTML = '';
+                body.className = 'schedule-body view-' + entry.view;
+                if (entry.view === 'list') renderList();
+                else renderTimeline();
+            }
+
+            pane._renderSchedule = function() {
+                if (!pane._dragging) render();
+            };
+            pane._afterMount = function() {
+                var target = root.querySelector('.tl-now') || root.querySelector('.tl-event, .agenda-row');
+                if (!target) return;
+                var offset = target.getBoundingClientRect().top - root.getBoundingClientRect().top;
+                if (offset > root.clientHeight * 0.6) root.scrollTop = offset - root.clientHeight / 3;
+            };
+            render();
+            return root;
+        }
+
+        function scheduleTick() {
+            var today = dateKey(), m = nowMinutes();
+            if (lastTickDate === today && m !== lastTickMinute) {
+                entries.forEach(function(entry) {
+                    if (!isSchedule(entry) || entry.date !== today) return;
+                    entry.events.forEach(function(ev) {
+                        if (ev.done || ev.start <= lastTickMinute || ev.start > m) return;
+                        showToast({
+                            text: 'Starting now: ' + (ev.title || 'Untitled'),
+                            detail: formatRange(ev),
+                            actionLabel: entries[current] === entry ? '' : 'Open',
+                            onAction: function() {
+                                var idx = entries.indexOf(entry);
+                                if (idx !== -1) openEntry(idx);
+                            },
+                            timeout: 20000
+                        });
+                    });
+                });
+            }
+            var changed = lastTickMinute !== m || lastTickDate !== today;
+            lastTickDate = today;
+            lastTickMinute = m;
+            if (!changed) return;
+            entries.forEach(function(entry) {
+                if (!isSchedule(entry)) return;
+                updateEntryPreview(entry);
+                renderSchedulePanes(entry);
+            });
+        }
+
+        setInterval(scheduleTick, 15000);
+
         function autoSaveEntries() {
             let currentEntries = JSON.stringify(entries);
             if (currentEntries !== lastSavedEntries) {
@@ -1141,6 +2332,10 @@ data:text/html,<html>
 
         newEntryButton.appendChild(createIcon(ICONS.plus));
         newEntryButton.appendChild(document.createTextNode('New note'));
+        var newScheduleButton = document.getElementById('new-schedule-button');
+        newScheduleButton.appendChild(createIcon(ICONS.calendar));
+        newScheduleButton.appendChild(document.createTextNode('Schedule'));
+        newScheduleButton.addEventListener('click', createSchedule);
 
         var collapseButton = createIconButton(ICONS.panel, 'Hide notes list');
         collapseButton.title = 'Hide notes list (Ctrl+\\)';
@@ -1193,6 +2388,7 @@ data:text/html,<html>
                 ['Saving', ['Notes save into this page\u2019s address as you type, so refreshing is safe. To keep them after closing the tab, press ', kbd('Ctrl'), ' ', kbd('D'), ' to bookmark this page.']],
                 ['Backups', ['Back up saves every note to a file. Restore loads that file again.']],
                 ['Rename', ['Click the title of the open note, or double-click a note in the list.']],
+                ['Schedules', ['Click ', kbd('Schedule'), ' to plan a day. Type events like ', kbd('9:30 Standup'), ', ', kbd('2-3pm Gym'), ' or ', kbd('Lunch at 12 for 1h'), ' and press ', kbd('Enter'), '; paste several lines to add them all. Drag an event to move it, drag its bottom edge to resize, and click or drag on empty time to add one. Events starting now pop up a reminder while this tab is open.']],
                 ['Lists', ['Start a line with ', kbd('[ ]'), ' or ', kbd('[x]'), ' and a space for a checkbox, or ', kbd('*'), ' or ', kbd('-'), ' and a space for a bullet. ', kbd('Enter'), ' adds the next item; ', kbd('Enter'), ' on an empty item ends the list. ', kbd('Ctrl'), ' ', kbd('\u2191'), ' / ', kbd('\u2193'), ' moves a checkbox line.']],
                 ['Arrange', ['Drag notes in the list to reorder them. Drag one onto the editor to open it side by side, and drag a pane\u2019s title to move it.']],
                 ['Colors', ['Click the dot beside a title to set the note\u2019s label and page color.']],
@@ -1339,8 +2535,8 @@ data:text/html,<html>
                     autoFormatLine(editable);
                 }
                 pendingListKind = null;
+                savePaneContent();
             }
-            savePaneContent();
         });
 
         entryList.ondragover = function(event) {
@@ -1412,6 +2608,7 @@ data:text/html,<html>
                 entryContentStorage.value = storedEntries;
                 loadEntries();
                 lastSavedEntries = JSON.stringify(entries);
+                scheduleTick();
             });
         });
 
