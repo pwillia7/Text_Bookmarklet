@@ -11,7 +11,10 @@
             <span class="app-name">Notes</span>
             <span id="note-count" class="note-count"></span>
         </div>
-        <button id="new-entry-button" class="new-note-btn" type="button"></button>
+        <div class="new-row">
+            <button id="new-entry-button" class="new-note-btn" type="button"></button>
+            <button id="new-schedule-button" class="new-schedule-btn" type="button" title="Plan a day with a timeline of events"></button>
+        </div>
         <div id="entry-list" class="entry-list"></div>
         <div class="sidebar-footer"></div>
     </aside>
@@ -92,6 +95,28 @@
                 { tag: 'path', attrs: { d: 'M12 20V9' } },
                 { tag: 'path', attrs: { d: 'M7.5 13.5L12 9l4.5 4.5' } },
                 { tag: 'path', attrs: { d: 'M5 4h14' } }
+            ],
+            calendar: [
+                { tag: 'rect', attrs: { x: 3.5, y: 5, width: 17, height: 15.5, rx: 2.5 } },
+                { tag: 'path', attrs: { d: 'M3.5 10h17' } },
+                { tag: 'path', attrs: { d: 'M8 3v4' } },
+                { tag: 'path', attrs: { d: 'M16 3v4' } }
+            ],
+            calendarExport: [
+                { tag: 'path', attrs: { d: 'M20.5 12V7.5A2.5 2.5 0 0 0 18 5H6a2.5 2.5 0 0 0-2.5 2.5V18A2.5 2.5 0 0 0 6 20.5h6' } },
+                { tag: 'path', attrs: { d: 'M3.5 10h17' } },
+                { tag: 'path', attrs: { d: 'M8 3v4' } },
+                { tag: 'path', attrs: { d: 'M16 3v4' } },
+                { tag: 'path', attrs: { d: 'M18 14.5v6' } },
+                { tag: 'path', attrs: { d: 'M15.5 18l2.5 2.5 2.5-2.5' } }
+            ],
+            copy: [
+                { tag: 'rect', attrs: { x: 8.5, y: 8.5, width: 12, height: 12, rx: 2 } },
+                { tag: 'path', attrs: { d: 'M15.5 8.5V5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3' } }
+            ],
+            arrowRight: [
+                { tag: 'path', attrs: { d: 'M5 12h14' } },
+                { tag: 'path', attrs: { d: 'M13 6l6 6-6 6' } }
             ]
         };
 
@@ -280,6 +305,9 @@
             try {
                 entries = JSON.parse(storedEntries);
                 nextEntryId = entries.reduce(function(max, entry) { return Math.max(max, entry.id); }, -1) + 1;
+                entries.forEach(function(entry) {
+                    if (isSchedule(entry)) normalizeSchedule(entry);
+                });
                 current = entries.length > 0 ? 0 : -1;
                 updateEntryList();
                 updateEntryContent();
@@ -289,6 +317,7 @@
         }
 
         function ensureDivWrapper(contentEditableDiv) {
+            if (!contentEditableDiv) return;
             var htmlContent = contentEditableDiv.innerHTML.trim();
             if (htmlContent === "" || htmlContent === "<br>") {
                 contentEditableDiv.innerHTML = "<div><br></div>";
@@ -336,7 +365,7 @@
             var row = entryList.querySelector('.entry-item[data-index="' + idx + '"]');
             if (!row) return;
             var previewEl = row.querySelector('.entry-item-preview');
-            if (previewEl) previewEl.textContent = getContentPreview(entry.content) || 'Empty note';
+            if (previewEl) previewEl.textContent = entryPreview(entry);
         }
 
         function isDefaultColor(color) {
@@ -392,6 +421,7 @@
                 var newTitle = inputEl.value.trim();
                 if (newTitle && newTitle !== entry.title) {
                     entry.title = newTitle;
+                    delete entry.autoTitle;
                     saveEntries();
                 }
                 spanEl.textContent = entry.title;
@@ -432,7 +462,7 @@
             noteCount.textContent = entries.length;
             entries.forEach(function(entry, index) {
                 var e = document.createElement("div");
-                e.className = "entry-item";
+                e.className = "entry-item" + (isSchedule(entry) ? " is-schedule" : "");
                 e.setAttribute('data-index', index.toString());
                 e.draggable = true;
 
@@ -491,12 +521,20 @@
                     });
                 });
 
-                textWrap.appendChild(titleSpan);
-                textWrap.appendChild(titleInput);
+                var titleRow = document.createElement("div");
+                titleRow.className = "entry-item-title-row";
+                if (isSchedule(entry)) {
+                    var typeIcon = createIcon(ICONS.calendar);
+                    typeIcon.classList.add('entry-type-icon');
+                    titleRow.appendChild(typeIcon);
+                }
+                titleRow.appendChild(titleSpan);
+                titleRow.appendChild(titleInput);
+                textWrap.appendChild(titleRow);
 
                 var previewSpan = document.createElement("span");
                 previewSpan.className = "entry-item-preview";
-                previewSpan.textContent = getContentPreview(entry.content) || 'Empty note';
+                previewSpan.textContent = entryPreview(entry);
                 textWrap.appendChild(previewSpan);
 
                 e.appendChild(textWrap);
@@ -554,6 +592,7 @@
             p.el.remove();
             document.removeEventListener('mousedown', p.onOutside, true);
             document.removeEventListener('keydown', p.onKey, true);
+            if (p.onClose) p.onClose();
             if (refocus && document.body.contains(p.anchor)) p.anchor.focus();
         }
 
@@ -742,7 +781,17 @@
             btn.appendChild(createIcon(ICONS.plus));
             btn.appendChild(document.createTextNode('New note'));
             btn.onclick = createNote;
-            empty.appendChild(btn);
+            var schedBtn = document.createElement('button');
+            schedBtn.type = 'button';
+            schedBtn.className = 'ghost-btn';
+            schedBtn.appendChild(createIcon(ICONS.calendar));
+            schedBtn.appendChild(document.createTextNode('New schedule'));
+            schedBtn.onclick = createSchedule;
+            var btnRow = document.createElement('div');
+            btnRow.className = 'empty-actions';
+            btnRow.appendChild(btn);
+            btnRow.appendChild(schedBtn);
+            empty.appendChild(btnRow);
             entryContent.appendChild(empty);
         }
 
@@ -821,7 +870,23 @@
             });
         }
 
+        function downloadFile(filename, text, mime) {
+            var blob = new Blob([text], { type: mime || 'text/plain;charset=utf-8' });
+            var a = document.createElement('a');
+            var url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
         function exportEntryAsText(entry) {
+            if (isSchedule(entry)) {
+                downloadFile((entry.title || 'schedule') + '.txt', scheduleAsText(entry));
+                return;
+            }
             var tempDiv = document.createElement("div");
             tempDiv.innerHTML = entry.content;
             tempDiv.querySelectorAll('div').forEach(div => {
@@ -913,7 +978,15 @@
 
             var titleActions = document.createElement('div');
             titleActions.className = 'pane-title-actions';
-            var exportBtn = createIconButton(ICONS.exportTxt, 'Save note as .txt');
+            if (isSchedule(entry)) {
+                var icsBtn = createIconButton(ICONS.calendarExport, 'Export to calendar (.ics)');
+                icsBtn.onclick = function(event) {
+                    event.stopPropagation();
+                    exportScheduleIcs(entry);
+                };
+                titleActions.appendChild(icsBtn);
+            }
+            var exportBtn = createIconButton(ICONS.exportTxt, isSchedule(entry) ? 'Save agenda as .txt' : 'Save note as .txt');
             exportBtn.onclick = function(event) {
                 event.stopPropagation();
                 exportEntryAsText(entry);
@@ -929,6 +1002,12 @@
             titleBar.appendChild(titleActions);
 
             pane.appendChild(titleBar);
+
+            if (isSchedule(entry)) {
+                pane.appendChild(buildSchedule(entry, pane));
+                applyPageColor(pane, entry.contentBackgroundColor);
+                return pane;
+            }
 
             var contentDiv = document.createElement('div');
             contentDiv.contentEditable = true;
@@ -948,6 +1027,7 @@
             var pane = createPane(entry, entry.id);
             entryContent.appendChild(pane);
             ensureDivWrapper(pane.querySelector('.content-editable'));
+            if (pane._afterMount) pane._afterMount();
             return pane;
         }
 
@@ -977,6 +1057,7 @@
             }
             ensureDivWrapper(newPane.querySelector('.content-editable'));
             adjustPaneSizes();
+            if (newPane._afterMount) newPane._afterMount();
         }
 
         function closeDrawer() {
@@ -1114,6 +1195,1116 @@
             sel.addRange(range);
         }
 
+        var SNAP_MIN = 15;
+        var DEFAULT_EVENT_MIN = 30;
+        var HOUR_PX = 56;
+        var DAY_MIN = 1440;
+        var nextEventSeq = 0;
+        var lastTickMinute = -1;
+        var lastTickDate = '';
+
+        function el(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text !== undefined) node.textContent = text;
+            return node;
+        }
+
+        function pad2(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
+
+        function clamp(v, lo, hi) {
+            return Math.max(lo, Math.min(hi, v));
+        }
+
+        function dateKey(d) {
+            d = d || new Date();
+            return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+        }
+
+        function keyToDate(key) {
+            var p = String(key || '').split('-');
+            var d = new Date(+p[0], +p[1] - 1, +p[2]);
+            return isNaN(d.getTime()) ? new Date() : d;
+        }
+
+        function shiftDateKey(key, days) {
+            var d = keyToDate(key);
+            d.setDate(d.getDate() + days);
+            return dateKey(d);
+        }
+
+        function dayOffset(key) {
+            return Math.round((keyToDate(key) - keyToDate(dateKey())) / 86400000);
+        }
+
+        function nowMinutes() {
+            var d = new Date();
+            return d.getHours() * 60 + d.getMinutes();
+        }
+
+        function toHHMM(min) {
+            min = min % DAY_MIN;
+            return pad2(Math.floor(min / 60)) + ':' + pad2(min % 60);
+        }
+
+        function fromHHMM(value) {
+            var m = /^(\d{1,2}):(\d{2})/.exec(value || '');
+            return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null;
+        }
+
+        function formatTime(min) {
+            var d = new Date(2000, 0, 1, Math.floor(min / 60), min % 60);
+            return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        }
+
+        function formatHour(h) {
+            return new Date(2000, 0, 1, h % 24).toLocaleTimeString([], { hour: 'numeric' });
+        }
+
+        function formatRange(ev) {
+            return formatTime(ev.start) + ' \u2013 ' + formatTime(ev.end);
+        }
+
+        function formatDuration(min) {
+            var h = Math.floor(min / 60), m = min % 60;
+            if (!h) return m + 'm';
+            return h + 'h' + (m ? ' ' + m + 'm' : '');
+        }
+
+        function longDateLabel(key) {
+            return keyToDate(key).toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+        }
+
+        function shortDateLabel(key) {
+            return keyToDate(key).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+
+        function relativeDayLabel(key) {
+            var off = dayOffset(key);
+            if (off === 0) return 'Today';
+            if (off === 1) return 'Tomorrow';
+            if (off === -1) return 'Yesterday';
+            return '';
+        }
+
+        function newEventId() {
+            nextEventSeq += 1;
+            return Date.now().toString(36) + '-' + nextEventSeq.toString(36);
+        }
+
+        function snapMinutes(min) {
+            return Math.round(min / SNAP_MIN) * SNAP_MIN;
+        }
+
+        function isSchedule(entry) {
+            return !!entry && entry.type === 'schedule';
+        }
+
+        function sortEvents(entry) {
+            entry.events.sort(function(a, b) {
+                return a.start - b.start || a.end - b.end;
+            });
+        }
+
+        function normalizeSchedule(entry) {
+            if (!Array.isArray(entry.events)) entry.events = [];
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.date || '')) entry.date = dateKey();
+            if (entry.view !== 'list') entry.view = 'day';
+            entry.events = entry.events.filter(function(ev) { return ev && typeof ev === 'object'; });
+            entry.events.forEach(function(ev) {
+                if (!ev.id) ev.id = newEventId();
+                ev.start = clamp(Math.round(+ev.start || 0), 0, DAY_MIN - 5);
+                ev.end = clamp(Math.round(+ev.end || ev.start + DEFAULT_EVENT_MIN), ev.start + 5, DAY_MIN);
+                ev.title = String(ev.title || '');
+                ev.done = !!ev.done;
+            });
+            sortEvents(entry);
+        }
+
+        function scheduleState(entry) {
+            var state = { now: null, next: null };
+            if (dayOffset(entry.date) !== 0) return state;
+            var m = nowMinutes();
+            entry.events.forEach(function(ev) {
+                if (ev.done) return;
+                if (!state.now && ev.start <= m && ev.end > m) state.now = ev;
+                if (!state.next && ev.start > m) state.next = ev;
+            });
+            return state;
+        }
+
+        function schedulePreview(entry) {
+            var label = relativeDayLabel(entry.date) || shortDateLabel(entry.date);
+            var state = scheduleState(entry);
+            var total = entry.events.length;
+            var open = entry.events.filter(function(ev) { return !ev.done; }).length;
+            var detail;
+            if (state.now) detail = 'Now: ' + (state.now.title || 'Untitled');
+            else if (state.next) detail = 'Next ' + formatTime(state.next.start) + ' ' + (state.next.title || 'Untitled');
+            else if (!total) detail = 'No events yet';
+            else if (!open) detail = 'All ' + total + ' done';
+            else detail = total + (total === 1 ? ' event' : ' events');
+            return label + ' \u00b7 ' + detail;
+        }
+
+        function entryPreview(entry) {
+            if (isSchedule(entry)) return schedulePreview(entry);
+            return getContentPreview(entry.content) || 'Empty note';
+        }
+
+        var CLOCK = '(\\d{1,2})(?:[:.](\\d{2}))?(?:\\s*([ap])\\.?m\\.?|([ap]))?(?![a-z\\d:])';
+        var RANGE_RE = new RegExp('(?:^|\\s)((?:from|at|@)\\s*)?' + CLOCK + '\\s*(?:-|\\u2013|to|until|till)\\s*' + CLOCK, 'i');
+        var LEAD_RE = new RegExp('^((?:at|@)\\s*)?' + CLOCK, 'i');
+        var AT_RE = new RegExp('(?:^|\\s)((?:at|@)\\s*)' + CLOCK, 'i');
+        var ANY_CLOCK_RE = new RegExp('(?:^|\\s)()' + CLOCK, 'gi');
+        var DURATION_RE = /(?:^|\s)(?:for\s+)?(\d+(?:\.\d+)?)\s*(h|hrs?|hours?|m|mins?|minutes?)(?:\s*(\d+)\s*(m|mins?|minutes?))?(?![a-z])/i;
+
+        function clockParts(m, i) {
+            if (!m[i]) return null;
+            var h = parseInt(m[i], 10);
+            var min = m[i + 1] ? parseInt(m[i + 1], 10) : 0;
+            var mer = (m[i + 2] || m[i + 3] || '').toLowerCase();
+            if (min > 59) return null;
+            if (mer) {
+                if (h < 1 || h > 12) return null;
+                h = h % 12 + (mer === 'p' ? 12 : 0);
+            } else if (h > 23) {
+                return null;
+            }
+            return {
+                min: h * 60 + min,
+                fixed: !!mer || h === 0 || h > 12 || m[i].charAt(0) === '0',
+                marked: !!mer || !!m[i + 1]
+            };
+        }
+
+        function preferDaytime(c) {
+            if (!c.fixed && c.min >= 60 && c.min < 7 * 60) c.min += 720;
+            return c;
+        }
+
+        function cutMatch(text, m) {
+            return text.slice(0, m.index) + ' ' + text.slice(m.index + m[0].length);
+        }
+
+        function parseEventText(raw) {
+            var text = String(raw || '').replace(/\s+/g, ' ').trim();
+            var result = { title: '', start: null, end: null, duration: 0 };
+            var m = RANGE_RE.exec(text), a, b;
+            if (m) {
+                a = clockParts(m, 2);
+                b = clockParts(m, 6);
+                if (!(a && b && (m.index === 0 || m[1] || a.marked || b.marked))) m = null;
+            }
+            if (m) {
+                if (!a.fixed && b.fixed) {
+                    if (a.min < 720 && a.min + 720 < b.min) a.min += 720;
+                } else if (!a.fixed) {
+                    preferDaytime(a);
+                }
+                if (b.fixed && b.min === 0 && a.min > 0) b.min = DAY_MIN;
+                while (!b.fixed && b.min <= a.min && b.min + 720 <= DAY_MIN) b.min += 720;
+                result.start = a.min;
+                result.end = b.min > a.min ? b.min : Math.min(DAY_MIN, a.min + DEFAULT_EVENT_MIN);
+                text = cutMatch(text, m);
+            } else {
+                m = LEAD_RE.exec(text) || AT_RE.exec(text);
+                a = m && clockParts(m, 2);
+                if (!a) {
+                    m = null;
+                    ANY_CLOCK_RE.lastIndex = 0;
+                    var found;
+                    while ((found = ANY_CLOCK_RE.exec(text))) {
+                        var c = clockParts(found, 2);
+                        if (c && c.marked) {
+                            m = found;
+                            a = c;
+                            break;
+                        }
+                    }
+                }
+                if (m) {
+                    result.start = preferDaytime(a).min;
+                    text = cutMatch(text, m);
+                }
+            }
+            var d = DURATION_RE.exec(text);
+            if (d) {
+                var dur = parseFloat(d[1]) * (d[2].charAt(0).toLowerCase() === 'h' ? 60 : 1) + (d[3] ? parseInt(d[3], 10) : 0);
+                if (dur > 0) {
+                    result.duration = Math.round(dur);
+                    if (result.start !== null && result.end === null) result.end = Math.min(DAY_MIN, result.start + result.duration);
+                    text = cutMatch(text, d);
+                }
+            }
+            result.title = text.replace(/\s+/g, ' ')
+                .replace(/^(?:[\s,;:\u2013-]|at\b|from\b)+/i, '')
+                .replace(/(?:[\s,;:\u2013-]|\bat|\bfrom|\bfor|@)+$/i, '')
+                .trim();
+            return result;
+        }
+
+        function nextFreeStart(entry) {
+            var start = 9 * 60;
+            if (entry.events.length) {
+                start = entry.events.reduce(function(max, ev) { return Math.max(max, ev.end); }, 0);
+            }
+            if (dayOffset(entry.date) === 0) {
+                start = Math.max(start, Math.ceil(nowMinutes() / SNAP_MIN) * SNAP_MIN);
+            }
+            return Math.min(start, DAY_MIN - SNAP_MIN);
+        }
+
+        function resolveParsed(entry, p) {
+            var start = p.start !== null ? p.start : nextFreeStart(entry);
+            var end = p.end !== null ? p.end : start + (p.duration || DEFAULT_EVENT_MIN);
+            start = clamp(start, 0, DAY_MIN - 5);
+            return { start: start, end: clamp(end, start + 5, DAY_MIN) };
+        }
+
+        function addEventFromText(entry, text) {
+            var p = parseEventText(text);
+            if (!p.title && p.start === null) return null;
+            var times = resolveParsed(entry, p);
+            var ev = { id: newEventId(), start: times.start, end: times.end, title: p.title, done: false };
+            entry.events.push(ev);
+            sortEvents(entry);
+            return ev;
+        }
+
+        function commitSchedule(entry) {
+            sortEvents(entry);
+            saveEntries();
+            updateEntryPreview(entry);
+            renderSchedulePanes(entry);
+        }
+
+        function renderSchedulePanes(entry) {
+            document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"]').forEach(function(pane) {
+                if (pane._renderSchedule) pane._renderSchedule();
+            });
+        }
+
+        function removeEvent(entry, ev, quiet) {
+            var idx = entry.events.indexOf(ev);
+            if (idx === -1) return;
+            entry.events.splice(idx, 1);
+            commitSchedule(entry);
+            if (quiet) return;
+            showToast({
+                text: 'Deleted \u201c' + (ev.title || 'Untitled') + '\u201d',
+                actionLabel: 'Undo',
+                onAction: function() {
+                    entry.events.push(ev);
+                    commitSchedule(entry);
+                }
+            });
+        }
+
+        function layoutEvents(events) {
+            var out = [], cluster = [], columns = [], clusterEnd = -1;
+            function flush() {
+                cluster.forEach(function(item) { item.cols = columns.length; });
+                cluster = [];
+                columns = [];
+            }
+            events.forEach(function(ev) {
+                var visualEnd = Math.max(ev.end, ev.start + 20);
+                if (ev.start >= clusterEnd) flush();
+                var col = 0;
+                while (col < columns.length && columns[col] > ev.start) col++;
+                columns[col] = visualEnd;
+                var item = { ev: ev, col: col, cols: 1 };
+                cluster.push(item);
+                out.push(item);
+                clusterEnd = Math.max(clusterEnd, visualEnd);
+            });
+            flush();
+            return out;
+        }
+
+        function scheduleAsText(entry) {
+            var lines = [entry.title];
+            var dateLine = longDateLabel(entry.date);
+            if (dateLine !== entry.title) lines.push(dateLine);
+            lines.push('');
+            if (!entry.events.length) lines.push('(no events)');
+            entry.events.forEach(function(ev) {
+                lines.push((ev.done ? '[x] ' : '[ ] ') + formatRange(ev) + '  ' + (ev.title || 'Untitled'));
+            });
+            return lines.join('\n');
+        }
+
+        function icsEscape(s) {
+            return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+        }
+
+        function icsStamp(key, min) {
+            if (min >= DAY_MIN) {
+                key = shiftDateKey(key, 1);
+                min -= DAY_MIN;
+            }
+            return key.replace(/-/g, '') + 'T' + pad2(Math.floor(min / 60)) + pad2(min % 60) + '00';
+        }
+
+        function exportScheduleIcs(entry) {
+            if (!entry.events.length) {
+                showToast({ text: 'Add an event first, then export it to your calendar.' });
+                return;
+            }
+            var stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+            var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-' + '/' + '/Text Bookmarklet' + '/' + '/Schedule' + '/' + '/EN', 'CALSCALE:GREGORIAN'];
+            entry.events.forEach(function(ev) {
+                lines.push(
+                    'BEGIN:VEVENT',
+                    'UID:' + ev.id + '-' + entry.id + '@text-bookmarklet',
+                    'DTSTAMP:' + stamp,
+                    'DTSTART:' + icsStamp(entry.date, ev.start),
+                    'DTEND:' + icsStamp(entry.date, ev.end),
+                    'SUMMARY:' + icsEscape(ev.title || 'Untitled'),
+                    'END:VEVENT'
+                );
+            });
+            lines.push('END:VCALENDAR');
+            downloadFile((entry.title || 'schedule') + '.ics', lines.join('\r\n') + '\r\n', 'text/calendar;charset=utf-8');
+        }
+
+        function copyText(text) {
+            function fallback() {
+                var ta = el('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                var ok = false;
+                try {
+                    ok = document.execCommand('copy');
+                } catch (e) {
+                    ok = false;
+                }
+                ta.remove();
+                return ok ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text).catch(fallback);
+            }
+            return fallback();
+        }
+
+        function showToast(opts) {
+            var host = document.querySelector('.toast-host');
+            if (!host) {
+                host = el('div', 'toast-host');
+                host.setAttribute('role', 'status');
+                host.setAttribute('aria-live', 'polite');
+                document.body.appendChild(host);
+            }
+            var toast = el('div', 'toast');
+            var body = el('div', 'toast-body');
+            body.appendChild(el('span', 'toast-text', opts.text));
+            if (opts.detail) body.appendChild(el('span', 'toast-detail', opts.detail));
+            toast.appendChild(body);
+            var timer;
+            function dismiss() {
+                clearTimeout(timer);
+                toast.remove();
+            }
+            if (opts.actionLabel) {
+                var action = el('button', 'toast-action', opts.actionLabel);
+                action.type = 'button';
+                action.onclick = function() {
+                    dismiss();
+                    opts.onAction();
+                };
+                toast.appendChild(action);
+            }
+            var close = createIconButton(ICONS.close, 'Dismiss');
+            close.onclick = dismiss;
+            toast.appendChild(close);
+            host.appendChild(toast);
+            timer = setTimeout(dismiss, opts.timeout || 8000);
+            return toast;
+        }
+
+        function scheduleDateTaken(key, except) {
+            return entries.some(function(e) { return e !== except && isSchedule(e) && e.date === key; });
+        }
+
+        function addNewSchedule(key) {
+            var entry = {
+                id: nextEntryId++,
+                type: 'schedule',
+                title: shortDateLabel(key),
+                autoTitle: true,
+                date: key,
+                view: 'day',
+                events: [],
+                content: '',
+                titleBarColor: DEFAULT_COLOR,
+                contentBackgroundColor: DEFAULT_COLOR
+            };
+            entries.push(entry);
+            saveEntries();
+            return entry;
+        }
+
+        function focusScheduleInput(pane) {
+            var input = pane && pane.querySelector('.schedule-add-input');
+            if (input) input.focus();
+        }
+
+        function openNewSchedule(entry) {
+            current = entries.indexOf(entry);
+            updateEntryList();
+            closeDrawer();
+            focusScheduleInput(clearAndLoadEntry(entry));
+        }
+
+        function createSchedule() {
+            var key = dateKey();
+            while (scheduleDateTaken(key)) key = shiftDateKey(key, 1);
+            openNewSchedule(addNewSchedule(key));
+        }
+
+        function planNextDay(entry) {
+            var key = shiftDateKey(entry.date, 1);
+            var next = addNewSchedule(key);
+            next.events = entry.events.filter(function(ev) { return !ev.done; }).map(function(ev) {
+                return { id: newEventId(), start: ev.start, end: ev.end, title: ev.title, done: false, color: ev.color };
+            });
+            next.titleBarColor = entry.titleBarColor;
+            next.contentBackgroundColor = entry.contentBackgroundColor;
+            entries.splice(entries.indexOf(next), 1);
+            entries.splice(entries.indexOf(entry) + 1, 0, next);
+            saveEntries();
+            openNewSchedule(next);
+            var carried = next.events.length;
+            showToast({ text: carried ? 'Carried over ' + carried + ' unfinished ' + (carried === 1 ? 'event' : 'events') + '.' : 'Started a plan for ' + longDateLabel(key) + '.' });
+        }
+
+        function setScheduleDate(entry, key) {
+            if (!key || key === entry.date) return;
+            entry.date = key;
+            if (entry.autoTitle) {
+                entry.title = shortDateLabel(key);
+                document.querySelectorAll('.entry-pane[data-entry-id="' + entry.id + '"] .pane-title-text').forEach(function(span) {
+                    span.textContent = entry.title;
+                });
+            }
+            commitSchedule(entry);
+            updateEntryList();
+        }
+
+        function showEventEditor(entry, ev, anchor) {
+            closePopover();
+            var pop = el('div', 'popover event-popover');
+            pop.setAttribute('role', 'dialog');
+            pop.setAttribute('aria-label', 'Edit event');
+
+            var title = el('input', 'event-title-input');
+            title.type = 'text';
+            title.value = ev.title;
+            title.placeholder = 'What\u2019s happening?';
+            title.setAttribute('aria-label', 'Event title');
+            title.oninput = function() {
+                ev.title = title.value;
+                commitSchedule(entry);
+            };
+            title.onkeydown = function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    closePopover(true);
+                }
+            };
+            pop.appendChild(title);
+
+            var times = el('div', 'event-times');
+            var startInput = el('input', 'event-time-input');
+            startInput.type = 'time';
+            startInput.step = 300;
+            startInput.setAttribute('aria-label', 'Start time');
+            var endInput = el('input', 'event-time-input');
+            endInput.type = 'time';
+            endInput.step = 300;
+            endInput.setAttribute('aria-label', 'End time');
+            var lengthLabel = el('span', 'event-length');
+            function syncTimes() {
+                startInput.value = toHHMM(ev.start);
+                endInput.value = toHHMM(ev.end);
+                lengthLabel.textContent = formatDuration(ev.end - ev.start);
+            }
+            startInput.onchange = function() {
+                var s = fromHHMM(startInput.value);
+                if (s === null) return;
+                var len = ev.end - ev.start;
+                ev.start = clamp(s, 0, DAY_MIN - 5);
+                ev.end = Math.min(DAY_MIN, ev.start + len);
+                syncTimes();
+                commitSchedule(entry);
+            };
+            endInput.onchange = function() {
+                var e = fromHHMM(endInput.value);
+                if (e === null) return;
+                if (e === 0) e = DAY_MIN;
+                if (e <= ev.start) e = Math.min(DAY_MIN, ev.start + SNAP_MIN);
+                ev.end = e;
+                syncTimes();
+                commitSchedule(entry);
+            };
+            syncTimes();
+            times.appendChild(startInput);
+            times.appendChild(el('span', 'event-dash', '\u2013'));
+            times.appendChild(endInput);
+            times.appendChild(lengthLabel);
+            pop.appendChild(times);
+
+            var grid = el('div', 'swatches event-swatches');
+            function addSwatch(name, color) {
+                var b = el('button', 'swatch' + (color ? '' : ' swatch-none'));
+                b.type = 'button';
+                b.title = name;
+                b.setAttribute('aria-label', 'Color: ' + name);
+                if (color) b.style.setProperty('--swatch', color);
+                b.setAttribute('aria-pressed', String((ev.color || '') === color));
+                b.onclick = function() {
+                    if (color) ev.color = color;
+                    else delete ev.color;
+                    grid.querySelectorAll('.swatch').forEach(function(s) {
+                        s.setAttribute('aria-pressed', String(s === b));
+                    });
+                    commitSchedule(entry);
+                };
+                grid.appendChild(b);
+            }
+            addSwatch('Default', '');
+            LABEL_COLORS.forEach(function(c) { addSwatch(c[0], c[1]); });
+            pop.appendChild(grid);
+
+            var actions = el('div', 'event-actions');
+            var doneLabel = el('label', 'event-done');
+            var doneBox = el('input');
+            doneBox.type = 'checkbox';
+            doneBox.checked = ev.done;
+            doneBox.onchange = function() {
+                ev.done = doneBox.checked;
+                commitSchedule(entry);
+            };
+            doneLabel.appendChild(doneBox);
+            doneLabel.appendChild(document.createTextNode('Done'));
+            actions.appendChild(doneLabel);
+            var del = createTextButton(ICONS.trash, 'Delete');
+            del.classList.add('event-delete');
+            var deleting = false;
+            del.onclick = function() {
+                deleting = true;
+                closePopover();
+                removeEvent(entry, ev);
+            };
+            actions.appendChild(del);
+            pop.appendChild(actions);
+
+            presentPopover(pop, anchor, '.event-title-input');
+            title.select();
+            openPopover.onClose = function() {
+                if (deleting) return;
+                if (!ev.title.trim() && entry.events.indexOf(ev) !== -1) {
+                    removeEvent(entry, ev, true);
+                } else if (ev.title !== ev.title.trim()) {
+                    ev.title = ev.title.trim();
+                    commitSchedule(entry);
+                }
+                var block = document.querySelector('.entry-pane[data-entry-id="' + entry.id + '"] .tl-event[data-event-id="' + ev.id + '"], .entry-pane[data-entry-id="' + entry.id + '"] .agenda-row[data-event-id="' + ev.id + '"] .agenda-title');
+                if (block && document.activeElement === document.body) block.focus();
+            };
+        }
+
+        function buildSchedule(entry, pane) {
+            normalizeSchedule(entry);
+            pane.classList.add('is-schedule');
+            var root = el('div', 'schedule');
+
+            var head = el('div', 'schedule-head');
+            var dateWrap = el('div', 'schedule-date-wrap');
+            var dateBtn = el('button', 'schedule-date');
+            dateBtn.type = 'button';
+            dateBtn.title = 'Change the day this plan is for';
+            var dateText = el('span', 'schedule-date-text');
+            var relBadge = el('span', 'schedule-rel');
+            dateBtn.appendChild(dateText);
+            dateBtn.appendChild(relBadge);
+            var dateInput = el('input', 'schedule-date-input');
+            dateInput.type = 'date';
+            dateInput.tabIndex = -1;
+            dateInput.setAttribute('aria-label', 'Plan date');
+            dateBtn.onclick = function() {
+                dateInput.value = entry.date;
+                if (dateInput.showPicker) {
+                    try {
+                        dateInput.showPicker();
+                        return;
+                    } catch (e) {
+                        dateInput.classList.add('visible');
+                    }
+                }
+                dateInput.classList.add('visible');
+                dateInput.focus();
+            };
+            dateInput.onchange = function() {
+                if (dateInput.value) setScheduleDate(entry, dateInput.value);
+            };
+            dateInput.onblur = function() {
+                dateInput.classList.remove('visible');
+            };
+            dateWrap.appendChild(dateBtn);
+            dateWrap.appendChild(dateInput);
+            head.appendChild(dateWrap);
+
+            var views = el('div', 'segmented');
+            views.setAttribute('role', 'group');
+            views.setAttribute('aria-label', 'View');
+            [['day', 'Timeline'], ['list', 'List']].forEach(function(v) {
+                var b = el('button', 'segmented-btn', v[1]);
+                b.type = 'button';
+                b.dataset.view = v[0];
+                b.onclick = function() {
+                    entry.view = v[0];
+                    saveEntries();
+                    render();
+                };
+                views.appendChild(b);
+            });
+            head.appendChild(views);
+            root.appendChild(head);
+
+            var status = el('div', 'schedule-status');
+            root.appendChild(status);
+
+            var add = el('div', 'schedule-add');
+            add.appendChild(createIcon(ICONS.plus));
+            var addInput = el('input', 'schedule-add-input');
+            addInput.type = 'text';
+            addInput.placeholder = 'Add an event \u2014 9:30 Standup, 2-3pm Gym, Lunch at 12 for 1h';
+            addInput.setAttribute('aria-label', 'Add an event');
+            addInput.setAttribute('autocomplete', 'off');
+            add.appendChild(addInput);
+            root.appendChild(add);
+            var hint = el('div', 'schedule-add-hint');
+            hint.setAttribute('aria-live', 'polite');
+            root.appendChild(hint);
+
+            function updateHint() {
+                var value = addInput.value.trim();
+                hint.textContent = '';
+                hint.classList.toggle('active', !!value);
+                if (!value) {
+                    hint.textContent = 'Press Enter to add. Paste a list to add several at once. No time? It goes after your last event.';
+                    return;
+                }
+                var p = parseEventText(value);
+                var t = resolveParsed(entry, p);
+                hint.appendChild(el('strong', '', formatTime(t.start) + ' \u2013 ' + formatTime(t.end)));
+                hint.appendChild(document.createTextNode('  ' + (p.title || 'Untitled') + (p.start === null ? '  (next free slot)' : '')));
+            }
+
+            function flash(ids) {
+                ids.forEach(function(id) {
+                    var node = root.querySelector('[data-event-id="' + id + '"]');
+                    if (node) {
+                        node.classList.add('just-added');
+                        if (node.scrollIntoView) node.scrollIntoView({ block: 'nearest' });
+                    }
+                });
+            }
+
+            function addLines(lines) {
+                var ids = [];
+                lines.forEach(function(line) {
+                    var marker = /^\s*(?:(?:[-*\u2022]|\[[ xX]?\])\s*)+/.exec(line);
+                    var clean = marker ? line.slice(marker[0].length) : line;
+                    var ev = clean.trim() && addEventFromText(entry, clean);
+                    if (!ev) return;
+                    if (marker && /\[[xX]\]/.test(marker[0])) ev.done = true;
+                    ids.push(ev.id);
+                });
+                if (!ids.length) return;
+                commitSchedule(entry);
+                flash(ids);
+            }
+
+            addInput.onkeydown = function(e) {
+                if (e.key === 'Enter' && !e.isComposing) {
+                    e.preventDefault();
+                    if (!addInput.value.trim()) return;
+                    addLines([addInput.value]);
+                    addInput.value = '';
+                    updateHint();
+                } else if (e.key === 'Escape' && addInput.value) {
+                    e.stopPropagation();
+                    addInput.value = '';
+                    updateHint();
+                }
+            };
+            addInput.oninput = updateHint;
+            addInput.onpaste = function(e) {
+                var text = e.clipboardData && e.clipboardData.getData('text/plain');
+                if (!text || !/\n/.test(text.trim())) return;
+                e.preventDefault();
+                addLines(text.split(/\r?\n/));
+            };
+            updateHint();
+
+            var body = el('div', 'schedule-body');
+            root.appendChild(body);
+
+            var foot = el('div', 'schedule-foot');
+            var copyBtn = createTextButton(ICONS.copy, 'Copy agenda', 'Copy this plan as text, e.g. for a standup message');
+            copyBtn.onclick = function() {
+                copyText(scheduleAsText(entry)).then(function() {
+                    showToast({ text: 'Agenda copied.' });
+                }, function() {
+                    showToast({ text: 'Couldn\u2019t copy. Use the .txt export instead.' });
+                });
+            };
+            var nextBtn = createTextButton(ICONS.arrowRight, 'Plan next day', 'Start a plan for the following day with this plan\u2019s unfinished events');
+            nextBtn.onclick = function() { planNextDay(entry); };
+            foot.appendChild(copyBtn);
+            foot.appendChild(nextBtn);
+            root.appendChild(foot);
+
+            var drag = null;
+
+            function renderStatus() {
+                status.innerHTML = '';
+                var state = scheduleState(entry);
+                var chip = null;
+                if (state.now) {
+                    chip = el('span', 'status-chip now');
+                    chip.appendChild(el('strong', '', 'Now'));
+                    chip.appendChild(document.createTextNode(' ' + (state.now.title || 'Untitled') + ' \u00b7 until ' + formatTime(state.now.end)));
+                } else if (state.next) {
+                    var mins = state.next.start - nowMinutes();
+                    chip = el('span', 'status-chip');
+                    chip.appendChild(el('strong', '', 'Next'));
+                    chip.appendChild(document.createTextNode(' ' + (state.next.title || 'Untitled') + ' \u00b7 ' + (mins < 60 ? 'in ' + mins + 'm' : formatTime(state.next.start))));
+                }
+                if (chip) status.appendChild(chip);
+                var total = entry.events.length;
+                if (!total) {
+                    status.appendChild(el('span', 'status-summary', 'Nothing planned yet.'));
+                    return;
+                }
+                var planned = entry.events.reduce(function(sum, ev) { return sum + (ev.end - ev.start); }, 0);
+                var done = entry.events.filter(function(ev) { return ev.done; }).length;
+                status.appendChild(el('span', 'status-summary', total + (total === 1 ? ' event' : ' events') + ' \u00b7 ' + formatDuration(planned) + ' planned \u00b7 ' + done + '/' + total + ' done'));
+            }
+
+            function eventClasses(node, ev) {
+                var today = dayOffset(entry.date) === 0, m = nowMinutes();
+                node.classList.toggle('done', ev.done);
+                node.classList.toggle('past', today && ev.end <= m);
+                node.classList.toggle('current', today && !ev.done && ev.start <= m && ev.end > m);
+                if (ev.color) node.style.setProperty('--ev', ev.color);
+            }
+
+            function doneToggle(ev) {
+                var cb = el('input', 'event-check');
+                cb.type = 'checkbox';
+                cb.checked = ev.done;
+                cb.title = ev.done ? 'Mark as not done' : 'Mark as done';
+                cb.setAttribute('aria-label', 'Done: ' + (ev.title || 'Untitled'));
+                cb.onchange = function() {
+                    ev.done = cb.checked;
+                    commitSchedule(entry);
+                };
+                return cb;
+            }
+
+            function renderTimeline() {
+                var startH = 7, endH = 21;
+                var today = dayOffset(entry.date) === 0, now = nowMinutes();
+                entry.events.forEach(function(ev) {
+                    startH = Math.min(startH, Math.floor(ev.start / 60));
+                    endH = Math.max(endH, Math.ceil(ev.end / 60));
+                });
+                if (today) {
+                    startH = Math.min(startH, Math.floor(now / 60));
+                    endH = Math.max(endH, Math.floor(now / 60) + 1);
+                }
+                endH = Math.min(24, endH);
+                var rangeStart = startH * 60, rangeEnd = endH * 60;
+                function y(min) {
+                    return (min - rangeStart) / 60 * HOUR_PX;
+                }
+
+                var tl = el('div', 'timeline');
+                tl.style.height = y(rangeEnd) + 'px';
+                tl.style.setProperty('--hour', HOUR_PX + 'px');
+                for (var h = startH; h <= endH; h++) {
+                    var label = el('span', 'tl-hour', formatHour(h));
+                    label.style.top = y(h * 60) + 'px';
+                    tl.appendChild(label);
+                }
+                var layer = el('div', 'tl-events');
+                tl.appendChild(layer);
+
+                function place(node, ev, col, cols) {
+                    node.style.top = y(ev.start) + 'px';
+                    node.style.height = Math.max(20, y(ev.end) - y(ev.start) - 2) + 'px';
+                    if (cols !== undefined) {
+                        node.style.left = 'calc(' + (col / cols * 100) + '% + 2px)';
+                        node.style.width = 'calc(' + (100 / cols) + '% - 4px)';
+                    }
+                    node.classList.toggle('short', ev.end - ev.start < 45);
+                    var time = node.querySelector('.tl-time');
+                    if (time) time.textContent = formatRange(ev);
+                }
+
+                layoutEvents(entry.events).forEach(function(item) {
+                    var ev = item.ev;
+                    var node = el('div', 'tl-event');
+                    node.dataset.eventId = ev.id;
+                    node.tabIndex = 0;
+                    node.setAttribute('role', 'button');
+                    node.setAttribute('aria-label', (ev.title || 'Untitled') + ', ' + formatRange(ev) + (ev.done ? ', done' : ''));
+                    eventClasses(node, ev);
+                    node.appendChild(doneToggle(ev));
+                    var text = el('div', 'tl-text');
+                    text.appendChild(el('span', 'tl-title', ev.title || 'Untitled'));
+                    text.appendChild(el('span', 'tl-time'));
+                    node.appendChild(text);
+                    var grip = el('div', 'tl-resize');
+                    grip.title = 'Drag to change the end time';
+                    node.appendChild(grip);
+                    node.onkeydown = function(e) {
+                        if (e.target !== node) return;
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            showEventEditor(entry, ev, node);
+                        } else if (e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+                            e.preventDefault();
+                            var step = e.key === 'ArrowUp' ? -SNAP_MIN : SNAP_MIN;
+                            if (e.shiftKey) {
+                                ev.end = clamp(ev.end + step, ev.start + SNAP_MIN, DAY_MIN);
+                            } else {
+                                var len = ev.end - ev.start;
+                                ev.start = clamp(ev.start + step, 0, DAY_MIN - len);
+                                ev.end = ev.start + len;
+                            }
+                            commitSchedule(entry);
+                            var again = root.querySelector('.tl-event[data-event-id="' + ev.id + '"]');
+                            if (again) again.focus();
+                        } else if (e.key === 'Delete') {
+                            e.preventDefault();
+                            removeEvent(entry, ev);
+                        }
+                    };
+                    place(node, ev, item.col, item.cols);
+                    node._ev = ev;
+                    layer.appendChild(node);
+                });
+
+                if (today) {
+                    var line = el('div', 'tl-now');
+                    line.style.top = y(now) + 'px';
+                    line.setAttribute('aria-hidden', 'true');
+                    tl.appendChild(line);
+                }
+
+                function minuteAt(clientY) {
+                    return rangeStart + (clientY - layer.getBoundingClientRect().top) / HOUR_PX * 60;
+                }
+
+                layer.onpointerdown = function(e) {
+                    if (e.button !== 0 || e.target.closest('input')) return;
+                    if (openPopover) {
+                        closePopover();
+                        e.preventDefault();
+                        return;
+                    }
+                    var node = e.target.closest('.tl-event');
+                    drag = { id: e.pointerId, y0: e.clientY, moved: false, node: node };
+                    if (node) {
+                        drag.ev = node._ev;
+                        drag.mode = e.target.closest('.tl-resize') ? 'resize' : 'move';
+                        drag.start = drag.ev.start;
+                        drag.end = drag.ev.end;
+                        if (e.pointerType === 'mouse' || drag.mode === 'resize') e.preventDefault();
+                    } else {
+                        drag.mode = 'create';
+                        drag.anchor = clamp(Math.floor(minuteAt(e.clientY) / SNAP_MIN) * SNAP_MIN, rangeStart, rangeEnd - SNAP_MIN);
+                        e.preventDefault();
+                    }
+                    try {
+                        layer.setPointerCapture(e.pointerId);
+                    } catch (err) {
+                        drag.capture = false;
+                    }
+                };
+
+                layer.onpointermove = function(e) {
+                    if (!drag || e.pointerId !== drag.id) return;
+                    var dy = e.clientY - drag.y0;
+                    if (!drag.moved && Math.abs(dy) < 4) return;
+                    if (!drag.moved) {
+                        drag.moved = true;
+                        pane._dragging = true;
+                        root.classList.add('dragging');
+                        if (drag.node) drag.node.classList.add('dragging');
+                    }
+                    var delta = snapMinutes(dy / HOUR_PX * 60);
+                    if (drag.mode === 'move') {
+                        var len = drag.end - drag.start;
+                        drag.ev.start = clamp(drag.start + delta, rangeStart, rangeEnd - len);
+                        drag.ev.end = drag.ev.start + len;
+                        place(drag.node, drag.ev);
+                    } else if (drag.mode === 'resize') {
+                        drag.ev.end = clamp(drag.end + delta, drag.ev.start + SNAP_MIN, rangeEnd);
+                        place(drag.node, drag.ev);
+                    } else {
+                        var cur = clamp(snapMinutes(minuteAt(e.clientY)), rangeStart, rangeEnd);
+                        var ghostEv = {
+                            start: Math.min(drag.anchor, cur),
+                            end: Math.max(Math.min(drag.anchor, cur) + SNAP_MIN, Math.max(drag.anchor + SNAP_MIN, cur))
+                        };
+                        if (!drag.ghost) {
+                            drag.ghost = el('div', 'tl-event tl-ghost');
+                            drag.ghost.appendChild(el('span', 'tl-time'));
+                            drag.ghost.style.left = '2px';
+                            drag.ghost.style.right = '2px';
+                            layer.appendChild(drag.ghost);
+                        }
+                        drag.ghostEv = ghostEv;
+                        place(drag.ghost, ghostEv);
+                    }
+                };
+
+                function endDrag(e, cancelled) {
+                    if (!drag || e.pointerId !== drag.id) return;
+                    var d = drag;
+                    drag = null;
+                    pane._dragging = false;
+                    root.classList.remove('dragging');
+                    if (cancelled) {
+                        if (d.ev) {
+                            d.ev.start = d.start;
+                            d.ev.end = d.end;
+                        }
+                        render();
+                        return;
+                    }
+                    if (d.mode === 'create') {
+                        var span = d.moved && d.ghostEv ? d.ghostEv : { start: d.anchor, end: Math.min(rangeEnd, d.anchor + DEFAULT_EVENT_MIN) };
+                        var ev = { id: newEventId(), start: span.start, end: Math.max(span.end, span.start + SNAP_MIN), title: '', done: false };
+                        entry.events.push(ev);
+                        commitSchedule(entry);
+                        var created = root.querySelector('.tl-event[data-event-id="' + ev.id + '"]');
+                        if (created) showEventEditor(entry, ev, created);
+                    } else if (d.moved) {
+                        commitSchedule(entry);
+                    } else if (d.node) {
+                        showEventEditor(entry, d.ev, d.node);
+                    }
+                }
+                layer.onpointerup = function(e) { endDrag(e, false); };
+                layer.onpointercancel = function(e) { endDrag(e, true); };
+
+                body.appendChild(tl);
+            }
+
+            function renderList() {
+                var list = el('div', 'agenda');
+                if (!entry.events.length) {
+                    list.appendChild(el('p', 'agenda-empty', 'No events yet. Add one above.'));
+                }
+                var prevEnd = null;
+                entry.events.forEach(function(ev) {
+                    if (prevEnd !== null && ev.start - prevEnd >= SNAP_MIN) {
+                        list.appendChild(el('div', 'agenda-gap', formatDuration(ev.start - prevEnd) + ' free'));
+                    }
+                    prevEnd = prevEnd === null ? ev.end : Math.max(prevEnd, ev.end);
+                    var row = el('div', 'agenda-row');
+                    row.dataset.eventId = ev.id;
+                    eventClasses(row, ev);
+                    row.appendChild(doneToggle(ev));
+                    var time = el('span', 'agenda-time');
+                    time.appendChild(el('span', '', formatTime(ev.start)));
+                    time.appendChild(el('span', 'agenda-end', formatTime(ev.end)));
+                    row.appendChild(time);
+                    var titleBtn = el('button', 'agenda-title', ev.title || 'Untitled');
+                    titleBtn.type = 'button';
+                    titleBtn.title = 'Edit event';
+                    titleBtn.onclick = function() { showEventEditor(entry, ev, titleBtn); };
+                    row.appendChild(titleBtn);
+                    row.appendChild(el('span', 'agenda-length', formatDuration(ev.end - ev.start)));
+                    list.appendChild(row);
+                });
+                body.appendChild(list);
+            }
+
+            function render() {
+                dateText.textContent = longDateLabel(entry.date);
+                var rel = relativeDayLabel(entry.date);
+                relBadge.textContent = rel;
+                relBadge.hidden = !rel;
+                views.querySelectorAll('.segmented-btn').forEach(function(b) {
+                    b.setAttribute('aria-pressed', String(b.dataset.view === entry.view));
+                });
+                renderStatus();
+                body.innerHTML = '';
+                body.className = 'schedule-body view-' + entry.view;
+                if (entry.view === 'list') renderList();
+                else renderTimeline();
+            }
+
+            pane._renderSchedule = function() {
+                if (!pane._dragging) render();
+            };
+            pane._afterMount = function() {
+                var target = root.querySelector('.tl-now') || root.querySelector('.tl-event, .agenda-row');
+                if (!target) return;
+                var offset = target.getBoundingClientRect().top - root.getBoundingClientRect().top;
+                if (offset > root.clientHeight * 0.6) root.scrollTop = offset - root.clientHeight / 3;
+            };
+            render();
+            return root;
+        }
+
+        function scheduleTick() {
+            var today = dateKey(), m = nowMinutes();
+            if (lastTickDate === today && m !== lastTickMinute) {
+                entries.forEach(function(entry) {
+                    if (!isSchedule(entry) || entry.date !== today) return;
+                    entry.events.forEach(function(ev) {
+                        if (ev.done || ev.start <= lastTickMinute || ev.start > m) return;
+                        showToast({
+                            text: 'Starting now: ' + (ev.title || 'Untitled'),
+                            detail: formatRange(ev),
+                            actionLabel: entries[current] === entry ? '' : 'Open',
+                            onAction: function() {
+                                var idx = entries.indexOf(entry);
+                                if (idx !== -1) openEntry(idx);
+                            },
+                            timeout: 20000
+                        });
+                    });
+                });
+            }
+            var changed = lastTickMinute !== m || lastTickDate !== today;
+            lastTickDate = today;
+            lastTickMinute = m;
+            if (!changed) return;
+            entries.forEach(function(entry) {
+                if (!isSchedule(entry)) return;
+                updateEntryPreview(entry);
+                renderSchedulePanes(entry);
+            });
+        }
+
+        setInterval(scheduleTick, 15000);
+
         function autoSaveEntries() {
             let currentEntries = JSON.stringify(entries);
             if (currentEntries !== lastSavedEntries) {
@@ -1141,6 +2332,10 @@
 
         newEntryButton.appendChild(createIcon(ICONS.plus));
         newEntryButton.appendChild(document.createTextNode('New note'));
+        var newScheduleButton = document.getElementById('new-schedule-button');
+        newScheduleButton.appendChild(createIcon(ICONS.calendar));
+        newScheduleButton.appendChild(document.createTextNode('Schedule'));
+        newScheduleButton.addEventListener('click', createSchedule);
 
         var collapseButton = createIconButton(ICONS.panel, 'Hide notes list');
         collapseButton.title = 'Hide notes list (Ctrl+\\)';
@@ -1193,6 +2388,7 @@
                 ['Saving', ['Notes save into this page\u2019s address as you type, so refreshing is safe. To keep them after closing the tab, press ', kbd('Ctrl'), ' ', kbd('D'), ' to bookmark this page.']],
                 ['Backups', ['Back up saves every note to a file. Restore loads that file again.']],
                 ['Rename', ['Click the title of the open note, or double-click a note in the list.']],
+                ['Schedules', ['Click ', kbd('Schedule'), ' to plan a day. Type events like ', kbd('9:30 Standup'), ', ', kbd('2-3pm Gym'), ' or ', kbd('Lunch at 12 for 1h'), ' and press ', kbd('Enter'), '; paste several lines to add them all. Drag an event to move it, drag its bottom edge to resize, and click or drag on empty time to add one. Events starting now pop up a reminder while this tab is open.']],
                 ['Lists', ['Start a line with ', kbd('[ ]'), ' or ', kbd('[x]'), ' and a space for a checkbox, or ', kbd('*'), ' or ', kbd('-'), ' and a space for a bullet. ', kbd('Enter'), ' adds the next item; ', kbd('Enter'), ' on an empty item ends the list. ', kbd('Ctrl'), ' ', kbd('\u2191'), ' / ', kbd('\u2193'), ' moves a checkbox line.']],
                 ['Arrange', ['Drag notes in the list to reorder them. Drag one onto the editor to open it side by side, and drag a pane\u2019s title to move it.']],
                 ['Colors', ['Click the dot beside a title to set the note\u2019s label and page color.']],
@@ -1339,8 +2535,8 @@
                     autoFormatLine(editable);
                 }
                 pendingListKind = null;
+                savePaneContent();
             }
-            savePaneContent();
         });
 
         entryList.ondragover = function(event) {
@@ -1412,6 +2608,7 @@
                 entryContentStorage.value = storedEntries;
                 loadEntries();
                 lastSavedEntries = JSON.stringify(entries);
+                scheduleTick();
             });
         });
 

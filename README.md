@@ -1,12 +1,13 @@
 # Note-Taking Bookmarklet
 
-This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, split panes, note reordering, auto save, database saving and loading, checkbox and bullet lists, color customization, and themes.
+This bookmarklet allows users to take and manage notes directly within a browser, using a simple and intuitive interface. It features note creation and management, day schedules, split panes, note reordering, auto save, database saving and loading, checkbox and bullet lists, color customization, and themes.
 
 ![](img/overview.png)
 
 ## Features
 
 - **Create and Manage Notes**: Add new notes and manage them in a sidebar with a preview of each note.
+- **Schedules**: Plan a day on a timeline. Type events in plain language (`9:30 Standup`, `2-3pm Gym`, `Lunch at 12 for 1h`), drag to move and resize, check them off, and get a reminder when one starts. Export to your calendar (.ics), copy the agenda as text, or roll unfinished events to the next day.
 - **Inline Rename**: Click the open note's title (or double-click a note in the list) to rename it in place.
 - **Split Note Pane**: Split notes into multiple panes for side-by-side comparison or multitasking, and close panes you no longer need.
 - **Reorder Notes**: Drag and drop notes in the list to reorder them.
@@ -47,6 +48,32 @@ Browsers don't allow `data:` pages like this bookmarklet to use local storage, s
 
 Opening the original bookmarklet always starts with a blank set of notes, because a page can't update its own bookmark.
 
+### Planning Your Day with Schedules
+
+![Schedule](img/schedule.png)
+
+1. Click **Schedule** next to **New note**. The new schedule is for today, or for the next day that doesn't have one yet.
+2. Type an event in the box and press `Enter`. The line below the box shows how your text will be read before you add it:
+   - `9:30 Standup`, `Standup 9:30`, `9am Standup`
+   - `9-10:30 Deep work`, `2-3pm Design review`, `Gym 6pm-7pm`
+   - `Lunch at 12 for 1h`, `Dentist @ 4:15 for 45 min`
+   - With no time, an event goes after your last one (or from now, if that's later). Events are 30 minutes unless you give an end time or a length.
+   - A bare hour from 1 to 6 means afternoon (`2-3 review` is 2-3 PM); add `am` if you mean morning.
+3. Paste several lines at once (for example, a checklist copied from a note) to add them all. List markers like `-`, `*` and `[ ]` are stripped, and `[x]` lines come in already done.
+4. On the timeline:
+   - Drag an event to move it and drag its bottom edge to resize it, in 15-minute steps.
+   - Click empty time to add a 30-minute event, or drag across empty time to choose its length.
+   - Click an event to rename it, change its times or color, mark it done, or delete it. Deleting can be undone from the message that appears.
+   - With an event focused, `Alt+↑` / `Alt+↓` moves it 15 minutes, adding `Shift` changes its end time instead, and `Delete` removes it.
+5. Switch to **List** for an agenda with the free time between events.
+6. Click the date under the title to move the plan to another day.
+
+While the tab is open, today's schedule shows a red line at the current time and a **Now** / **Next** badge, the notes list shows what's happening now or next, and a reminder pops up when an event starts.
+
+- **Export to calendar**: the calendar icon in the title bar saves an .ics file you can import into Google Calendar, Outlook or Apple Calendar.
+- **Copy agenda**: copies the plan as text, ready to paste into a standup message.
+- **Plan next day**: starts a schedule for the following day with this day's unfinished events.
+
 ### Splitting and Reordering Notes
 
 - Drag a note from the sidebar onto the editor to open it in a split pane.
@@ -70,7 +97,7 @@ Opening the original bookmarklet always starts with a blank set of notes, becaus
 
 ### Exporting Notes
 
-- Click the page icon in a note's title bar to save it as a text file.
+- Click the page icon in a note's title bar to save it as a text file. For a schedule, this saves the agenda.
 
 ## Screenshots
 
